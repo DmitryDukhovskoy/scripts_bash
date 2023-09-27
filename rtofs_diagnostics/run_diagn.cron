@@ -1,0 +1,5 @@
+00 02 * * * /home/Dmitry.Dukhovskoy/scripts/rtofs_diagnostics/para_diagnostics.sh >& /scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/cron_log/para_diagnostics.log
+00 05 * * * /home/Dmitry.Dukhovskoy/scripts/transfer2rzdm/transfer2wwwR.sh >& /scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/cron_log/transfer2wwwR.log
+00 07 * * * /home/Dmitry.Dukhovskoy/scripts/rtofs_diagnostics/clean_olddiagn.sh >& /scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/cron_log/clean_old.log
+
+

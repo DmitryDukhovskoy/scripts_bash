@@ -1,0 +1,21 @@
+Alan's utility
+
+/scratch2/NCEPDEV/marine/Zulema.Garraffo/HYCOM-tools/bin/hycom_profile
+
+To run it, in a directory that has regional.grid.a,b,
+hycom_profile $i $j 
+will give the profile.
+
+/scratch2/NCEPDEV/marine/Zulema.Garraffo/wcoss2.paraD1/ush_plot/profile_example.sh does a profile starting from a long, lat.
+An example of a profile is in the same directory,
+prof_574_1379_120E_10S
+or
+profile_1324_1250_180_-20
+
+I think Alan wants a profile with the format of his utility.
+Alan's utility is
+
+/scratch2/NCEPDEV/marine/Zulema.Garraffo/HYCOM-tools/bin/hycom_profile_list.F
+
+If you give me what profile you want, I can get it as an example for you to check against
+

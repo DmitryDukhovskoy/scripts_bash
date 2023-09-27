@@ -1,0 +1,2232 @@
+starting rsync with polar
+******************WARNING**WARNING**WARNING******************
+
+This is a National Weather Service (NWS) computer system. NWS
+computer systems are provided for the processing of Official
+U.S. Government information only. All data contained on NWS
+computer systems is owned by the NWS and may be monitored,
+intercepted, recorded, read, copied, or captured in any manner
+and disclosed in any manner, by authorized personnel.
+
+	THERE IS NO RIGHT OF PRIVACY IN THIS SYSTEM
+
+System personnel may give to law enforcement officials any
+potential evidence of crime found on NWS computer systems.
+USE OF THIS SYSTEM BY ANY USER, AUTHORIZED OR UNAUTHORIZED,
+CONSTITUTES CONSENT TO THIS MONITORING, INTERCEPTION, RECORDING,
+READING, COPYING, OR CAPTURING and DISCLOSURE.
+
+******************WARNING**WARNING**WARNING******************
+Your account has expired; please contact your system administrator
+Authentication failed.
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: unexplained error (code 255) at io.c(226) [sender=3.1.2]
+******************WARNING**WARNING**WARNING******************
+
+This is a National Weather Service (NWS) computer system. NWS 
+computer systems are provided for the processing of Official 
+U.S. Government information only. All data contained on NWS 
+computer systems is owned by the NWS and may be monitored, 
+intercepted, recorded, read, copied, or captured in any manner 
+and disclosed in any manner, by authorized personnel.
+
+	THERE IS NO RIGHT OF PRIVACY IN THIS SYSTEM
+
+System personnel may give to law enforcement officials any 
+potential evidence of crime found on NWS computer systems. 
+USE OF THIS SYSTEM BY ANY USER, AUTHORIZED OR UNAUTHORIZED, 
+CONSTITUTES CONSENT TO THIS MONITORING, INTERCEPTION, RECORDING, 
+READING, COPYING, OR CAPTURING and DISCLOSURE.
+
+******************WARNING**WARNING**WARNING******************
+++ chmod a+rx /home/www/emc/htdocs/users/zulema/develop
+++ cd /home/www/emc/htdocs/users/zulema/develop
+++ chmod 755 20211001 20211001_Dan3 20211002 20211002_Dan3 20211003 20211004 20211005 20211006 20211007 20211008 20211008_Dan3 20211009 20211009_Dan3 20211010 20211010_Dan3 20211011 20211011_Dan3 20211012 20211012_Dan3 20211013 20211014 20211014_Dan3 20211015 20211015_Dan3 20211016 20211016_Dan3 20211017 20211017_Dan3 20211017_run4 20211018 20211018_Dan3 20211019 20211019_Dan3 20211020 20211020_Dan3 20211020_run4 20211021 20211021_Dan3 20211021_run4 20211022 20211022_Dan3 20211022_run4 20211023 20211023_Dan3 20211023_run4 20211024 20211024_Dan3 20211024_run4 20211025 20211025_Dan3 20211025_run4 20211026 20211026_Dan3 20211026_run4 20211027 20211027_Dan3 20211027_run4 20211028 20211028_Dan3 20211028_run4 20211029 20211029_Dan3 20211029_run4 20211030 20211030_Dan3 20211030_run4 20211031 20211031_Dan3 20211031_run4 20211101 20211101_Dan3 20211101_run4 20211102 20211102_Dan3 20211102_run4 20211103 20211103-20211130_movies_para6 20211103-20220228_movies_para6 20211103_Dan3 20211103_para6 20211104 20211104_Dan3 20211104_para6 20211105 20211105_para6 20211106 20211106_para6 20211107 20211107_para6 20211108 20211108_para6 20211109 20211109_para6 20211110 20211110_para6 20211111 20211111_para6 20211112 20211112_para6 20211113 20211113_para6 20211114 20211114_para6 20211115 20211115_para6 20211116 20211116_para6 20211117 20211117_para6 20211118 20211118_para6 20211119 20211119_para6 20211120 20211120_para6 20211121 20211121_para6 20211122 20211122_para6 20211123 20211123_para6 20211124 20211124_para6 20211125 20211125_para6 20211126 20211126_para6 20211127 20211127_para6 20211128 20211128_para6 20211129 20211129_para6 20211130 20211130_para6 20211201 20211201-20211231_movies_para6 20211201_para6 20211202 20211202_para6 20211203 20211203_para6 20211204 20211204_para6 20211205 20211205_para6 20211206 20211206_para6 20211207 20211207_para6 20211208 20211208_para6 20211209 20211209_para6 20211210 20211210_para6 20211211 20211211_para6 20211212 20211212_para6 20211213 20211213_para6 20211214 20211214_para6 20211215 20211215_para6 20211216 20211216_para6 20211217 20211217_para6 20211218 20211218_para6 20211219 20211219_para6 20211220 20211220_para6 20211221 20211221_para6 20211222 20211222_para6 20211223 20211223_para6 20211224 20211224_para6 20211225 20211225_para6 20211226 20211226_para6 20211227 20211227_para6 20211228 20211228_para6 20211229 20211229_para6 20211230 20211230_para6 20211231 20211231_para6 20220101 20220101-20220131_movies_para6 20220101_para6 20220102 20220102_para6 20220103 20220103_para6 20220104 20220104_para6 20220105 20220105_para6 20220106 20220106_para6 20220107 20220107_para6 20220108 20220108_para6 20220109 20220109_para6 20220110 20220110_para6 20220111 20220111_para6 20220112 20220112_para6 20220113 20220113_para6 20220114 20220114_para6 20220115 20220115_para6 20220116 20220116_para6 20220117 20220117_para6 20220118 20220118_para6 20220119 20220119_para6 20220120 20220120_para6 20220121 20220121_para6 20220122 20220122_para6 20220123 20220123_para6 20220124 20220124_para6 20220125 20220125_para6 20220126 20220126_para6 20220127 20220127_para6 20220128 20220128_para6 20220129 20220129_para6 20220130 20220130_para6 20220131 20220131_para6 20220201 20220201-20220228_movies_para6 20220201_para6 20220202 20220202_para6 20220203 20220203_para6 20220204 20220204_para6 20220205 20220205_para6 20220206 20220206_para6 20220207 20220207_para6 20220208 20220208_para6 20220209 20220209_para6 20220210 20220210_para6 20220211 20220211_para6 20220212 20220212_para6 20220213 20220213_para6 20220214 20220214_para6 20220215 20220215_para6 20220216 20220216_para6 20220217 20220217_para6 20220218 20220218_para6 20220219 20220219_para6 20220220 20220220_para6 20220221 20220221_para6 20220222 20220222_para6 20220223 20220223_para6 20220224 20220224_para6 20220225 20220225_para6 20220226 20220226_para6 20220227 20220227_para6 20220228 20220228_para6 20220301 20220301_para6 20220302 20220302_para6 20220303 20220303_para6 20220304 20220304_para6 20220305 20220305_para6 20220306 20220306_para6 20220307 20220307_para6 20220308 20220308_para6 20220309 20220309_para6 20220310 20220310_para6 20220311 20220311_para6 20220312 20220312_para6 20220313 20220313_para6 20220314 20220314_para6 20220315 20220315_para6 20220316 20220316_para6 20220317 20220317_para6 20220318 20220318_para6 20220319 20220319_para6 20220320 20220321 20220322 20220323 20220324 20220325 20220326 20220327 20220328 20220329 20220330 20220330_para6 20220331 20220331_para6 20220401 20220401_para6 20220402 20220402_para6 20220403 20220403_para6 20220404 2022040400_impacts 20220404_para6 20220405 20220405_para6 20220406_para6 20220407 20220407_para6 20220408 2022040800_impacts 20220408_para6 20220409 20220409_para6 20220410 20220410_para6 20220411 20220411_para6 20220412 20220412_para6 20220413 20220413_para6 20220414 20220414_para6 20220415_para6 20220416_para6 20220417_para6 20220418 20220418_para6 20220419 20220419_para6 20220420 20220420_para6 20220421 20220421_para6 20220422 20220422_para6 20220423 20220423_para6 20220424 20220424_para6 20220425 20220425_para6 20220426 20220426_para6 20220427 20220427_para6 20220428 20220428_para6 20220429 20220429_para6 20220430 20220430_para6 20220501 20220501_para6 20220502 20220502_para6 20220503 20220503_para6 20220504 20220504_para6 20220505 20220505_para6 20220506 20220506_para6 20220507 20220507_para6 20220508 20220508_para6 20220509 20220509_para6 20220509_wcoss2 20220510 20220510_para6 20220511 20220511_para6 20220512 20220512_para6 20220513 20220513_para6 20220514 20220514_para6 20220515 20220515_para6 20220516 20220516_para6 20220517 20220517_para6 20220518 20220518_para6 20220519 20220519_para6 20220520 20220520_para6 20220521 20220521_para6 20220522 20220522_para6 20220523 20220523_para6 20220524 20220524_para6 20220525 20220525_para6 20220526 20220526_para6 20220527 20220527_para6 20220527_para6_wcoss2 20220527_wcoss2 20220528 20220528_para6 20220528_para6_wcoss2 20220529 20220529_para6 20220529_para6_wcoss2 20220530 20220530_para6 20220530_para6_wcoss2 20220531 20220531_para6 20220531_para6_wcoss2 20220601 20220601_para6 20220602 20220602_para6 20220603 20220603_para6 20220604 20220604_para6 20220605 20220605_para6 20220606 20220606_para6 20220607_para6 20220608 20220608_para6 20220608_wcoss2 20220609 20220609_para6 20220609_wcoss2 20220610 20220610_para6 20220611 20220611_para6 20220612 20220612_para6 20220613 20220613_para6 20220614 20220614_para6 20220615 20220615_para6 20220615_para7 20220615_para7b 20220616 20220616_para6 20220616_para7 20220616_para7b 20220616_para8 20220617 20220617_para6 20220617_para7 20220617_para7b 20220617_para8 20220618 20220618_para6 20220618_para7 20220618_para7b 20220619 20220619_para6 20220619_para7 20220619_para7b 20220620 20220620_para6 20220620_para7 20220620_para7b 20220621 20220621_para6 20220621_para7 20220621_para7b 20220622 20220622_para6 20220622_para7 20220622_para7b 20220623 20220623_para6 20220623_para7 20220623_para7b 20220624 20220624_para7b 20220625 20220625_para7b 20220626 20220627 20220628 20220628_para6 20220629 20220629_para6 20220629_para7 20220629_para8 20220630 20220630_para6 20220701 20220701_expt_1.1 20220701_para6 20220702 20220702_para6 20220703 20220703_para6 20220704 20220704_para6 20220704_para7 20220705 20220705_para6 20220705_para7b 20220706_para6 20220707_para6 20220710_ops_para 20220710_para6 20220711_ops_para 20220712_ops_para 20220713_ops_para 20220714_ops_para 20220715_ops_para 20220715_para7 20220715_para8 20220716 20220716_expt_1.1 20220716_ops_para 20220717_ops_para 20220718_ops_para 20220719_ops_para 20220720_ops_para 20220721_ops_para 20220722_ops_para 20220723_ops_para 20220724 20220724_ops_para 20220725_ops_para 20220726_ops_para 20220727_ops_para 20220728_ops_para 20220729_ops_para 20220730_ops_para 20220731_ops_para 20220801_ops_para 20220802 20220803 20220804 20220805 20220806 20220807 20220808 20220809 20220810 20220811 20220812 20220813 20220814 20220815 20220816 20220817 20220818 20220819 20220820 20220821 20220822 20220823 20220824 20220825 20220826 20220827 20220828 20220829 20220830 20220831 20220901 20220902 20220903 20220904 20220905 20220906 20220907 20220908 20220909 20220910 20220911 20220912 20220913 20220914 20220915 20220916 20220917 20220918 20220919 20220920 20220921 20220922 20220923 20220924 20220925 20220926 20220927 20220928 20220929 20220930 20221001 20221002 20221003 20221004 20221005 20221006 20221007 20221008 20221009 20221010 20221011 20221012 20221013 20221014 20221015 20221016 20221017 20221018 20221019 20221020 20221021 20221022 20221023 20221024 20221025 20221026 20221027 20221028 20221029 20221030 20221031 20221101 20221102 20221103 20221104 20221105 20221106 20221107 20221108 20221109 20221110
+++ for subdir in '20??????'
+++ '[' 20211001 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211001/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211002 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211002/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211003 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211003/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211004 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211004/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211005 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211005/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211006 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211006/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211007 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211007/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211008 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211008/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211009 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211009/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211010 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211010/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211011 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211011/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211012 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211012/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211013 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211013/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211014 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211014/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211015 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211015/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211016 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211016/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211017 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211017/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211018 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211018/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211019 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211019/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211020 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211020/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211021 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211021/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211022 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211022/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211023 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211023/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211024 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211024/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211025 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211025/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211026 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211026/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211027 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211027/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211028 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211028/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211029 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211029/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211030 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211030/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211031 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211031/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211101 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211101/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211102 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211102/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211103 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211103/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211104 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211104/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211105 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211105/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211106 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211106/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211107 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211107/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211108 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211108/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211109 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211109/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211110 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211110/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211111 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211111/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211112 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211112/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211113 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211113/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211114 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211114/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211115 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211115/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211116 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211116/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211117 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211117/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211118 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211118/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211119 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211119/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211120 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211120/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211121 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211121/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211122 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211122/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211123 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211123/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211124 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211124/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211125 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211125/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211126 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211126/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211127 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211127/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211128 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211128/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211129 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211129/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211130 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211130/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211201 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211201/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211202 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211202/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211203 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211203/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211204 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211204/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211205 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211205/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211206 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211206/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211207 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211207/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211208 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211208/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211209 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211209/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211210 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211210/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211211 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211211/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211212 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211212/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211213 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211213/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211214 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211214/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211215 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211215/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211216 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211216/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211217 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211217/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211218 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211218/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211219 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211219/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211220 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211220/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211221 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211221/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211222 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211222/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211223 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211223/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211224 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211224/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211225 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211225/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211226 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211226/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211227 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211227/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211228 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211228/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211229 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211229/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211230 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211230/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20211231 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20211231/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220101 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220101/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220102 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220102/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220103 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220103/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220104 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220104/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220105 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220105/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220106 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220106/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220107 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220107/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220108 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220108/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220109 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220109/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220110 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220110/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220111 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220111/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220112 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220112/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220113 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220113/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220114 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220114/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220115 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220115/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220116 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220116/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220117 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220117/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220118 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220118/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220119 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220119/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220120 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220120/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220121 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220121/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220122 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220122/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220123 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220123/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220124 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220124/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220125 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220125/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220126 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220126/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220127 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220127/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220128 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220128/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220129 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220129/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220130 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220130/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220131 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220131/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220201 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220201/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220202 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220202/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220203 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220203/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220204 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220204/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220205 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220205/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220206 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220206/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220207 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220207/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220208 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220208/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220209 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220209/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220210 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220210/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220211 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220211/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220212 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220212/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220213 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220213/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220214 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220214/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220215 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220215/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220216 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220216/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220217 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220217/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220218 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220218/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220219 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220219/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220220 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220220/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220221 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220221/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220222 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220222/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220223 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220223/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220224 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220224/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220225 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220225/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220226 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220226/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220227 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220227/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220228 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220228/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220301 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220301/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220302 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220302/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220303 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220303/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220304 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220304/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220305 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220305/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220306 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220306/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220307 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220307/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220308 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220308/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220309 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220309/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220310 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220310/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220311 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220311/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220312 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220312/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220313 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220313/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220314 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220314/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220315 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220315/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220316 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220316/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220317 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220317/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220318 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220318/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220319 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220319/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220320 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220320/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220321 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220321/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220322 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220322/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220323 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220323/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220324 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220324/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220325 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220325/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220326 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220326/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220327 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220327/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220328 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220328/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220329 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220329/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220330 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220330/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220331 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220331/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220401 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220401/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220402 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220402/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220403 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220403/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220404 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220404/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220405 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220405/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220407 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220407/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220408 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220408/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220409 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220409/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220410 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220410/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220411 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220411/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220412 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220412/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220413 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220413/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220414 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220414/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220418 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220418/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220419 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220419/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220420 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220420/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220421 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220421/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220422 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220422/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220423 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220423/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220424 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220424/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220425 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220425/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220426 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220426/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220427 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220427/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220428 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220428/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220429 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220429/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220430 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220430/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220501 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220501/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220502 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220502/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220503 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220503/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220504 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220504/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220505 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220505/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220506 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220506/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220507 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220507/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220508 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220508/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220509 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220509/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220510 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220510/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220511 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220511/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220512 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220512/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220513 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220513/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220514 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220514/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220515 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220515/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220516 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220516/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220517 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220517/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220518 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220518/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220519 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220519/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220520 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220520/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220521 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220521/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220522 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220522/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220523 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220523/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220524 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220524/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220525 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220525/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220526 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220526/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220527 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220527/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220528 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220528/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220529 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220529/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220530 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220530/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220531 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220531/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220601 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220601/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220602 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220602/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220603 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220603/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220604 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220604/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220605 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220605/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220606 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220606/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220608 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220608/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220609 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220609/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220610 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220610/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220611 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220611/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220612 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220612/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220613 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220613/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220614 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220614/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220615 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220615/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220616 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220616/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220617 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220617/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220618 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220618/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220619 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220619/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220620 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220620/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220621 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220621/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220622 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220622/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220623 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220623/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220624 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220624/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220625 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220625/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220626 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220626/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220627 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220627/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220628 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220628/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220629 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220629/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220630 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220630/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220701 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220701/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220702 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220702/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220703 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220703/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220704 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220704/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220705 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220705/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220716 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220716/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220724 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220724/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220802 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220802/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220803 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220803/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220804 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220804/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220805 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220805/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220806 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220806/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220807 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220807/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220808 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220808/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220809 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220809/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220810 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220810/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220811 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220811/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220812 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220812/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220813 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220813/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220814 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220814/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220815 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220815/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220816 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220816/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220817 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220817/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220818 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220818/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220819 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220819/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220820 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220820/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220821 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220821/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220822 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220822/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220823 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220823/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220824 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220824/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220825 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220825/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220826 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220826/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220827 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220827/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220828 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220828/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220829 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220829/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220830 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220830/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220831 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220831/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220901 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220901/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220902 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220902/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220903 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220903/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220904 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220904/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220905 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220905/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220906 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220906/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220907 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220907/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220908 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220908/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220909 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220909/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220910 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220910/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220911 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220911/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220912 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220912/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220913 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220913/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220914 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220914/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220915 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220915/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220916 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220916/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220917 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220917/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220918 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220918/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220919 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220919/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220920 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220920/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220921 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220921/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220922 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220922/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220923 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220923/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220924 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220924/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220925 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220925/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220926 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220926/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220927 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220927/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220928 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220928/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220929 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220929/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20220930 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20220930/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221001 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221001/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221002 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221002/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221003 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221003/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221004 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221004/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221005 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221005/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221006 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221006/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221007 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221007/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221008 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221008/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221009 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221009/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221010 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221010/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221011 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221011/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221012 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221012/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221013 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221013/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221014 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221014/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221015 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221015/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221016 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221016/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221017 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221017/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221018 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221018/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221019 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221019/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221020 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221020/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221021 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221021/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221022 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221022/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221023 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221023/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221024 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221024/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221025 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221025/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221026 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221026/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221027 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221027/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221028 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221028/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221029 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221029/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221030 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221030/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221031 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221031/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221101 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221101/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221102 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221102/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221103 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221103/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221104 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221104/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221105 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221105/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221106 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221106/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221107 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221107/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221108 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221108/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221109 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221109/index.php ]]
+++ for subdir in '20??????'
+++ '[' 20221110 ']'
+/home/people/emc/zulema.garraffo/bin/make_web_link.sh: line 14: 20220715: No such file or directory
+++ [[ ! -a 20221110/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211001_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211002_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211008_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211009_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211010_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211011_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211012_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211014_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211015_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211016_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211017_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211017_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211018_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211019_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211020_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211020_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211021_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211021_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211022_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211022_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211023_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211023_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211024_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211024_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211025_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211025_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211026_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211026_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211027_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211027_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211028_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211028_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211029_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211029_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211030_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211030_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211031_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211031_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211101_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211101_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211102_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211102_run4/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211103_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211103_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211104_Dan3/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211104_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211105_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211106_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211107_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211108_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211109_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211110_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211111_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211112_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211113_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211114_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211115_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211116_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211117_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211118_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211119_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211120_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211121_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211122_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211123_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211124_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211125_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211126_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211127_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211128_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211129_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211130_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211201_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211202_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211203_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211204_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211205_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211206_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211207_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211208_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211209_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211210_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211211_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211212_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211213_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211214_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211215_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211216_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211217_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211218_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211219_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211220_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211221_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211222_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211223_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211224_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211225_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211226_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211227_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211228_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211229_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211230_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20211231_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220101_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220102_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220103_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220104_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220105_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220106_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220107_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220108_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220109_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220110_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220111_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220112_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220113_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220114_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220115_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220116_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220117_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220118_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220119_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220120_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220121_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220122_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220123_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220124_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220125_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220126_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220127_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220128_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220129_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220130_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220131_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220201_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220202_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220203_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220204_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220205_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220206_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220207_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220208_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220209_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220210_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220211_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220212_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220213_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220214_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220215_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220216_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220217_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220218_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220219_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220220_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220221_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220222_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220223_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220224_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220225_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220226_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220227_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220228_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220301_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220302_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220303_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220304_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220305_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220306_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220307_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220308_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220309_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220310_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220311_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220312_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220313_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220314_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220315_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220316_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220317_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220318_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220319_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220330_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220331_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220401_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220402_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220403_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220404_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220405_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220406_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220407_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220408_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220409_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220410_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220411_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220412_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220413_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220414_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220415_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220416_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220417_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220418_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220419_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220420_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220421_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220422_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220423_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220424_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220425_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220426_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220427_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220428_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220429_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220430_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220501_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220502_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220503_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220504_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220505_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220506_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220507_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220508_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220509_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220509_wcoss2/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220510_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220511_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220512_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220513_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220514_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220515_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220516_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220517_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220518_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220519_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220520_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220521_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220522_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220523_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220524_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220525_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220526_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220527_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220527_para6_wcoss2/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220527_wcoss2/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220528_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220528_para6_wcoss2/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220529_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220529_para6_wcoss2/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220530_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220530_para6_wcoss2/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220531_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220531_para6_wcoss2/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220601_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220602_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220603_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220604_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220605_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220606_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220607_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220608_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220608_wcoss2/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220609_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220609_wcoss2/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220610_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220611_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220612_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220613_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220614_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220615_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220615_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220615_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220616_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220616_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220616_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220616_para8/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220617_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220617_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220617_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220617_para8/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220618_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220618_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220618_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220619_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220619_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220619_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220620_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220620_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220620_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220621_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220621_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220621_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220622_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220622_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220622_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220623_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220623_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220623_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220624_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220625_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220628_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220629_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220629_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220629_para8/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220630_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220701_expt_1.1/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220701_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220702_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220703_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220704_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220704_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220705_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220705_para7b/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220706_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220707_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220710_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220710_para6/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220711_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220712_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220713_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220714_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220715_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220715_para7/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220715_para8/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220716_expt_1.1/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220716_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220717_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220718_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220719_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220720_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220721_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220722_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220723_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220724_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220725_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220726_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220727_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220728_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220729_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220730_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220731_ops_para/index.php ]]
+++ for subdir in '20??????_*'
+++ [[ ! -a 20220801_ops_para/index.php ]]
+++ for subdir in '20????????_impacts*'
+++ [[ ! -a 2022040400_impacts/index.php ]]
+++ for subdir in '20????????_impacts*'
+++ [[ ! -a 2022040800_impacts/index.php ]]

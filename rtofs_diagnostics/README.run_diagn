@@ -1,0 +1,75 @@
+Run automated diagnostics for parallel run on WCOSS2
+Output files are pushed to HPSS
+
+This is "manual" approach, for automated use crone after 
+making necessary edits in the scripts and processed file logs
+Several steps steps:
+1)
+Extract missing files from HPSS based on last_saved_n-24.txt
+Edit last_saved*txt to start from desired date, if needed
+by adding the previous date, e.g. 20230401 >> last_saved_n-24.txt
+Script will start from 20230402
+If file is missing, script will start from the first date on HPSS
+
+
+Run python to perform diagnostics and create plots
+
+cd /home/Dmitry.Dukhovskoy/scripts/rtofs_diagnostics
+edit expt_name.txt:
+# Example, more expt_name.txt:
+# paraD
+# n-18
+
+Edit and run para_diagnostics.sh
+
+
+
+2) transfer figures to EMC webserver rdzm
+cd ../transfer2rzdm
+run transfer2www.sh
+
+3) clean 
+cd  /home/Dmitry.Dukhovskoy/scripts/rtofs_diagnostics
+./clean_olddiagn.sh
+
+
+To run in cron:
+https://www.hostinger.com/tutorials/cron-job
+
+
+To see a list of active scheduled tasks in your system, enter the following command:
+
+crontab -l
+
+If your system has multiple users, you can view their crontab file lists by entering the following command as a superuser:
+
+crontab -u username -l
+
+
+to delete all scheduled tasks in your crontab file and start fresh, type the following command:
+
+crontab -r
+
+Example of crontab syntax,
+
+
+* * * * * command to execut
+^ ^ ^ ^ ^    ^
+| | | | |
+| | | | day of the week 0-6 Sunday - Saturday
+| | | month 1-12
+| | day of the month 1-31
+| hour 0-23
+minute 0-59
+
+
+Cron will start processes with a minimal environment. This may be inadequate for processes that interact with tools that are not located in /usr/bin or /bin. For such cases, modify your shell script to completely source the environment, like it is an interactive shell.
+
+For bash, the first line in your script should look like:
+#!/bin/bash --login
+For ksh:
+#!/bin/ksh --login
+For {t}csh:
+#!/bin/tcsh
+
+

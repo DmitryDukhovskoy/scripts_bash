@@ -1,0 +1,3 @@
+20221111]$ scp -p * zulema.garraffo@emcrzdm.ncep.noaa.gov:/home/www/emc/htdocs/users/zulema/develop/20221111/
+
+from the command line worked

@@ -1,0 +1,10 @@
+I have started the new simulation (we're calling paraD). The first day of simulation is 20230303. It is archived here (/NCEPDEV/emc-ocean/5year/Dan.Iredell/wcoss2.paraD/). This is paraB with the following changes to the branch dev/g18 (for both NCODA and RTOFS)
+
+Use ADT for SSH (NCODA) - commit 4f811ee
+Use ADT for SSH (RTOFS) - commit 7eaf1d6
+HYCOM mods (RTOFS) - commit 3b85f47
+   - updated iexpt to 930
+   - bugfix to dp0cum in hybgenaj
+   - Added the macro MASSLESS_1MM
+
+
