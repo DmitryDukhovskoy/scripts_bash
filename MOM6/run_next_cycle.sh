@@ -32,20 +32,27 @@ nhfcst=`echo $dStart | cut -d ' ' -f5`
 
 printf "Preparing run for cycle $ncycle Start: $YY/$MM/$DD:$HH\n"
 
+pwd
+echo "Clean run directory"
 ./clean.sh
 wait
 
-echo "Arranging MOM output"
-./arange_mom_output.sh
+echo "Aranging MOM output"
+./arrange_mom_output.sh
 wait
 
-echo "Arranging CICE output"
-./arange_cice_output.sh
+echo "Aranging CICE output"
+./arrange_cice_output.sh
 wait
 
-echo "Arranging MOM restart"
-./arange_mom_restart.sh $YY $MM $DD $HH
+echo "Aranging MOM restart"
+#./arrange_mom_restart.sh $YY $MM $DD $HH  # old restart format
+./arrange_mom_restart_v2.sh $YY $MM $DD $HH
 wait
+if [[ $? != 0 ]]; then
+  echo "Aranging MOM failed, exit"
+  exit 3
+fi
 
 echo "Start continue_run.sh "
 FRUN=continue_run.sh

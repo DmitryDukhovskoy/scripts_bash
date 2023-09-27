@@ -12,7 +12,7 @@ export WD=`pwd`
 export RD=${WD}/RESTART
 export DINP=${WD}/INPUT
 
-export dstmp=2020-01-01-00
+export dstmp=2020-01-27-00
 export sfx=00
 export bname="MOM.res"
 
@@ -21,7 +21,7 @@ if [[ $# == 4 ]]; then
   export MM=$2
   export DD=$3
   export HH=$4
-  export dstmp=2020-01-01-00
+  export dstmp=2020-01-27-00
 else
   printf "Usage ./rename_restart.sh YY MM DD HH or \n"
   printf "   specify in the script dstmp then ./rename_restart.sh\n"

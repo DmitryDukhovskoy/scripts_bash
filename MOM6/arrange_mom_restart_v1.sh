@@ -3,8 +3,8 @@
 # from MOM.res_*.nc -----> MOM.res.YYYY-MM-DD-HH-00_[1-...].nc 
 #
 # Restart date for dumped MOM restart files:
-# usage arange_mom_restart.sh YYYY MM DD HH
-#     OR arange_mom_restart.sh CYC[1,..., N cycles]
+# usage arrange_mom_restart.sh YYYY MM DD HH
+#     OR arrange_mom_restart.sh CYC[1,..., N cycles]
 # 
 #
 set -u

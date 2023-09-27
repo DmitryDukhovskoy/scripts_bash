@@ -5,11 +5,11 @@
 ### #SBATCH --ntasks=240
 #SBATCH --nodes=58
 #SBATCH --ntasks-per-node=40
-##SBATCH --time=8:00:00
-#SBATCH --time=00:30:00
+#SBATCH --time=8:00:00
+##SBATCH --time=00:30:00
 #SBATCH --job-name="08mom6_test"
-#SBATCH -q debug
-##SBATCH --qos=batch
+##SBATCH -q debug
+#SBATCH --qos=batch
 ## 
 ## Usage: sbatch sub_mom6.sh
 set -eux

@@ -135,14 +135,14 @@ export dstmp=${YY}-${MM}-${DD}-${HH}-${sfx}
 # Continued run, restart files MOM.res.nc and MOM.res_*.nc from previous cycle
 # should be in RESTART
 # restart files dumped during previous cycles should have been renamed
-# using arange_mom_restart.sh 
+# using arrange_mom_restart.sh 
 cd $RD
 nrst=`ls -1 MOM.res.${dstmp}*nc 2>/dev/null | wc -l`
 echo "Found $nrst RESTART files in ${RD}"
 if [[ $nrst == 0 ]]; then
   printf " $RD/MOM.res.${dstmp}*.nc not found\n"
   printf " Restart from previous cycle missing"
-  printf " Check if arange_mom_restart.sh was run\n"
+  printf " Check if arrange_mom_restart.sh was run\n"
 
   exit 1
 fi

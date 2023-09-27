@@ -27,6 +27,7 @@ mkdir -pv INPUT
 mkdir -pv RESTART
 mkdir -pv log
 mkdir -pv modulefiles
+mkdir -pv config
 
 #/bin/cp -f /home/Dmitry.Dukhovskoy/scripts/MOM6/*.sh .
 /bin/cp -f ${WOLD}/modulefiles/* modulefiles/.
@@ -54,7 +55,7 @@ cd $WD/INPUT
 /bin/cp $WOLD/MOM_{input,layout,override} .
 cd $WD
 
-/bin/cp $SCR/arange_*.sh .
+/bin/cp $SCR/arrange_*.sh .
 /bin/cp $SCR/check_*.sh .
 for fscr in clean.sh continue_run.sh list_cycles.sh prepare_run.sh \
             rename_restart.sh run_next_cycle.sh sub_mom6cice.sh \
@@ -63,8 +64,8 @@ do
   /bin/cp $SCR/$fscr .
 done
 
-/bin/ln -sf arange_mom_restart_v2.sh arange_mom_restart.sh
-for FLL in arange_cice_output.sh arange_mom_output.sh 
+/bin/ln -sf arrange_mom_restart_v2.sh arrange_mom_restart.sh
+for FLL in arrange_cice_output.sh arrange_mom_output.sh 
 do
   touch tmp.sh
   /bin/rm -f tmp.sh
@@ -93,7 +94,6 @@ sed -i "s|export HEXE=.*|export HEXE=${HEXE}|" sub_mom6cice.sh
 
 # Keep all model config files in 1 dir:
 cd ${WD}
-mkdir -pv config
 for fll in data_table datm_in datm.streams diag_table ice_in input.nml \
            model_configure nems.configure
 do

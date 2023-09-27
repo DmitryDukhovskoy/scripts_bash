@@ -12,7 +12,7 @@
 #
 set -u
 
-export expt=002
+export expt=003
 export DW=/scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/MOM6_run/008mom6cice6_${expt}
 export DICE=$DW/history
 export DWS=/home/Dmitry.Dukhovskoy/scripts

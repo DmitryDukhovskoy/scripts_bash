@@ -1,10 +1,12 @@
 #! /bin/sh -x
 # Rename restart files 
-# from MOM.res_*.nc -----> MOM.res.YYYY-MM-DD-HH-00_[1-...].nc 
+# Saved in a modified format with date stamp in the name
+# rename into a different name format: 
+# from YYYYMMDD.?????.MOM.res_*.nc -----> MOM.res.YYYY-MM-DD-HH-00_[1-...].nc 
 #
 # Restart date for dumped MOM restart files:
-# usage arange_mom_restart.sh YYYY MM DD HH
-#     OR arange_mom_restart.sh CYC[1,..., N cycles]
+# usage arrange_mom_restart.sh YYYY MM DD HH
+#     OR arrange_mom_restart.sh CYC[1,..., N cycles]
 # 
 #
 set -u
@@ -45,18 +47,31 @@ export dstmp=${YY}-${MM}-${DD}-${HH}-${sfx}
 printf "Restart date: $YY/$MM/$DD:$HH\n"
 
 cd $RD
-# Need to have MOM.res_*.nc - assumed the latest restart!
-nrst=`ls -1 ${bname}_*.nc 2>/dev/null | wc -l`
+# Need to have YYYYMMDD.*.MOM.res_*.nc in RESTART
+# Saved from the previous cycle
+nrst=`ls -1 ${YY}${MM}${DD}.*.${bname}_*.nc 2>/dev/null | wc -l`
 if [[ $nrst == 0 ]]; then
   echo " "
   echo "Check: Missing restart $RD/${bname}_*.nc from the last cycle"
-  echo "MOM.res_ ---> MOM.res.YYYY-MM-DD ... cannot be performed, exiting ..."
+  echo " Looking for ${YY}${MM}${DD}.*.${bname}_*.nc"
+  echo "${YY}${MM}${DD}.MOM.res_ ---> MOM.res.${YY}-${MM}-${DD} ... cannot be performed"
+  echo " Exiting ..."
   exit 1
 fi
 
-for FL in $(ls ${bname}_*.nc)
+for FL in $(ls ${YY}${MM}${DD}.*.${bname}_*.nc)
 do
 #  fl1=$(echo $FL | cut -d "_" -f 1)
+# Check hours:
+  nsec=$(echo $FL | cut -d "." -f 2)
+  nhrs=$(( 10#${nsec}/3600 ))
+
+  if [[ $(( 10#$nhrs - 10#$HH )) > 0 ]]; then
+    echo " ERR: MOM restart: time stamp hours ${nhrs}, expected ${HH}"
+    echo " Check restart time, exiting ..."
+    exit 2
+  fi
+
   fl2=$(echo $FL | cut -d "_" -f 2)  
   export flnew="${bname}.${dstmp}_${fl2}"
 
@@ -71,10 +86,12 @@ do
   /bin/mv ${FL} ${flnew}
 done
 
-export FL=${bname}.nc
-export flnew="${bname}.${dstmp}.nc"
-printf " Moving $FL ---> $flnew \n"
-/bin/mv ${FL} ${flnew}
+for FL in $(ls ${YY}${MM}${DD}.*.${bname}.nc)
+do 
+  export flnew="${bname}.${dstmp}.nc"
+  printf " Moving $FL ---> $flnew \n"
+  /bin/mv ${FL} ${flnew}
+done
 
 echo "Arranging MOM restart: All Done"
 
