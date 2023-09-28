@@ -52,7 +52,7 @@ export UFSEXE=fv3_datm_cdeps_intel.exe
 export HEXE=fv3_001.exe
 
 printf "MOM6/CICE6 executable: \n"
-ls -rlt $DEXE/$HEXE
+ls -rlt $DEXE/$UFSEXE
 
 touch $HEXE
 /bin/rm $HEXE
