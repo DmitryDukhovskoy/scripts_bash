@@ -37,20 +37,20 @@ echo "Clean run directory"
 ./clean.sh
 wait
 
-echo "Aranging MOM output"
+echo "Arranging MOM output"
 ./arrange_mom_output.sh
 wait
 
-echo "Aranging CICE output"
+echo "Arranging CICE output"
 ./arrange_cice_output.sh
 wait
 
-echo "Aranging MOM restart"
+echo "Arranging MOM restart"
 #./arrange_mom_restart.sh $YY $MM $DD $HH  # old restart format
 ./arrange_mom_restart_v2.sh $YY $MM $DD $HH
 wait
 if [[ $? != 0 ]]; then
-  echo "Aranging MOM failed, exit"
+  echo "Arranging MOM failed, exit"
   exit 3
 fi
 

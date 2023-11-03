@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 #  
 # Use this script for beginning a new simulation and cycle 1
 # for continued simulation (cycles 2, 3, ...) following cycle 1
@@ -23,6 +23,7 @@ export RD=$WD/RESTART
 export DINP=$WD/INPUT
 export new_run=1  # =1 - new run, =0 - continued run
 export ncycles=14 # # of cycles in the simulation - total duration
+export ATMF=CFSR
 
 trim() {
     local var="$*"
@@ -64,20 +65,22 @@ printf "Preparing run for $YY/$MM/$DD:$HH\n"
 #mkdir -pv ${DINP}
 mkdir -pv ${WD}/bkp
 
+#export DEXE=/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/MOM6/ufs-weather-modelOLD/tests
 export DEXE=/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/MOM6/ufs-weather-model/tests
+export UFSEXE=fv3_datm_cdeps_intel.exe
 export HEXE=fv3_001.exe
 
 printf "MOM6/CICE6 executable: \n"
-ls -rlt $DEXE/$HEXE
+ls -rlt $DEXE/$UFSEXE
 
 touch $HEXE
 /bin/rm $HEXE
 
-/bin/cp $DEXE/$HEXE .
-
+/bin/cp $DEXE/$UFSEXE .
+ln -sf $UFSEXE $HEXE
 
 # File pointer atm data:
-fdatm="DATM_GEFS.datm.r.${YY}-${MM}-${DD}-${HH}000.nc"
+fdatm="DATM_${ATMF}.datm.r.${YY}-${MM}-${DD}-${HH}000.nc"
 if [ ! -f "$fdatm" ]; then
   printf "ERR: $fdatm is not found\n"
   exit 1
@@ -90,7 +93,7 @@ echo $fdatm > $fpnt
 
 
 # Coupler pointer:
-fdcplr="RESTART/DATM_GEFS.cpl.r.${YY}-${MM}-${DD}-${HH}000.nc"
+fdcplr="RESTART/DATM_${ATMF}.cpl.r.${YY}-${MM}-${DD}-${HH}000.nc"
 if [ ! -f "$fdcplr" ]; then
   printf "ERR: $fdcplr is not found\n"
   exit 1

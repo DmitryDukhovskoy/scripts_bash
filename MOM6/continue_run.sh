@@ -66,6 +66,15 @@ sed -e "s|start_year: .*|start_year:              ${YY}|"\
     -e "s|start_day: .*|start_day:               ${DD}|"\
     -e "s|nhours_fcst: .*|nhours_fcst:             ${nhfcst}|"\
     -e "s|start_hour: .*|start_hour:              ${HH}|" ${FINP}_0 > $FINP
+/bin/rm ${FINP}_0
+
+# Update datm.streams:
+fastr=datm.streams
+/bin/cp $fastr ${fastr}_0
+sed -e "s|yearFirst01: .*|yearFirst01:               ${YY}|"\
+    -e "s|yearLast01: .*|yearLast01:                ${YY}|"\
+    -e "s|yearAlign01: .*|yearAlign01:               ${YY}|" ${fastr}_0 > ${fastr}
+/bin/rm ${fastr}_0
 
 # File pointer atm data:
 fdatm="DATM_${ATMF}.datm.r.${YY}-${MM}-${DD}-${HH}000.nc"

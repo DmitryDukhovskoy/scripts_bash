@@ -14,19 +14,22 @@
 # NOAA/NWS/EMC Dmitry Dukhovskoy  2023
 #
 
-export expt=001
+export expt=003
 export DRUN=/scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/MOM6_run/008mom6cice6_${expt}
 export HOUT=/NCEPDEV/emc-ocean/5year/Dmitry.Dukhovskoy/MOM6/expt_${expt}
 export SRC=/home/Dmitry.Dukhovskoy/scripts/MOM6
 
 export chck_file=param_logs_sent2hpss
 
+hsi mkdir -p $HOUT
+
 cd $DRUN
 
 LTAR=model_params_008mom6cice6_${expt}.tar
 echo "Tarring model param files ${LTAR}"
 tar -cvf ${LTAR} data_table datm_in datm.streams diag_table fd_nems.yaml ice_in \
-   input.nml list_cycles.txt model_configure nems.configure run_cycles.txt
+   input.nml list_cycles.txt model_configure nems.configure run_cycles.txt \
+   INPUT/MOM_input
 wait
 
 LLOG=logs_008mom6cice6_${expt}.tar

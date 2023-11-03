@@ -23,13 +23,13 @@
 #
 set -u
 
-export expt=001
+export expt=003
 export DRUN=/scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/MOM6_run/008mom6cice6_${expt}
 export HOUT=/NCEPDEV/emc-ocean/5year/Dmitry.Dukhovskoy/MOM6/expt_${expt}
 export SRC=/home/Dmitry.Dukhovskoy/scripts/MOM6
 
 
-YR=2000
+YR=2020
 if [[ $# == 1 ]]; then
   YR=$1
 fi

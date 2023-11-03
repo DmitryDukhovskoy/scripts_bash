@@ -19,13 +19,15 @@ echo -n " $( date +%Y%m%d-%H:%M:%S )," >  job_timestamp.txt
 set +x
 MACHINE_ID=hera
 source ./module-setup.sh
-module use $( pwd -P )
+#module use $( pwd -P )
+module use $PWD/modulefiles
 module load modules.fv3
 module list
 set -x
 
 echo "Model started:  " `date`
 
+export HEXE=fv3_001.exe
 export MPI_TYPE_DEPTH=20
 export OMP_STACKSIZE=512M
 export OMP_NUM_THREADS=1
@@ -39,7 +41,7 @@ export PSM_SHAREDCONTEXTS=1
 sync && sleep 1
 
 #srun --label -n 2320 ./fv3.exe
-srun --label -n 2320 ./fv3_001.exe
+srun --label -n 2320 ./${HEXE}
 
 echo "Model ended:    " `date`
 echo -n " $( date +%s )," >> job_timestamp.txt

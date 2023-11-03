@@ -22,12 +22,12 @@
 # NOAA/NWS/EMC Dmitry Dukhovskoy  2023
 #
 
-export expt=001
+export expt=003
 export DRUN=/scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/MOM6_run/008mom6cice6_${expt}
 export HOUT=/NCEPDEV/emc-ocean/5year/Dmitry.Dukhovskoy/MOM6/expt_${expt}
 export SRC=/home/Dmitry.Dukhovskoy/scripts/MOM6
 
-YR=2000
+YR=2020
 if [[ $# == 1 ]]; then
   YR=$1
 fi
@@ -121,7 +121,7 @@ do
         -e "s|^export FTAR=.*|export FTAR=$FTAR|"\
         -e "s|^export HOUT=.*|export HOUT=$HOUT|"\
         -e "s|^export DRUN=.*|export DRUN=${DRUN}/${fdir}|"\
-        -e "s|^#SBATCH -J .*|#SBATCH -J MOM6tar${ntar}|" targz2hpss.sh > $HEXE
+        -e "s|^#SBATCH -J .*|#SBATCH -J CICE6tar${ntar}|" targz2hpss.sh > $HEXE
 
     chmod 750 $HEXE
 

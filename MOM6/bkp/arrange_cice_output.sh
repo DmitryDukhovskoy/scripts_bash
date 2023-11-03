@@ -1,6 +1,6 @@
 #!/bin/bash -x
 #
-# Arrange CICE output after completing 1 cycle
+# Arange CICE output after completing 1 cycle
 # Move output files to directories grouped by months
 # Prepare files for tarring and moving to HPSS storage
 #
@@ -12,7 +12,8 @@
 #
 set -u
 
-export DW=/scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/MOM6_run/008mom6cice6
+export expt=003
+export DW=/scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/MOM6_run/008mom6cice6_${expt}
 export DICE=$DW/history
 export DWS=/home/Dmitry.Dukhovskoy/scripts
 export prfx='iceh'
@@ -25,7 +26,8 @@ cd $DICE
 pwd
 noutp=`ls -1 ${prfx}.*.nc | wc -l`
 if [[ $noutp == 0 ]]; then
-  echo " No output found in $DICE "
+  echo " No CICE output found in $DICE "
+  echo " Exiting ..."
   exit 0
 fi
 

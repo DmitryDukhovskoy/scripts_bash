@@ -15,6 +15,7 @@ export DSRC=/home/Dmitry.Dukhovskoy/scripts/MOM6
 export WD=`pwd`
 export RD=$WD/RESTART
 export DINP=$WD/INPUT
+export ATMF=CFSR
 #export nhfcst=624
 #export nhfcst=384
 
@@ -45,15 +46,18 @@ nhfcst=`echo $dStart | cut -d ' ' -f5`
 
 printf "Preparing cycle $ncycle Start: $YY/$MM/$DD:$HH duration=${nhfcst} hrs\n"
 
-export DEXE=/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/MOM6/ufs-weather-modelOLD/tests
+#export DEXE=/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/MOM6/ufs-weather-modelOLD/tests
+export DEXE=/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/MOM6/ufs-weather-model/tests
+export UFSEXE=fv3_datm_cdeps_intel.exe
 export HEXE=fv3_001.exe
 
 printf "MOM6/CICE6 executable: \n"
-ls -rlt $DEXE/$HEXE
+ls -rlt $DEXE/$UFSEXE
 
 touch $HEXE
 /bin/rm $HEXE
-/bin/cp $DEXE/$HEXE .
+/bin/cp $DEXE/$UFSEXE .
+ln -sf $UFSEXE $HEXE
 
 # Update model_configure
 /bin/cp $FINP ${FINP}_0
@@ -62,9 +66,18 @@ sed -e "s|start_year: .*|start_year:              ${YY}|"\
     -e "s|start_day: .*|start_day:               ${DD}|"\
     -e "s|nhours_fcst: .*|nhours_fcst:             ${nhfcst}|"\
     -e "s|start_hour: .*|start_hour:              ${HH}|" ${FINP}_0 > $FINP
+/bin/rm ${FINP}_0
+
+# Update datm.streams:
+fastr=datm.streams
+/bin/cp $fastr ${fastr}_0
+sed -e "s|yearFirst01: .*|yearFirst01:               ${YY}|"\
+    -e "s|yearLast01: .*|yearLast01:                ${YY}|"\
+    -e "s|yearAlign01: .*|yearAlign01:               ${YY}|" ${fastr}_0 > ${fastr}
+/bin/rm ${fastr}_0
 
 # File pointer atm data:
-fdatm="DATM_GEFS.datm.r.${YY}-${MM}-${DD}-${HH}000.nc"
+fdatm="DATM_${ATMF}.datm.r.${YY}-${MM}-${DD}-${HH}000.nc"
 if [ ! -f "$fdatm" ]; then
   printf "ERR: $fdatm is not found\n"
   exit 1
@@ -76,7 +89,7 @@ touch $fpnt
 echo $fdatm > $fpnt
 
 # Coupler pointer:
-fdcplr="RESTART/DATM_GEFS.cpl.r.${YY}-${MM}-${DD}-${HH}000.nc"
+fdcplr="RESTART/DATM_${ATMF}.cpl.r.${YY}-${MM}-${DD}-${HH}000.nc"
 if [ ! -f "$fdcplr" ]; then
   printf "ERR: $fdcplr is not found\n"
   exit 1
@@ -131,14 +144,14 @@ export dstmp=${YY}-${MM}-${DD}-${HH}-${sfx}
 # Continued run, restart files MOM.res.nc and MOM.res_*.nc from previous cycle
 # should be in RESTART
 # restart files dumped during previous cycles should have been renamed
-# using arange_mom_restart.sh 
+# using arrange_mom_restart.sh 
 cd $RD
 nrst=`ls -1 MOM.res.${dstmp}*nc 2>/dev/null | wc -l`
 echo "Found $nrst RESTART files in ${RD}"
 if [[ $nrst == 0 ]]; then
   printf " $RD/MOM.res.${dstmp}*.nc not found\n"
   printf " Restart from previous cycle missing"
-  printf " Check if arange_mom_restart.sh was run\n"
+  printf " Check if arrange_mom_restart.sh was run\n"
 
   exit 1
 fi

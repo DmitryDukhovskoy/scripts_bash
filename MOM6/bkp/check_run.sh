@@ -1,5 +1,8 @@
 #! /bin/bash
-set echo
+set -u
+#set echo
+
+echo " ========== check_run ======== " 
 head -2 diag_table
 cat rpointer.* 
 grep input_filename input.nml
