@@ -12,15 +12,15 @@ set -u
 #/NCEPDEV/emc-ocean/5year/Dan.Iredell/wcoss2.prod/rtofs.[YYYYMMDD]
 
 if [[ $#<2 ]]; then
-  printf " ERR: Usage get_rtofs_archv.sh YYYYMMDD [e.g., 20230123] n-24 [archive type]"
+  printf " ERR: Usage get_rtofs_archv.sh YYYYMMDD [e.g., 20230123] n-24 [archive type]\n"
   exit 1
 fi
  
 RD=$1
 sfx=$2
 export DRUN=NCEPDEV
-export expt=paraB
-export D='/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/data'
+export expt=paraD5b
+export D='/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/data/${expt}'
 export DUMP="${D}/rtofs.$RD"
 export FL="rtofs_glo.t00z.${sfx}.archv"
 mkdir -pv $DUMP

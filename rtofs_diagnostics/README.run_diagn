@@ -3,7 +3,7 @@ Output files are pushed to HPSS
 
 This is "manual" approach, for automated use crone after 
 making necessary edits in the scripts and processed file logs
-Several steps steps:
+Several steps:
 1)
 Extract missing files from HPSS based on last_saved_n-24.txt
 Edit last_saved*txt to start from desired date, if needed

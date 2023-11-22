@@ -16,6 +16,8 @@ export WD=`pwd`
 export RD=$WD/RESTART
 export DINP=$WD/INPUT
 export ATMF=CFSR
+export nhrst=-10
+#export nhrst=6     # restart at the end: make nhrest <=0 or very big number
 #export nhfcst=624
 #export nhfcst=384
 
@@ -43,6 +45,10 @@ MM=`echo $dStart | cut -d ' ' -f2`
 DD=`echo $dStart | cut -d ' ' -f3`
 HH=`echo $dStart | cut -d ' ' -f4`
 nhfcst=`echo $dStart | cut -d ' ' -f5`
+
+if (( 10#$nhrst <= 0 )); then
+  nhrst=$nhfcst
+fi
 
 printf "Preparing cycle $ncycle Start: $YY/$MM/$DD:$HH duration=${nhfcst} hrs\n"
 
@@ -111,14 +117,15 @@ touch $fcpntr
 echo $fcice > $fcpntr
 
 # Update nems.configure file
-# duration of the run
+# duration of the run and restart frequency
 cd $WD
-nhfcst=`grep nhours_fcst model_configure | cut -d ":" -f 2 | awk '{print $1}'` 
+#nhrst=`grep nhours_fcst model_configure | cut -d ":" -f 2 | awk '{print $1}'` 
+
 fnems=nems.configure
 /bin/cp $fnems bkp/.
 /bin/cp $fnems ${fnems}_1
 sed -e "s|stop_n[ ]*=.*|stop_n = ${nhfcst}|g"\
-    -e "s|restart_n[ ]*=.*|restart_n = ${nhfcst}|g" ${fnems}_1 > $fnems
+    -e "s|restart_n[ ]*=.*|restart_n = ${nhrst}|g" ${fnems}_1 > $fnems
 /bin/rm ${fnems}_1
  
 

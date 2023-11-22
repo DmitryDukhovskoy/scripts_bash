@@ -17,13 +17,15 @@ set -u
 
 #/NCEPDEV/emc-ocean/5year/Dan.Iredell/wcoss2.prod/rtofs.[YYYYMMDD]
 
-rdate=20220901
+rdate=20231030
 ryrmo=`echo $rdate | cut -c 1-6`
+ryr=`echo $rdate | cut -c 1-4`
  
 RD=$rdate
 export DRUN=NCEPPROD
-export DHPSS=/${DRUN}/1year/hpssprod/runhistory/rh2022/${ryrmo}/${rdate}
-export D="/scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/wcoss2.prod"
+export DHPSS=/${DRUN}/1year/hpssprod/runhistory/rh${ryr}/${ryrmo}/${rdate}
+#export D="/scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/wcoss2.prod"
+export D=/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/data/production
 export DUMP="${D}/rtofs.$RD"
 #export FL=com_rtofs_v2.2_rtofs.${rdate}.nc.tar  # v2.2 changed to v2.3 in Aug 2022
 export FL=com_rtofs_v2.3_rtofs.${rdate}.nc.tar  # v2.2 changed to v2.3 in Aug 2022
@@ -33,7 +35,8 @@ cd ${DUMP}
 
 # Forecasts, f000, f024, etc
 # rtofs_glo_2ds_n016_ice.nc
-for fhr in 000 024 048 072 096 120 144 168 192; do
+#for fhr in 000 024 048 072 096 120 144 168 192; do
+for fhr in 000 024; do
   htar -xvf ${DHPSS}/${FL} ./rtofs_glo_2ds_f${fhr}_ice.nc
   wait 
 done

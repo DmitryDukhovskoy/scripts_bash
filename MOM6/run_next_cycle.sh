@@ -66,6 +66,8 @@ status=$?
 if (( $status == 0 )); then
   echo " Submitting job "
   sbatch $HSUB
+else
+  echo " ERR: job NOT submitted - check run_next_cycle.sh" 
 fi
 
 
