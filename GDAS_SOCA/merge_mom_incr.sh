@@ -20,8 +20,12 @@ echo "Merging NCODA incr files: $DRIN/${fincr1}, ${fincr2} --->"
 echo " --> $DROUT/$fincrout"
 
 # For ncrcat need to add a record variable (unlimited dimension, "Time", e.g)
-#/bin/cp $DRIN/${fincr1} $DROUT/.
-#/bin/cp $DRIN/${fincr2} $DROUT/.
+if ! [ -f $DROUT/${fincr1} ]; then
+  /bin/cp $DRIN/${fincr1} $DROUT/.
+fi
+if ! [ -f $DROUT/${fincr2} ]; then
+  /bin/cp $DRIN/${fincr2} $DROUT/.
+fi
 
 cd $DROUT
 ls -l
@@ -46,6 +50,7 @@ ncap2 -4 -O --thr_nbr=1 --cnk_csh=1000000000 --cnk_byt=4000000000 \
 # Delete unneded vars:
 echo "Cleaning ncfile TSzh"
 ncks -O -x -v pt_inc,s_inc,zh tmp1.nc tmp1.nc
+wait 
 
 echo "Adding Time dimension to UV increments $fincr2"
 ncap2 -s 'defdim("Time",1,0);Time[Time]=1;Time@long_name="Time";Time@units="time level";Time@cartesian_axis="T"' ${fincr2} tmp2.nc
@@ -62,8 +67,21 @@ ncap2 -4 -O --thr_nbr=1 --cnk_csh=1000000000 --cnk_byt=4000000000 \
 # Delete unneded vars:
 echo "Cleaning ncfile UVincr"
 ncks -O -x -v u_inc,v_inc tmp2.nc tmp2.nc
+wait 
 
+# Merging netcdf files:
+echo "Merging netcdfs by appending"
+ncks -A tmp1.nc tmp2.nc
+wait
 
+/bin/mv tmp2.nc $fincrout
+
+ls -rlt
+
+echo "Cleaning ..."
+/bin/rm tmp*.nc
+/bin/rm $fincr1 $fincr2
+ 
 #ncap2 -4 -D 4 --thr_nbr=1 --cnk_csh=1000000000 --cnk_plc=g3d \
 # --cnk_dmn=lonh,1000 --cnk_dmn=lath,1000 \
 # -s 'Temp[Time,Layer,lath,lonh]=pt_inc' tmp1.nc tmp11.nc

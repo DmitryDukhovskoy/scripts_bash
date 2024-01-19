@@ -21,13 +21,16 @@ set -u
 export sfx=n-24
 export bname=rtofs_glo.t00z
 export DRUN=NCEPPROD
-export D="/scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/wcoss2.prod"
+#export D="/scratch1/NCEPDEV/stmp2/Dmitry.Dukhovskoy/wcoss2.prod"
+export D="/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/wcoss2.prod"
 export chck=1  # check if files exist then skip
 
-YR=2021
+mkdir -pv $D
+
+YR=2023
 mo=01
 #for mm in {1..12}
-for mm in 11 12
+for mm in 7
 do
   mo=$( echo $mm | awk '{printf("%02d", $1)}' )
 #for mday in {10..31}
@@ -39,11 +42,18 @@ do
     export DUMP="${D}/rtofs.$RD"
     export DHPSS=/${DRUN}/5year/hpssprod/runhistory/rh${YR}/${ryrmo}/${RD}
     export FL="${bname}.${sfx}.archv"
-    if (( 10#$YR >= 2022 )); then
-      export FTAR="com_rtofs_v2.3_rtofs.${RD}.ab.tar"
-    else
-      export FTAR="com_rtofs_prod_rtofs.${RD}.ab.tar"
+    sfxR=prod
+    if (( 10#$YR == 2022 )); then
+      if (( 10#$mm >= 8 )); then
+        sfxR=v2.3
+      elif (( 10#$mm == 7 )); then
+        sfxR=v2.2
+      fi
+    elif (( 10#$YR == 2023 )); then
+      sfxR=v2.3
     fi
+
+    export FTAR="com_rtofs_${sfxR}_rtofs.${RD}.ab.tar"
     echo "rdate $RD"
     mkdir -pv $DUMP
     cd ${DUMP}
