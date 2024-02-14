@@ -12,8 +12,9 @@ scrpt=extrTSxsect_polysegm.py
 
 
 cd $DRUN
-/bin/rm -f *.py
-/bin/rm -f *.log slurm*.out
+#/bin/rm -f *.py
+/bin/rm -f extrTS*.log 
+#/bin/rm -f slurm*.out
 
 /bin/cp $DSCR/../rtofs/sub_pyjob.sh .
 
@@ -25,8 +26,8 @@ cd $DRUN
 /bin/cp $DPY/$scrpt .
 
 icc=0
-#for sname in BeringS DenmarkS IclShtl ShtlScot LaManch NAtl39
-for sname in ShtlScot
+#for sname in BeringS DenmarkS IclShtl ShtlScot LaManch NAtl39 DrakePsg
+for sname in GoMCarib
 do
   for fld2d in salt potT
   do

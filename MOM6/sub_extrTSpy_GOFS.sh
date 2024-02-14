@@ -5,13 +5,13 @@ set -x
 set -u
 
 DPY=/home/Dmitry.Dukhovskoy/python/anls_mom6
-DRUN=/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/data_anls/GOFS3.1/extr_runs
+DRUN=/scratch2/NCEPDEV/marine/Dmitry.Dukhovskoy/data_anls/GOFS3.1/extr_runs3
 DSCR=/home/Dmitry.Dukhovskoy/scripts/MOM6
 DMOD=/home/Dmitry.Dukhovskoy/python/MyPython
 scrpt=extrTSxsect_gofs.py
 YR=2021
 
-fcont=False
+fcont=True
 
 mkdir -pv $DRUN
 cd $DRUN
@@ -29,9 +29,9 @@ cd $DRUN
 /bin/cp $DPY/$scrpt .
 
 icc=0
-for sname in BeringS DenmarkS IclShtl ShtlScot LaManch NAtl39 BaffNAFram \
-             AlaskaIcld Fram79s2 DavisS2
-#for sname in DavisS2
+#for sname in BeringS DenmarkS IclShtl ShtlScot LaManch NAtl39 BaffNAFram \
+#             AlaskaIcld Fram79s2 DavisS2 DrakePsg
+for sname in GoMCarib
 do
   for fld2d in salt potT
   do
@@ -42,6 +42,7 @@ do
     echo "extracting $sname $fld2d  ---> $scrpt_run"
     sed -e "s|^sctnm[ ]*= .*|sctnm = '${sname}'|"\
         -e "s|^f_cont[ ]*= .*|f_cont = ${fcont}|"\
+        -e "s|^f_plt[ ]*= .*|f_plt = False|"\
         -e "s|^YR1[ ]*= .*|YR1 = ${YR}|"\
         -e "s|^f_save[ ]*= .*|f_save = True|"\
         -e "s|^fld2d[ ]*= .*|fld2d = '${fld2d}'|" $scrpt > $scrpt_run

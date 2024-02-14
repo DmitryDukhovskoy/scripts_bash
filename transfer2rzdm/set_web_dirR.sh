@@ -35,7 +35,7 @@ export expt=paraD5b
 export sfx=n-24
 #export expt=paraD
 #export sfx=n-24
-export rdate=20240102
+export rdate=20240207
 
 DDIR=/home/www/emc/htdocs/users/Dmitry.Dukhovskoy/develop
 DDUMP=/home/www/emc/htdocs/users/Dmitry.Dukhovskoy/dump
