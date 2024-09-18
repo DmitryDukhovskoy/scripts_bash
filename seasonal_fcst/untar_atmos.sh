@@ -1,0 +1,1 @@
+../MOM6_NEP/untar_atmos.sh

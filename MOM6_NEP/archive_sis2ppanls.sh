@@ -9,15 +9,15 @@
 # No need to run on compute nodes, the script will launch 
 # jobs for tarring
 #
-# prepare tar and move MOM6 output files to HPSS
-# all output should be in tarmom_YYYYMM directories
-# prepare in arange_mom_output.sh
+# prepare tar and move SIS2 output files to HPSS
+# all output should be in ${prfx}_YYYYMM directories
+# prepare in arange_sis_output.sh
 #
 # To keep tar files managable - tar only Nft = 6 files in 1 tar file
 #
-# Usage: ./archive_mom2ppanls.sh - move all tarmom_*
-#     OR ./archive_mom2ppanls.sh YYYY move tarmom_YYYY*
-#     OR Year and Month: ./archive_mom2ppanls.sh YYYY MM  ---> move tarmom_YYYYMM
+# Usage: ./archive_sis2ppanls.sh - move all tarsis_*
+#     OR ./archive_sis2ppanls.sh YYYY move tarsis_YYYY*
+#     OR Year and Month: ./archive_sis2ppanls.sh YYYY MM  ---> move tarsis_YYYYMM
 #
 # NOAA/OAR/PSL Dmitry Dukhovskoy  2024
 #
@@ -25,11 +25,11 @@ set -u
 
 #module load gcp 
 
-export YR=1993    # year to process
+export YR=1993
 export expt='NEP_seasfcst_test'
 export DRUN=/gpfs/f5/cefi/scratch/${USER}/work/${expt}
 export SRC=/ncrc/home1/${USER}/scripts/MOM6_NEP
-export prfx=oceanm
+export prfx=icem
 
 if [[ $# == 1 ]]; then
   YR=$1
@@ -61,7 +61,7 @@ do
 
   if (( 10#$MMT > 0 )) && (( 10#$MMD != 10#$MMT )); then
 # Stop if specified month has been passed
-    if (( 10#$MMD > 10#$MMT )); then 
+    if [[ $MMD -gt $MMT ]]; then 
       echo "Done"
       exit 0
     fi
@@ -79,7 +79,7 @@ do
 #  fi
   nfls=`ls -l ${prfx}_${YRD}*nc 2>/dev/null | wc -l`
   if (( $nfls == 0 )); then
-    echo "$fdir no MOM output found"
+    echo "$fdir no SIS output found"
     continue
   fi
 
@@ -122,14 +122,13 @@ do
       continue
     fi
 #    /bin/cp $SRC/targz2ppanls.sh .
-    TARGZ=targz_momsis.sh
-    /bin/cp $SRC/$TARGZ .
+    /bin/cp $SRC/targz_momsis.sh .
 
     sed -e "s|^export flst=.*|export flst=$flst|"\
         -e "s|^export FTAR=.*|export FTAR=$FTAR|"\
         -e "s|^export HOUT=.*|export HOUT=$HOUT|"\
         -e "s|^export DRUN=.*|export DRUN=${DRUN}/${fdir}|"\
-        -e "s|^export ntar=.*|export ntar=${ntar}|" $TARGZ > $HEXE
+        -e "s|^export ntar=.*|export ntar=${ntar}|" targz_momsis.sh > $HEXE
 
     chmod 750 ${HEXE}
     echo "sbatch $HEXE"
@@ -145,8 +144,8 @@ do
     /bin/cp $SRC/${HGCP} .
     sed -e "s|^export YR=.*|export YR=$YRD|"\
         -e "s|^export MMT=.*|export MMT=$MMD|"\
-        -e "s|^export expt=.*|export expt=$expt|"\
         -e "s|^export prfx=.*|export prfx=$prfx|"\
+        -e "s|^export DRUN=.*|export DRUN=${DRUN}|"\
         -e "s|^export HOUT=.*|export HOUT=$HOUT|" $HGCP > $HGCPX 
 
     chmod 750 $HGCPX

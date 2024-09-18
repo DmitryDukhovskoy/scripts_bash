@@ -22,9 +22,6 @@
 #export HOUT=/XXX/XXX/XXX
 export DRUN=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/work/NEP_BGCphys/tarmom_199301
 export HOUT=/work/Dmitry.Dukhovskoy/run_output/NEP_BGCphys/1993
-
-
-export fnm=ocean
 export ntar=XX
 export chck_file=tar_sent2ppanls_${ntar}
 export flst=tar_list_xxx.txt

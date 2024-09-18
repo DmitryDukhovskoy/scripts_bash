@@ -13,33 +13,34 @@
 # https://gaeadocs.rdhpcs.noaa.gov/wiki/index.php?title=Data_transfers
 #
 #
-# Usage: ./gcp_mom2ppanls.sh - move all tarmom_*
-#     OR ./gcp_mom2ppanls.sh YYYY move tarmom_YYYY*
-#     OR Year and Month: ./gcp_mom2ppanls.sh YYYY MM  ---> move tarmom_YYYYMM
+# Usage: ./gcp_mom2ppanls.sh - move all {prfx}_*
+#     OR ./gcp_mom2ppanls.sh YYYY move {prfx}_YYYY*
+#     OR Year and Month: ./gcp_mom2ppanls.sh YYYY MM  ---> move {prfx}_YYYYMM
 #
 set -u
 
 module load gcp 
 
-export expt='NEP_BGCphys'
+export expt=xxx
 export DRUN=/gpfs/f5/cefi/scratch/${USER}/work/${expt}
 export SRC=/ncrc/home1/${USER}/scripts/MOM6_NEP
-export fnm=ocean
+export prfx=oceanm
 
 export YR=1993
 if [[ $# == 1 ]]; then
   YR=$1
 fi
 
-export MMT=10
+export MMT=0
 if [[ $# == 2 ]]; then
   MMT=$2
 fi
   
-export HOUT=/work/${USER}/run_output/${expt}/${YR}
+#export HOUT=/work/${USER}/run_output/${expt}/${YR}
+export HOUT=xxx/xxx
 
 cd $DRUN
-for fdir in $(ls -d tarmom_[12]???[01]?)
+for fdir in $(ls -d ${prfx}_[12]???[01]?)
 do
   dmm=`echo $fdir | cut -d "_" -f2`
   YRD=`echo ${dmm:0:4}`
@@ -57,7 +58,7 @@ do
   fi
 
   cd ${DRUN}/${fdir}
-  for tarf in $(ls mom6_${YR}${MMD}*.tar.gz); do
+  for tarf in $(ls ${prfx}_${YR}${MMD}*.tar.gz); do
 # First check if files have been  sent to remote storage
     fbsnm=`echo $tarf | cut -d "." -f1`
     chck_file=${fbsnm}_sent

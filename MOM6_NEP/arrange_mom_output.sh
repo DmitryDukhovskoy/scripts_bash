@@ -1,14 +1,14 @@
 #!/bin/bash -x
 #
-# Arange MOM output after completing 1 cycle
+# Arrange MOM & SIS2 output after completing 1 cycle
 # Move output files to directories grouped by months
 # Prepare files for tarring and moving to HPSS storage
 #
 # Output files in work directory 
 # Daily output files 
 # 
-# Dmitry Dukhovskoy, NOAA/NWS/EMC 
-# July 2023
+# Dmitry Dukhovskoy, NOAA/OAR/PSL
+# 2024
 #
 set -u
 
@@ -20,7 +20,7 @@ export prfx='ocean'
 cd $DW
 /bin/cp $DWS/awk_utils/dates.awk .
 
-# File names are assume: YYYYMMDD.ocean_YYYY_DDD_HR.nc
+# File names are assumed: YYYYMMDD.ocean_YYYY_DDD_HR.nc
 # where the date at the begining of the file name is the beginning of the simulation
 # Check if there are output files:
 pwd
@@ -54,3 +54,24 @@ do
  
 done 
 
+# Arrange SIS output
+# daily and monthly means
+cd $DW
+nioutp=`ls -1 *.ice_*.nc | wc -l`
+if [[ $nioutp > 0 ]]; then
+  echo "Found $nioutp ice output files"
+fi
+
+DIOUT=ice_output
+/bin/mkdir -pv ${DW}/${DIOUT}
+for FL in $(ls *.ice_*.nc)
+do
+  bsname=$(echo ${FL} | cut -d "." -f 2)
+  datestamp=$(echo ${FL} | cut -d "." -f 1)
+  YY=${datestamp:0:4}
+  FLICE=${bsname}_${datestamp}.nc
+  echo "Moving $FL ---> $DIOUT/$FLICE"
+  /bin/mv $FL $DIOUT/$FLICE
+done 
+
+exit 0
