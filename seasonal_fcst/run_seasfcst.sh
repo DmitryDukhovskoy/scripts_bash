@@ -44,7 +44,7 @@ for mstart in 01 04 07 10; do
 
   for ens in 01 02 03 04 05 06 07 08 09 10; do
     echo "Preparing run for $ystart $mstart $ens"
-    frerun -s -x NEPphys_seasfcst_${ystart}_${mstart}.xml -p ncrc5.intel22 -t repro NEPphys_frcst_climOB_${ystart}-${mstart}-e${ens} --overwrite
+    frerun -s -x NEPphys_seasfcst_${ystart}_${mstart}.xml -p ncrc5.intel23 -t repro NEPphys_frcst_climOB_${ystart}-${mstart}-e${ens} --overwrite
   done
 done
 
