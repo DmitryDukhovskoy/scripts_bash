@@ -4,6 +4,9 @@
 # prepared on PPANLS
 # usage: ./untar_atmos.sh YR1 [YR2 ]
 #
+# For unzipping/untarring all atmos and ocean input fields use:
+# unzip_input_dailyOB.sh
+#
 set -u
 
 export WD=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy

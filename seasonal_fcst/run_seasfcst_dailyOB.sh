@@ -20,6 +20,9 @@
 # 
 # Day start: assumed day = 1 of the month
 #
+# usage: ./run_seasfcst.sh YRSTART [MSTART] [ensemble]
+#   run_seasfcst.sh YRSTART - prepare xml's to run all ensemlbes that start in YRSTART and months=1,4,7,10
+#   run_seasfcst.sh YRSTART MSTART - -"- -"-  -"- all ensembles that start in YRSTART MSTART
 set -u 
 
 export DAWK=/ncrc/home1/Dmitry.Dukhovskoy/scripts/awk_utils
@@ -27,22 +30,41 @@ export DSRC=/ncrc/home1/Dmitry.Dukhovskoy/scripts/seasonal_fcst
 export DXML=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml
 export DOUT=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml/xml_seasfcst_dailyOB
 export XMLTMP=NEPphys_seasfcst_dailyOB_template.xml
-#export GFDLDIR=
+# expt number: 01 - with 1 SPEAR ens used to generate OBCs
+#              02 - multi-ens OBCs, i.e. for each ens f/cast OB used corresponding SPEAR ens run
+export expt_nmb=02   # <------  Check this before running the script 
+
+if [[ ${expt_nmb} -eq 1 ]]; then
+  echo "======================================================================================= "
+  echo " --- 1-ens OBs runs, SPEAR ens runs is fixed=${ens0} for different fcast ens runs --- "
+  echo "======================================================================================= "
+elif [[ ${expt_nmb} -eq 2 ]]; then
+  echo "======================================================================================= "
+  echo " !!!! Multi-ensemble OBs runs with different SPEAR ens for different fcast ens runs !!! "
+  echo "======================================================================================= "
+fi
 
 if [[ $# -lt 1 ]]; then
   echo "ERROR start year not specified"
-  echo "usage: ./run_seasfcst.sh YRSTART"
+  echo "usage: ./run_seasfcst.sh YRSTART [MSTART]"
   exit 1
 fi
 
 ystart=$1
 MM=0
+ens_run=0
 if [[ $# -eq 2 ]]; then
   MM=$2
 fi
 
+if [[ $# -eq 3 ]]; then
+  MM=$2
+  ens_run=$3
+fi
+
 sfx_end="-dayout"   # for 5-day output 
 bnm=$( echo $XMLTMP | cut -d "_" -f-3 )
+expt_name=NEPphys_frcst_dailyOB${expt_nmb}
 
 cd $DOUT
 for mstart in 01 04 07 10; do
@@ -55,49 +77,44 @@ for mstart in 01 04 07 10; do
     continue
   fi
 
-  echo "Preparing: ${ystart} ${mstart}" 
   flxml=${bnm}_${ystart}_${mstart}.xml
-  $DSRC/create_seasfcst_dailyOB_xml.sh $ystart $mstart
-  status=$?
-  if [[ $status -eq 0 ]]; then
-    echo "${flxml} created"
-  else
-    echo "ERROR: failed to create ${flxml} "
-    exit 1
-  fi
-
-# Prepare xml for saving 5day + standard output fields
-  echo "Preparing: ${ystart} ${mstart} 5-day output xml" 
   flxml5d=${bnm}_${ystart}_${mstart}${sfx_end}.xml
-  $DSRC/create_seasfcst_dailyOB_xml.sh $ystart $mstart 1
-  status=$?
-  if [[ $status == 0 ]]; then
-    echo "${flxml5d} created"
-  else
-    echo "ERROR: failed to create ${flxml5d} "
-    exit 2
-  fi
-
-#echo $bnm
-  if [ ! -s $flxml ]; then 
-    pwd
-    ls -l
-    echo "$flxml not generated - quitting"
-    exit 4
-  fi
-  if [ ! -s $flxml5d ]; then 
-    pwd
-    ls -l
-    echo "$flxml5d not generated - quitting"
-    exit 5
-  fi
 
   for ens in 01 02 03 04 05 06 07 08 09 10; do
+    if [[ ${ens_run} -gt 0 ]] && [[ 10#$ens -ne 10#${ens_run} ]]; then
+      continue
+    fi
     echo "Preparing run for $ystart $mstart $ens"
+    if [[ ${expt_nmb} -eq 1 ]]; then
+      ens0=01         # fixed SPEAR ens for OBCs
+    elif [[ ${expt_nmb} -eq 2 ]]; then
+      ens0=$( echo $ens | awk '{printf("%02d", $1)}')
+    fi
+
     if [[ $ens == 01 ]]; then
-      frerun -s -x ${flxml5d} -p ncrc5.intel23 -t repro NEPphys_frcst_dailyOB_${ystart}-${mstart}-e${ens} --overwrite
+      /bin/rm -f $flxml5d
+      $DSRC/create_seasfcst_dailyOB_xml.sh $ystart $mstart $ens0 $expt_name 999
+      if [ ! -s $flxml5d ]; then 
+        pwd
+        ls -l
+        echo "$flxml5d not generated - quitting"
+        exit 5
+      fi
+    else 
+      /bin/rm -f $flxml
+      $DSRC/create_seasfcst_dailyOB_xml.sh $ystart $mstart $ens0 $expt_name
+      if [ ! -s $flxml ]; then 
+        pwd
+        ls -l
+        echo "$flxml not generated - quitting"
+        exit 4
+      fi
+    fi
+
+    if [[ $ens == 01 ]]; then
+      frerun -s -x ${flxml5d} -p ncrc5.intel23 -t repro ${expt_name}_${ystart}-${mstart}-e${ens} --overwrite
     else
-      frerun -s -x ${flxml} -p ncrc5.intel23 -t repro NEPphys_frcst_dailyOB_${ystart}-${mstart}-e${ens} --overwrite
+      frerun -s -x ${flxml} -p ncrc5.intel23 -t repro ${expt_name}_${ystart}-${mstart}-e${ens} --overwrite
     fi
   done
 done

@@ -6,30 +6,52 @@
 # For ens 1 - save 5-day average fields for model analysis
 # for other ens runs - standard output fields
 #
-# usage: ./create_seasfcst_dailyOB_xml.sh YRSTART MOSTART [5day_output - any number > 0]
+# Make ens0=01, 02, ...., 10 for 1-ens OB (I use 01) with fixed ens for all OBs (expt01)
+#      ens0=0  - for mulit-ens OBs, this will also change the expt_name expt02 
+#
+# For automated generation of xml and experiment run, use 
+#  run_seasfcst_dailyOB.sh  YEAR_START [MOSTART] <---- !!! check expt=01 or 02 before running the script 
+#
+# Change expt_nmb to run with different OBC's options
+# run_seasfcst_dailyOB.sh will call this script
+#
+# usage: ./create_seasfcst_dailyOB_xml.sh YRSTART MOSTART ENS0 [expt_name] [5day_output - any number > 0]
 # Day start: assumed day = 1 of the month
+#
 set -u 
 
 export DAWK=/ncrc/home1/Dmitry.Dukhovskoy/scripts/awk_utils
 export DXML=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml
 export DOUT=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml/xml_seasfcst_dailyOB
 export XMLTMP=NEPphys_seasfcst_dailyOB_template.xml
+export expt_name=NEPphys_frcst_dailyOB
 
-if [[ $# -lt 2 ]]; then
+if [[ $# -lt 3 ]]; then
   echo "ERROR start year months not specified"
-  echo "usage: ./create_seasfcst_dailyOB_xml.sh YRSTART MOSTART [5day_output - any number > 0]" 
+  echo "usage: ./create_seasfcst_dailyOB_xml.sh YRSTART MOSTART ENS0 [5day_output - any number > 0]" 
   exit 1
-fi
-
-DOUTP=0
-if [[ $# -eq 3 ]]; then
-  DOUTP=$3
 fi
 
 ystart=$1
 MOS=$2
 mstart=$(echo $MOS | awk '{printf("%02d", $1)}')
-ens0=01
+ens0=$3    #fixed SPEAR ens run used for OB fields, if 0 - will use seas. f/cast ens. run #
+DOUTP=0
+
+if [[ $# -eq 4 ]]; then
+  expt_name=$4
+elif [[ $# -eq 5 ]]; then
+  expt_name=$4
+  DOUTP=$5
+fi
+
+if [[ $ens0 -eq 0 ]]; then
+  echo " !!!! Multi-ensemble OBs runs with different SPEAR ens for different fcast ens runs !!! "
+  export expt_nmb=02
+else
+  echo " --- 1-ens OBs runs, SPEAR ens runs is fixed=${ens0} for different fcast ens runs --- "
+  export expt_nmb=01
+fi
 
 if [[ $DOUTP -eq 0 ]]; then
   sfx_end=""
@@ -93,9 +115,10 @@ pwd
 bnm=$( echo $XMLTMP | cut -d "_" -f-3 )
 #echo $bnm
 flout=${bnm}_${ystart}_${mstart}${sfx_end}.xml
+ens_spear=$( echo $ens0 | awk '{printf("%02d", $1)}')
 
-export obc_file=OBCs_spear_daily_init${ystart}${mstart}01_e${ens0}.nc
-export obc_subdir=${ystart}_e${ens0}
+export obc_file=OBCs_spear_daily_init${ystart}${mstart}01_e${ens_spear}.nc
+export obc_subdir=${ystart}_e${ens_spear}
 if [[ $DOUTP -eq 0 ]]; then
   export mom_diag=diag_table.MOM6_phys_standard
   export sis_diag=diag_table.SIS2_standard
@@ -111,6 +134,7 @@ sed -e 's|<property name="ystart" value=.*|<property name="ystart" value="'"${ys
     -e 's|<property name="obc_daily_file" value=.*|<property name="obc_daily_file" value="'"${obc_file}"'"/>|'\
     -e 's|<property name="obc_subdir" value=.*|<property name="obc_subdir" value="'"${obc_subdir}"'"/>|'\
     -e 's|<property name="rivspan" value=.*|<property name="rivspan" value="'"${rivspan}"'"/>|'\
+    -e 's|<property name="expt_nm1" value=.*|<property name="expt_nm1" value="'"${expt_name}"'"/>|'\
     -e 's|<property name="mom6_diag" value=.*|<property name="mom6_diag" value="'"${mom_diag}"'"/>|'\
     -e 's|<property name="sis2_diag" value=.*|<property name="sis2_diag" value="'"${sis_diag}"'"/>|' $XMLTMP > $flout
 

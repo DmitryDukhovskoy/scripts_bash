@@ -3,6 +3,9 @@
 # unzip OBC files prepared at PPAN 
 # and arrange them in the directories
 #
+# For unzipping/untarring all atmos and ocean input fields use:
+# unzip_input_dailyOB.sh
+#
 set -u
 
 export obs_dir='/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_data/forecast_input_data/obcs_spear_daily'
