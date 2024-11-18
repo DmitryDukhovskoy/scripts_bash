@@ -14,12 +14,18 @@ export DXML=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml
 export DOUT=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml/xml_seasfcst
 export XMLTMP=NEPphys_seasfcst_template.xml
 
-if [[ $# < 1 ]]; then
+if [[ $# -lt 1 ]]; then
   echo "ERROR start year not specified"
   echo "usage: ./run_seasfcst.sh YRSTART"
   exit 1
 fi
 
+if [[ $# -gt 2 ]]; then
+  echo "ERROR too many input, need only 2 input: start year and month"
+  echo "usage: ./run_seasfcst.sh YRSTART MOSTART"
+  exit 1
+fi
+  
 ystart=$1
 
 cd $DOUT

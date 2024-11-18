@@ -3,19 +3,26 @@
 # Use xml template to generate an XML for specific forecast
 # seasonal forecasts with daily OB from SPEAR forecasts
 #
-# For ens 1 - save 5-day average fields for model analysis
+# For ens run # 1 - save 5-day average fields for model analysis
 # for other ens runs - standard output fields
 #
-# Make ens0=01, 02, ...., 10 for 1-ens OB (I use 01) with fixed ens for all OBs (expt01)
-#      ens0=0  - for mulit-ens OBs, this will also change the expt_name expt02 
+# The script will create XML with SPEAR OBs using ens_spear for SPEAR ens. run #
+# To run experiment 01 (with fixed SPEAR ens run): 
+#   - generate XML with ens_spear = 01 (or whatever the fixed ens # is)
+#   - run with expt_name using ens0 = 01, 02, ..., 10
 #
-# For automated generation of xml and experiment run, use 
+# To run experiment 02 (with multi-ens SPEAR ens run): 
+#   - generate XML with ens_run = ens0 actual ens run (01, 02, ..., 10)
+#   - run with expt_name using esn0=01, 02, ..., 10 - same as  ens0
+#
+#
+# For automated generation of xml and experiment run, use another script that calls this one: 
 #  run_seasfcst_dailyOB.sh  YEAR_START [MOSTART] <---- !!! check expt=01 or 02 before running the script 
 #
 # Change expt_nmb to run with different OBC's options
 # run_seasfcst_dailyOB.sh will call this script
 #
-# usage: ./create_seasfcst_dailyOB_xml.sh YRSTART MOSTART ENS0 [expt_name] [5day_output - any number > 0]
+# usage: ./create_seasfcst_dailyOB_xml.sh YRSTART MOSTART ENS0 ens_spear [expt_name] [5day_output - any number > 0]
 # Day start: assumed day = 1 of the month
 #
 set -u 
@@ -26,9 +33,9 @@ export DOUT=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml/xml_seasfcst_dailyOB
 export XMLTMP=NEPphys_seasfcst_dailyOB_template.xml
 export expt_name=NEPphys_frcst_dailyOB
 
-if [[ $# -lt 3 ]]; then
+if [[ $# -lt 4 ]]; then
   echo "ERROR start year months not specified"
-  echo "usage: ./create_seasfcst_dailyOB_xml.sh YRSTART MOSTART ENS0 [5day_output - any number > 0]" 
+  echo "usage: ./create_seasfcst_dailyOB_xml.sh YRSTART MOSTART ENS0 ens_spear [expt_name] [Nday_output flag]" 
   exit 1
 fi
 
@@ -36,22 +43,22 @@ ystart=$1
 MOS=$2
 mstart=$(echo $MOS | awk '{printf("%02d", $1)}')
 ens0=$3    #fixed SPEAR ens run used for OB fields, if 0 - will use seas. f/cast ens. run #
-DOUTP=0
+ens_spear=$4
+DOUTP=0    # Flag for N-daily average output
 
-if [[ $# -eq 4 ]]; then
-  expt_name=$4
-elif [[ $# -eq 5 ]]; then
-  expt_name=$4
-  DOUTP=$5
+if [[ $# -eq 5 ]]; then
+  expt_name=$5
+elif [[ $# -eq 6 ]]; then
+  expt_name=$5
+  DOUTP=$6
 fi
 
-if [[ $ens0 -eq 0 ]]; then
-  echo " !!!! Multi-ensemble OBs runs with different SPEAR ens for different fcast ens runs !!! "
-  export expt_nmb=02
-else
-  echo " --- 1-ens OBs runs, SPEAR ens runs is fixed=${ens0} for different fcast ens runs --- "
-  export expt_nmb=01
+if [[ $# -gt 6 ]]; then
+  echo "ERROR: more than 6 input parameters $#"
+  exit 1
 fi
+
+echo " --- Preparing XML for ${expt_name}, OBs from SPEAR ens run=${ens_spear}  --- "
 
 if [[ $DOUTP -eq 0 ]]; then
   sfx_end=""
@@ -109,13 +116,23 @@ fi
 
 cd $DOUT
 pwd
-/bin/rm -f $XMLTMP
-/bin/cp $DXML/$XMLTMP .
+
+# CHeck if template exists and has been updated but do not touch not to disrupt mutli-job submission
+if [ ! -s $XMLTMP ]; then
+  /bin/cp $DXML/$XMLTMP .
+fi
+nch=$( diff $XMLTMP $DXML/$XMLTMP | wc -l )
+if [[ $nch -gt 0 ]]; then
+  echo "$XMLTP has been changed, updating ..."
+  /bin/rm -f $XMLTMP
+  /bin/cp $DXML/$XMLTMP .
+fi
 
 bnm=$( echo $XMLTMP | cut -d "_" -f-3 )
 #echo $bnm
-flout=${bnm}_${ystart}_${mstart}${sfx_end}.xml
-ens_spear=$( echo $ens0 | awk '{printf("%02d", $1)}')
+#flout=${bnm}_${ystart}_${mstart}${sfx_end}_e{ens0}.xml
+flout=${bnm}_${ystart}_${mstart}_e${ens0}.xml
+#ens_spear=$( echo $ens0 | awk '{printf("%02d", $1)}')
 
 export obc_file=OBCs_spear_daily_init${ystart}${mstart}01_e${ens_spear}.nc
 export obc_subdir=${ystart}_e${ens_spear}
@@ -142,8 +159,8 @@ chmod 750 $flout
 
 #ls -l
 #echo "Done "
-
 #echo "Test run: ens=$ens"
+echo "SPEAR OB from ens run=${ens_spear}"
 echo "frerun -x $flout -p ncrc5.intel23 -q debug -r test -t repro NEPphys_frcst_dailyOB_${ystart}-${mstart}-e${ens0} --overwrite"
 echo "Seasonal fcast daily OB for ens=$ens0"
 echo "frerun -x $flout -p ncrc5.intel23 -t repro NEPphys_frcst_dailyOB_${ystart}-${mstart}-e${ens0} --overwrite"

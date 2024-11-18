@@ -120,6 +120,18 @@ if [[ $ffound -eq 0 ]]; then
   report_result $yr $M1 $ens1 $prfx '!!! MISSING !!!'
 fi
 
+# Check unzipped OB files:
+cd $obc_dir
+ngz=$( ls -1 ${prfx}*.gz 2>/dev/null | wc -l )
+echo " "
+echo "Unzipped / not arranged OB files = $ngz"
+if [[ $ngz -gt 0 ]]; then
+  for fl in $( ls ${prfx}*.gz ); do
+    echo "${obc_dir} -->  ${fl} "
+  done
+fi
+
+
 echo "------------------------------------------------------"
 echo " " 
 

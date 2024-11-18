@@ -1,4 +1,13 @@
 #!/bin/bash
+#
+#SBATCH --output=logs/%j.out
+#SBATCH --job-name=unzip_input_dailyOB
+#SBATCH --time=120
+##SBATCH --nodes=1 --ntasks=8
+#SBATCH --partition=eslogin_c5
+#SBATCH --clusters=es
+#SBATCH --account=cefi
+#
 # Wrapper to check unzipped OB, atm forcing fields for dailyOB f/casts
 # will unzip untar all input fields (ocean and atmos) for all years / months / ensemles
 # if there are too many, better to use:
