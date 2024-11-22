@@ -11,12 +11,18 @@
 # Wrapper to check unzipped OB, atm forcing fields for dailyOB f/casts
 # will unzip untar all input fields (ocean and atmos) for all years / months / ensemles
 # if there are too many, better to use:
-# untar_atmos.sh: unzip_OBCfiles.sh YR1 [YR2 ]
-# unzip_OBCfiles.sh: unzip_OBCfiles.sh YR1 [YR2 ]
+#
+# usage: unzip_input_dailyOB.sh [YR] 
 #
 set -u
 
 export DINP=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_data/forecast_input_data
+
+YR1=0
+if [[ $# -gt 0 ]]; then
+  YR1=$1
+  echo "Requested year=$YR1"
+fi
 
 # OB files:
 export obs_dir=$DINP/obcs_spear_daily
@@ -28,7 +34,6 @@ echo "Found ${nzip} ${prfx}*.gz files in  $obs_dir"
 
 if [[ $nzip -gt 0 ]]; then
   for fl in $( ls ${prfx}*.gz ); do
-    echo "Processing ${fl} ..."
     dmm=$( echo ${fl} | cut -d"_" -f5 )
 #    ens=$( echo ${dmm:1:2} | awk '{printf("%02d", $1)}' )
     nchar=$( echo ${prfx} | wc -m )
@@ -36,6 +41,12 @@ if [[ $nzip -gt 0 ]]; then
     yr=${fl:${ncharS}:4}
     ens=${dmm:1:2}
     dir_new=${yr}_e${ens}
+
+    if [[ $YR1 -gt 0 ]] && [[ $yr -ne $YR1 ]]; then
+      continue
+    fi
+
+    echo "Processing ${fl} ..."
     mkdir -pv $dir_new
     /bin/mv $fl $dir_new/.
     gunzip $dir_new/${fl}

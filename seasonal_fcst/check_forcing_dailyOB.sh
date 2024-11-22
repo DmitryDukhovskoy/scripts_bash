@@ -28,7 +28,7 @@ function report_result {
   echo "  ${yr} Months:${MM} ens${ens} ${fldnm} ==>   ${result} "
 }
 
-
+MONTHS=(1 4 7 10)
 YR1=$1
 YR2=$YR1
 M1=0
@@ -96,13 +96,24 @@ for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
     if [[ $ens1 -gt 0 ]] && [[ ! 10#$ens -eq 10#$ens1 ]]; then
       continue
     fi
+    ndirs=$( ls -d ${yr}_e${ens} 2>/dev/null | wc -l )
+#    echo "${yr}_e${ens} $ndirs"
+    if [[ $ndirs -eq 0 ]]; then
+      for mo in ${MONTHS[@]}; do
+        MM=$( echo $mo | awk '{printf("%02d", $1)}' )  
+        report_result $yr $MM $ens $prfx '!!! MISSING !!!'
+      done
+      continue
+    fi
+
     for drnm in $( ls -d ${yr}_e${ens} ); do
       if [ ! -d $drnm ]; then
         echo "$drnm does not exist, no data"
         continue
       fi
-      for MM in 01 04 07 10; do
-        if [[ $M1 -gt 0 ]] && [[ ! $MM -eq $M1 ]]; then
+      for mo in ${MONTHS[@]}; do
+        MM=$( echo $mo | awk '{printf("%02d", $1)}' )  
+        if [[ $M1 -gt 0 ]] && [[ 10#$MM -ne 10#$M1 ]]; then
           continue
         fi
         ffound=1
@@ -116,9 +127,9 @@ for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
   done
 done
 
-if [[ $ffound -eq 0 ]]; then
-  report_result $yr $M1 $ens1 $prfx '!!! MISSING !!!'
-fi
+#if [[ $ffound -eq 0 ]]; then
+#  report_result $yr $M1 $ens1 $prfx '!!! MISSING !!!'
+#fi
 
 # Check unzipped OB files:
 cd $obc_dir
@@ -147,7 +158,7 @@ for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
     yrS=$( echo $rspan | cut -d"-" -f1 )
     yrE=$( echo $rspan | cut -d"-" -f2 )
     if [[ $yr -ge $yrS ]] && [[ $yr -lt $yrE ]]; then
-      report_result $yr "1-12" "01-10" $prfx 'ok'
+      report_result $yr "1-12" "01-10" $flriv 'ok'
       ifound=1
       break
     fi
@@ -157,9 +168,39 @@ for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
   fi
 done
 
+echo "------------------------------------------------------"
+echo " " 
+
+echo "MOM and SIS restart files:"
+RDIR=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_data/forecast_input_data/restart
+momres=MOM.res.nc
+sisres=ice_model.res.nc
+for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
+  for mo in ${MONTHS[@]}; do
+    MM=$( echo $mo | awk '{printf("%02d", $1)}' )  
+    if [[ $M1 -gt 0 ]] && [[ 10#$MM -ne 10#$M1 ]]; then
+      continue
+    fi
+    rest_dir=${RDIR}/${yr}${MM}
+    if [ -d ${rest_dir} ]; then
+      if [ -s ${rest_dir}/${momres} ]; then
+        echo "  ${yr}-${MM} MOM restart:        ok"
+      else 
+        echo "  ${yr}-${MM} MOM restart:        !!! MISSING !!!"
+      fi
+      if [ -s ${rest_dir}/${sisres} ]; then
+        echo "  ${yr}-${MM} SIS2 restart:       ok"
+      else 
+        echo "  ${yr}-${MM} SIS2 restart:       !!! MISSING !!!"
+      fi
+    else
+      echo "  ${yr}-${MM} MOM restart:        !!! MISSING !!!"
+      echo "  ${yr}-${MM} SIS2 restart:       !!! MISSING !!!"
+    fi
+  done
+done
 
 echo "       "
-echo " All Done "
 
 exit 0 
 

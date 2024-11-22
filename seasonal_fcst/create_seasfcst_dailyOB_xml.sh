@@ -43,7 +43,9 @@ ystart=$1
 MOS=$2
 mstart=$(echo $MOS | awk '{printf("%02d", $1)}')
 ens0=$3    #fixed SPEAR ens run used for OB fields, if 0 - will use seas. f/cast ens. run #
+ens0=$( echo $ens0 | awk '{printf("%02d", $1)}')
 ens_spear=$4
+ens_spear=$( echo ${ens_spear} | awk '{printf("%02d", $1)}')
 DOUTP=0    # Flag for N-daily average output
 
 if [[ $# -eq 5 ]]; then
@@ -161,7 +163,7 @@ chmod 750 $flout
 #echo "Done "
 #echo "Test run: ens=$ens"
 echo "SPEAR OB from ens run=${ens_spear}"
-echo "frerun -x $flout -p ncrc5.intel23 -q debug -r test -t repro NEPphys_frcst_dailyOB_${ystart}-${mstart}-e${ens0} --overwrite"
+echo "frerun -x $flout -p ncrc5.intel23 -q debug -r test -t repro NEPphys_frcst_dailyOB02_${ystart}-${mstart}-e${ens0} --overwrite"
 echo "Seasonal fcast daily OB for ens=$ens0"
 echo "frerun -x $flout -p ncrc5.intel23 -t repro NEPphys_frcst_dailyOB_${ystart}-${mstart}-e${ens0} --overwrite"
 

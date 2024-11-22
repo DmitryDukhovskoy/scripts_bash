@@ -16,7 +16,7 @@
 #
 # Day start: assumed day = 1 of the month
 #
-# usage: ./run_seasfcst.sh YRSTART [MSTART] [ensemble]
+# usage: ./run_seasfcst_dailyOB.sh YRSTART [MSTART] [ensemble]
 #   run_seasfcst.sh YRSTART - prepare xml's to run all ensemlbes that start in YRSTART and months=1,4,7,10
 #   run_seasfcst.sh YRSTART MSTART - -"- -"-  -"- all ensembles that start in YRSTART MSTART
 #   run_seasfcst.sh YRSTART MSTART ENS - -"- -"-  -"- ensemble ENS that start in YRSTART MSTART
@@ -45,9 +45,18 @@ fi
 
 if [[ $# -lt 1 ]]; then
   echo "ERROR start year not specified"
-  echo "usage: ./run_seasfcst.sh YRSTART [MSTART]"
+  echo "usage: ./run_seasfcst_dailyOB.sh YRSTART [MSTART] [ENS]"
+  echo "e.g. run all ensembels for 1997/04:  run_seasfcst_dailyOB.sh 1997 4"
+  echo "e.g. run ensembel 8 for 1997/04:     run_seasfcst_dailyOB.sh 1997 4 8"
   exit 1
 fi
+
+if [[ $# -gt 3 ]]; then
+  echo "ERROR max input parameters 3"
+  echo "usage: ./run_seasfcst_dailyOB.sh YRSTART [MSTART] [ENS]"
+  exit 1
+fi
+
 
 ystart=$1
 MM=0
