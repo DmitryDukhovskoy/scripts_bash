@@ -12,7 +12,7 @@
 # will unzip untar all input fields (ocean and atmos) for all years / months / ensemles
 # if there are too many, better to use:
 #
-# usage: unzip_input_dailyOB.sh [YR] 
+# usage: [sbatch] unzip_input_dailyOB.sh [YR] 
 #
 set -u
 
@@ -29,8 +29,14 @@ export obs_dir=$DINP/obcs_spear_daily
 prfx='OBCs_spear_daily_init'
 
 cd $obs_dir
-nzip=$( ls -l ${prfx}*.gz 2> /dev/null | wc -l )
-echo "Found ${nzip} ${prfx}*.gz files in  $obs_dir"
+if [[ $YR1 -gt 100 ]]; then
+  nzip=$( ls -l ${prfx}*${YR1}*.gz 2> /dev/null | wc -l )
+  echo "For ${YR1} found ${nzip} ${prfx}*.gz files in  $obs_dir"
+
+else
+  nzip=$( ls -l ${prfx}*.gz 2> /dev/null | wc -l )
+  echo "Found total ${nzip} ${prfx}*.gz files in  $obs_dir"
+fi
 
 if [[ $nzip -gt 0 ]]; then
   for fl in $( ls ${prfx}*.gz ); do
@@ -63,6 +69,14 @@ echo "Found ${nzip} ${prfx}*.gz files in  $atm_dir"
 
 if [[ $nzip -gt 0 ]]; then
   for ftar in $( ls ${prfx}*.tar.gz ); do
+    spear_atmos_201304.tar.gz
+    dmm=$( echo ${fl} | cut -d"." -f1 )
+    yratm=$( echo ${dmm} | cut -d"_" -f3 )
+
+    if [[ $YR1 -gt 0 ]] && [[ $yratm -ne $YR1 ]]; then
+      continue
+    fi
+
     echo "Untarring $ftar"
     tar -xzvf $ftar
     status=$?

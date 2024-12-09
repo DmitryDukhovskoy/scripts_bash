@@ -28,6 +28,8 @@ export DAWK=/ncrc/home1/Dmitry.Dukhovskoy/scripts/awk_utils
 export DSRC=/ncrc/home1/Dmitry.Dukhovskoy/scripts/seasonal_fcst
 export DXML=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml
 export DOUT=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml/xml_seasfcst_dailyOB
+export DARCH=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/fre/NEP/seasonal_daily
+export PLTF=ncrc5.intel23-repro
 export XMLTMP=NEPphys_seasfcst_dailyOB_template.xml
 # expt number: 01 - with 1 SPEAR ens used to generate OBCs
 #              02 - multi-ens OBCs, i.e. for each ens f/cast OB used corresponding SPEAR ens run
@@ -91,6 +93,7 @@ for mstart in 01 04 07 10; do
     if [[ ${ens_run} -gt 0 ]] && [[ 10#$ens -ne 10#${ens_run} ]]; then
       continue
     fi
+    echo "  "
     echo "Preparing run for $ystart month=$mstart ens=$ens"
     ens0=$( echo $ens | awk '{printf("%02d", $1)}')
 
@@ -99,6 +102,15 @@ for mstart in 01 04 07 10; do
     elif [[ 10#${expt_nmb} -eq 2 ]]; then
       ens_spear=$ens0
     fi
+
+# Check if the run exists
+  dir_arch=$DARCH/${expt_name}_${ystart}-${mstart}-e${ens}/${PLTF}/archive/history
+  fltar=${ystart}${mstart}01.nc.tar
+  if [ -d $dir_arch ] && [ -s $dir_arch/${fltar} ]; then
+    echo "Run already finished: $dir_arch/${fltar}"
+    echo " Skipping ..."
+    continue
+  fi
 
 # Create XML's with OBs from a fixed SPEAR ens or multi-ens SPEAR OB
     flxml=${bnm}_${ystart}_${mstart}_e${ens0}.xml

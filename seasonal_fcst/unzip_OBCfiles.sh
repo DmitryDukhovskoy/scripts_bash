@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # unzip OBC files prepared at PPAN 
 # and arrange them in the directories

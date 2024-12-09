@@ -14,7 +14,11 @@ export atm_dir=$FDIR/atmos
 export riv_dir=$FDIR/runoff
 
 if [[ $# -lt 1 ]]; then
-  echo "usage: ./check_forcing_dailyOB.sh YR1 [YR2 ]"
+  echo "usage: ./check_forcing_dailyOB.sh YR1 [YR2 ] [M1] [ens1]"
+  echo "     ./check_forcing_dailyOB.sh 2011           - check all forcing, restart, OB for 2011"
+  echo "     ./check_forcing_dailyOB.sh 2011 2015      -  -"-  -"-  for 2011-2015"
+  echo "     ./check_forcing_dailyOB.sh 2011 4         -  -"-  -"-  for 2011 Month 4 all ens"
+  echo "     ./check_forcing_dailyOB.sh 2011 4 10      -  -"-  -"-  for 2011 Month 4 ens=10"
   echo " Start year is missing"
   exit 1
 fi
@@ -37,16 +41,19 @@ if [[ $# -eq 2 ]]; then
   if [[ $2 -gt 100 ]]; then
     YR2=$2
   else
-    M1=$2
+#    M1=$2
+    MONTHS=($2)
   fi
 fi 
 
 if [[ $# -eq 3 ]]; then
   if [[ $2 -gt 100 ]]; then
     YR2=$2
-    M1=$3
+#    M1=$3
+    MONTHS=($3)
   else
-    M1=$2
+#    M1=$2
+    MONTHS=($2)
     ens1=$3
   fi
 fi
@@ -62,25 +69,41 @@ for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
     if [[ $ens1 -gt 0 ]] && [[ ! 10#$ens -eq 10#$ens1 ]]; then
       continue
     fi
-    for drnm in $( ls -d ${yr}-??-e${ens} ); do
-      MM=$( echo $drnm | cut -d"-" -f2 )
-      if [[ $M1 -gt 0 ]] && [[ ! $MM -eq $M1 ]]; then
-        continue
-      fi
-      ffound=1
-      for fldnm in lwdn_sfc precip q_ref slp swdn_sfc t_ref u_ref v_ref; do
-        if [ -s $drnm/${prfx}*${yr}${MM}01-*${fldnm}.nc ]; then
-          report_result $yr $MM $ens $fldnm 'ok'
+    for mo in ${MONTHS[@]}; do
+      MM=$( echo $mo | awk '{printf("%02d", $1)}' )  
+      for drnm in $( ls -d ${yr}-${MM}-e${ens} ); do
+#      MM=$( echo $drnm | cut -d"-" -f2 )
+#      echo "$drnm MM=$MM"
+#      if [[ $M1 -gt 0 ]] && [[ $MM -ne $M1 ]]; then
+#        continue
+#      fi
+        ffound=$(( ffound+=1 ))
+        natm=0
+        nexpct=8
+        for fldnm in lwdn_sfc precip q_ref slp swdn_sfc t_ref u_ref v_ref; do
+          if [ -s $drnm/${prfx}*${yr}${MM}01-*${fldnm}.nc ]; then
+#          report_result $yr $MM $ens $fldnm 'ok'
+           natm=$(( natm+=1 ))
+#        else
+#          report_result $yr $MM $ens $fldnm '!!! MISSING !!!'
+          fi
+        done
+
+        if [[ 10#$natm -eq 10#$nexpct ]]; then
+          report_result $yr $MM $ens '' "ok: ${natm} atm fields"
         else
-          report_result $yr $MM $ens $fldnm '!!! MISSING !!!'
-        fi
+          report_result $yr $MM $ens '' "!!! MISSING !!! $natm atm fields, expected $nexpct"
+       fi
+
       done
     done
   done
 done
   
 if [[ $ffound -eq 0 ]]; then
-  report_result $yr $M1 $ens1 "all atmospheric fields" '!!! MISSING !!!'
+  for MM in ${MONTHS[@]}; do
+    report_result $yr $MM $ens1 "all atmospheric fields" '!!! MISSING !!!'
+  done
 fi
 
 echo "------------------------------------------------------"
@@ -178,9 +201,9 @@ sisres=ice_model.res.nc
 for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
   for mo in ${MONTHS[@]}; do
     MM=$( echo $mo | awk '{printf("%02d", $1)}' )  
-    if [[ $M1 -gt 0 ]] && [[ 10#$MM -ne 10#$M1 ]]; then
-      continue
-    fi
+#    if [[ $M1 -gt 0 ]] && [[ 10#$MM -ne 10#$M1 ]]; then
+#      continue
+#    fi
     rest_dir=${RDIR}/${yr}${MM}
     if [ -d ${rest_dir} ]; then
       if [ -s ${rest_dir}/${momres} ]; then
