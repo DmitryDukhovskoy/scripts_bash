@@ -48,8 +48,8 @@ fi
 if [[ $# -lt 1 ]]; then
   echo "ERROR start year not specified"
   echo "usage: ./run_seasfcst_dailyOB.sh YRSTART [MSTART] [ENS]"
-  echo "e.g. run all ensembels for 1997/04:  run_seasfcst_dailyOB.sh 1997 4"
-  echo "e.g. run ensembel 8 for 1997/04:     run_seasfcst_dailyOB.sh 1997 4 8"
+  echo "e.g. run all ensembles for 1997/04:  run_seasfcst_dailyOB.sh 1997 4"
+  echo "e.g. run ensemble 8 for 1997/04:     run_seasfcst_dailyOB.sh 1997 4 8"
   exit 1
 fi
 

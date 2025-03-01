@@ -65,15 +65,19 @@ prfx='spear_atmos_'
 
 cd $atm_dir
 nzip=$( ls -l ${prfx}*.tar.gz 2> /dev/null | wc -l )
-echo "Found ${nzip} ${prfx}*.gz files in  $atm_dir"
+echo "Atmos fields: Found ${nzip} ${prfx}*.gz files in  $atm_dir"
 
 if [[ $nzip -gt 0 ]]; then
   for ftar in $( ls ${prfx}*.tar.gz ); do
-    spear_atmos_201304.tar.gz
-    dmm=$( echo ${fl} | cut -d"." -f1 )
-    yratm=$( echo ${dmm} | cut -d"_" -f3 )
+    echo $ftar
+    #spear_atmos_201304.tar.gz
+    dmm=$( echo ${ftar} | cut -d"." -f1 )
+    date_stamp=$( echo ${dmm} | cut -d"_" -f3 )
+    yratm=${date_stamp:0:4}
 
+#    echo $yratm
     if [[ $YR1 -gt 0 ]] && [[ $yratm -ne $YR1 ]]; then
+      echo "Skipping $yratm "
       continue
     fi
 

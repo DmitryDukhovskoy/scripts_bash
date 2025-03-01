@@ -2,7 +2,7 @@
 #
 # Clean output fields from old runs
 # usage: ./clean_output.sh YR [MM] [ens1] [ens2] 
-#
+# 
 set -u
 
 export OUTDIR=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/fre/NEP/seasonal_daily
