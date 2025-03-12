@@ -30,89 +30,37 @@ set -u
 export DAWK=/ncrc/home1/Dmitry.Dukhovskoy/scripts/awk_utils
 export DXML=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml
 export DOUT=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml/xml_seasfcst_dailyOB
-
 export XMLTMP=NEPphys_seasfcst_dailyOB_template.xml
 export expt_name=NEPphys_frcst_dailyOB
-export irlx_rate=24     # only used if irlx>0, strongest rlx time (hr) 
-export irlx=0
-ens_spear=0
-ens0=0
-mstart=0
-ystart=0
+
+if [[ $# -lt 4 ]]; then
+  echo "ERROR start year months not specified"
+  echo "usage: ./create_seasfcst_dailyOB_xml.sh YRSTART MOSTART ENS0 ens_spear [expt_name] [Nday_output flag]" 
+  exit 1
+fi
+
+ystart=$1
+MOS=$2
+mstart=$(echo $MOS | awk '{printf("%02d", $1)}')
+ens0=$3    #fixed SPEAR ens run used for OB fields, if 0 - will use seas. f/cast ens. run #
+ens0=$( echo $ens0 | awk '{printf("%02d", $1)}')
+ens_spear=$4
+ens_spear=$( echo ${ens_spear} | awk '{printf("%02d", $1)}')
 DOUTP=0    # Flag for N-daily average output
 
-# Function to print usage message
-usage() {
-  echo "Usage: $0 --ys 1994 --ms 10 --ens 3 --enspr 3 [--expt_name NEPphys_frcst_dailyOB] [--xmltmp NEPphys_tmpt.xml [--dayout 1] [irlx 1]"
-  echo "  --ys          year to start the f/cast" 
-  echo "  --ms          month to start the f/cast" 
-  echo "  --ens         ensemble # to run"
-  echo "  --enspr       SPEAR ensemble to use"
-  echo "  --expt_name   experiment name, optional, default=${expt_name}"
-  echo "  --dayout      save N-daily 3D output fields in addition to standard output files, optional, default - no"
-  echo "  --xmltmp      XML template filename to use, default=${XMLTMP}"
-  echo "  --ilrx        =1: ice relaxation flag, default - no ice relaxation"
-  exit 1
-}
+if [[ $# -eq 5 ]]; then
+  expt_name=$5
+elif [[ $# -eq 6 ]]; then
+  expt_name=$5
+  DOUTP=$6
+fi
 
-# Parse the command-line arguments
-while [[ $# -gt 0 ]]; do
-  case $1 in
-    --ys)
-      ystart=$2
-      shift 2 # Move past the flag and its arg. to the next flag
-      ;;
-    --ms)
-      mstart="$2"
-      shift 2 
-      ;;
-    --ens)
-      ens0="$2"
-      shift 2
-      ;;
-    --enspr)
-      ens_spear="$2"
-      shift 2
-      ;;
-    --expt_name)
-      expt_name="$2"
-      shift 2
-      ;;
-    --dayout)
-      DOUTP="$2"
-      shift 2
-      ;;
-    --xmltmp)
-      XMLTMP="$2"
-      shift 2
-      ;;
-    --irlx)
-      irlx="$2"
-      shift 2
-      ;;
-    *)
-      echo "Error: Unrecognized option $1"
-      usage
-      ;;
-  esac
-done
-
-
-if (( $ystart < 1993 || $mstart == 0 || $ens_spear == 0 || $ens0 == 0 )); then
-  echo "ERROR missing required fields: start year months ens_nmb ens_spear "
-  usage
+if [[ $# -gt 6 ]]; then
+  echo "ERROR: more than 6 input parameters $#"
   exit 1
 fi
 
-mstart=$(echo $mstart | awk '{printf("%02d", $1)}')
-ens0=$( echo $ens0 | awk '{printf("%02d", $1)}')
-ens_spear=$( echo ${ens_spear} | awk '{printf("%02d", $1)}')
-
-if [[ $irlx -gt 0 ]]; then
-  echo " --- Preparing XML for ${expt_name}, OBs from SPEAR ens run=${ens_spear}  with ice relaxation --- "
-else
-  echo " --- Preparing XML for ${expt_name}, OBs from SPEAR ens run=${ens_spear}  --- "
-fi
+echo " --- Preparing XML for ${expt_name}, OBs from SPEAR ens run=${ens_spear}  --- "
 
 if [[ $DOUTP -eq 0 ]]; then
   sfx_end=""
@@ -140,15 +88,11 @@ dayE=$( echo "ADD DAYS" | awk -f dates.awk yr1=$ystart mo1=$mstart d1=1 ndays=$n
 
 
 jdayS=$(echo "YRMO START DAY" | awk -f dates.awk y01=2004 MM=04 dd=1 | awk '{printf("%02d",$1)}')
+
 atmosspan=${ystart}${mstart}01-${yrE}${moE}${dayE}
-ynext=$(( ystart+1 ))
 
 echo "atmosspan = ${atmosspan}"
 
-# ice relax. files:
-irlx_rate=$( echo $irlx_rate | awk '{printf("%03d", $1)}')
-irlx_rate_file=relax_rate_${irlx_rate}hrs.nc
-irlx_fld_file=PIOMAS_ithkn_iconc_${ystart}_${ynext}_monthly.nc
 # Determine time span for river data grouped in Nyears blocks
 export DRIV=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_data/forecast_input_data/runoff
 export flriver=XXX
@@ -181,7 +125,7 @@ if [ ! -s $XMLTMP ]; then
 fi
 nch=$( diff $XMLTMP $DXML/$XMLTMP | wc -l )
 if [[ $nch -gt 0 ]]; then
-  echo "$XMLTMP has been changed, updating ..."
+  echo "$XMLTP has been changed, updating ..."
   /bin/rm -f $XMLTMP
   /bin/cp $DXML/$XMLTMP .
 fi
@@ -209,8 +153,6 @@ sed -e 's|<property name="ystart" value=.*|<property name="ystart" value="'"${ys
     -e 's|<property name="obc_daily_file" value=.*|<property name="obc_daily_file" value="'"${obc_file}"'"/>|'\
     -e 's|<property name="obc_subdir" value=.*|<property name="obc_subdir" value="'"${obc_subdir}"'"/>|'\
     -e 's|<property name="rivspan" value=.*|<property name="rivspan" value="'"${rivspan}"'"/>|'\
-    -e 's|<property name="irlx_rate_file" value=.*|<property name="irlx_rate_file" value="'"${irlx_rate_file}"'"/>|'\
-    -e 's|<property name="irlx_fld_file" value=.*|<property name="irlx_fld_file" value="'"${irlx_fld_file}"'"/>|'\
     -e 's|<property name="expt_nm1" value=.*|<property name="expt_nm1" value="'"${expt_name}"'"/>|'\
     -e 's|<property name="mom6_diag" value=.*|<property name="mom6_diag" value="'"${mom_diag}"'"/>|'\
     -e 's|<property name="sis2_diag" value=.*|<property name="sis2_diag" value="'"${sis_diag}"'"/>|' $XMLTMP > $flout

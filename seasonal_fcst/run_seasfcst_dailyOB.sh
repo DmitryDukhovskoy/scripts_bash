@@ -1,5 +1,12 @@
 #!/bin/bash 
+#  
+# The MOM6-SIS2 executable should be created first, e.g.:
+# in XML dir:
+# dsd@gaea56:NEP_xml\> fremake -x NEPphys_seasfcstIrlx_dailyOB03_tmplt.xml -p ncrc5.intel23 -t repro FMS2_MOM6_SIS2_compile_irlx
+# Using source directory = /gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/fre/NEP/seasonal_daily/FMS2_MOM6_SIS2_compile_irlx/src...
 # 
+# TO SUBMIT => sleep 1; sbatch /gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/fre/NEP/seasonal_daily/FMS2_MOM6_SIS2_compile_irlx/ncrc5.intel23-repro/exec/compile_FMS2_MOM6_SIS2_compile_irlx.csh
+#
 # Generate XML for seasonal f/casts for months 1, 4, 7, 10 all ensmbles for 1 year
 # and automatically submit runs
 #
@@ -8,18 +15,18 @@
 # ens 01 runs with 5day mean output and standard output fields
 # all other ens runs - standard output fields only
 #
-# usage: ./run_seasfcst_dailyOB_xml.sh YRSTART [MOSTART]
-# ./run_seasfcst_dailyOB_xml.sh YRSTART - will create xml's and submit jobs for
-#                  all forecasts that start YRSTART Months=1,4,7,10 and all ensembles
-# ./run_seasfcst_dailyOB_xml.sh YRSTART MOSTART   - will create xml's and submit jobs 
-#                  all forecasts that start on YRSTART MOSTART day =1 all ensembles
 #
+# use keyword and optional arguments for specifying the expt to run
+# Check run_seasfcst_dailyOB_OLD.sh - old version that was used for 1st seas. f/casts expt02 
+# usage: ./run_seasfcst_dailyOB.sh -d [expt_nmb: 3] -y [year start: 1993, ...] -m [month start: 1, ...,] 
+#                                 -e[ens nmb: 7] -i [logical flag for ice relax]
+#
+# e.g.:
+#  ./run_seasfcst_dailyOB.sh -d 3 -y 1994 -m 7 -e 5 -i  --> prepare XML and runs expt03 that starts
+#                                                               1994 / 7 ens#=05 with ice relaxation
+#  ./run_seasfcst_dailyOB.sh -d 3 - y 1993 --> prepare XML and runs expt03 that starts 1993 for
+#                                              all months=1,4,7,10, and all ensmbls=1, ... 10
 # Day start: assumed day = 1 of the month
-#
-# usage: ./run_seasfcst_dailyOB.sh YRSTART [MSTART] [ensemble]
-#   run_seasfcst.sh YRSTART - prepare xml's to run all ensemlbes that start in YRSTART and months=1,4,7,10
-#   run_seasfcst.sh YRSTART MSTART - -"- -"-  -"- all ensembles that start in YRSTART MSTART
-#   run_seasfcst.sh YRSTART MSTART ENS - -"- -"-  -"- ensemble ENS that start in YRSTART MSTART
 #
 #
 set -u 
@@ -31,9 +38,63 @@ export DOUT=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml/xml_seasfcst_dailyOB
 export DARCH=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/fre/NEP/seasonal_daily
 export PLTF=ncrc5.intel23-repro
 export XMLTMP=NEPphys_seasfcst_dailyOB_template.xml
+
+# Set defaults:
 # expt number: 01 - with 1 SPEAR ens used to generate OBCs
 #              02 - multi-ens OBCs, i.e. for each ens f/cast OB used corresponding SPEAR ens run
-export expt_nmb=02   # <------  Check this before running the script 
+#              03 - multi-ens OBCs, i.e. for each ens f/cast OB used corresponding SPEAR ens run with ice rlx
+export expt_nmb=03   # <------  Check this before running the script 
+export ystart=0      # this has to be specified
+export MM=0
+export ens_run=0
+export ice_relax=0
+
+# Function to print usage message
+usage() {
+  echo "Usage: $0 -d 3  -y 2010 -m 7 -e 1 -i"
+  echo "  -d          experiment number, default: ${expt_nmb}"
+  echo "  -y          year to start the f/cast, required" 
+  echo "  -m          month to start the f/cast, default: 1,4,7,10" 
+  echo "  -e          ensemble # to run, default: all ensmbls: 1, ..., 10"
+  echo "  -i          flag to use ice relaxation, default - no ice relax"
+  exit 1
+}
+
+# Pars flags for optional arguments:
+while getopts "d:y:m:e:i" opt; do
+  case $opt in
+    d)
+      expt_nmb="$OPTARG"
+      ;;
+    y)
+      ystart="$OPTARG"
+      ;;
+    m)
+      MM="$OPTARG"
+      ;;
+    e)
+      ens_run="$OPTARG"
+      ;;
+    i)
+      ice_relax=1      # Boolean flag to turn ice relaxation on
+      ;;
+    *)
+      echo "unrecognized option / flag"
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+if [[ $ice_relax -eq 1 ]]; then
+  XMLTMP='NEPphys_seasfcstIrlx_dailyOB_tmplt.xml'
+fi
+
+if [[ -ystart -eq 0 ]]; then
+  echo "ystart is required: ./run_seasfcst_dailyOB.sh -y 1993"
+  usage
+  exit 1
+fi
 
 if [[ ${expt_nmb} -eq 1 ]]; then
   echo "======================================================================================= "
@@ -43,35 +104,13 @@ elif [[ ${expt_nmb} -eq 2 ]]; then
   echo "======================================================================================= "
   echo " !!!! 02: Multi-ensemble OBs runs with different SPEAR ens for different fcast ens runs !!! "
   echo "======================================================================================= "
+elif [[ ${expt_nmb} -eq 3 ]]; then
+  echo "======================================================================================= "
+  echo " !!!! 03: Multi-ensemble OBs runs with daily SPEAR ens and ice relaxation               !!! "
+  echo "======================================================================================= "
 fi
 
-if [[ $# -lt 1 ]]; then
-  echo "ERROR start year not specified"
-  echo "usage: ./run_seasfcst_dailyOB.sh YRSTART [MSTART] [ENS]"
-  echo "e.g. run all ensembles for 1997/04:  run_seasfcst_dailyOB.sh 1997 4"
-  echo "e.g. run ensemble 8 for 1997/04:     run_seasfcst_dailyOB.sh 1997 4 8"
-  exit 1
-fi
-
-if [[ $# -gt 3 ]]; then
-  echo "ERROR max input parameters 3"
-  echo "usage: ./run_seasfcst_dailyOB.sh YRSTART [MSTART] [ENS]"
-  exit 1
-fi
-
-
-ystart=$1
-MM=0
-ens_run=0
-if [[ $# -eq 2 ]]; then
-  MM=$2
-fi
-
-if [[ $# -eq 3 ]]; then
-  MM=$2
-  ens_run=$3
-fi
-
+expt_nmb=$( echo $expt_nmb | awk '{printf("%02d", $1)}')
 sfx_end="-dayout"   # for 5-day output 
 bnm=$( echo $XMLTMP | cut -d "_" -f-3 )
 expt_name=NEPphys_frcst_dailyOB${expt_nmb}
@@ -101,6 +140,8 @@ for mstart in 01 04 07 10; do
       ens_spear=01         # fixed SPEAR ens for OBCs
     elif [[ 10#${expt_nmb} -eq 2 ]]; then
       ens_spear=$ens0
+    elif [[ 10#${expt_nmb} -ge 3 ]]; then
+      ens_spear=$ens0
     fi
 
 # Check if the run exists
@@ -116,10 +157,12 @@ for mstart in 01 04 07 10; do
     flxml=${bnm}_${ystart}_${mstart}_e${ens0}.xml
     /bin/rm -f $flxml
     if [[ $ens == 01 ]]; then
-      $DSRC/create_seasfcst_dailyOB_xml.sh $ystart $mstart $ens0 $ens_spear $expt_name 999
+      $DSRC/create_seasfcst_dailyOB_xml.sh --ys $ystart --ms $mstart --ens $ens0 --enspr $ens_spear \
+                                 --expt_name $expt_name --dayout 5 --xmltmp $XMLTMP --irlx $ice_relax
     else 
       /bin/rm -f $flxml
-      $DSRC/create_seasfcst_dailyOB_xml.sh $ystart $mstart $ens0 $ens_spear $expt_name
+      $DSRC/create_seasfcst_dailyOB_xml.sh --ys $ystart --ms $mstart --ens $ens0 --enspr $ens_spear \
+                                 --expt_name $expt_name --xmltmp $XMLTMP --irlx $ice_relax
     fi
     if [ ! -s $flxml ]; then 
       pwd
