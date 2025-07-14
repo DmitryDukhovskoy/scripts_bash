@@ -33,8 +33,8 @@ export DOUT=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_xml/xml_seasfcst_dailyOB
 
 export XMLTMP=NEPphys_seasfcst_dailyOB_template.xml
 export expt_name=NEPphys_frcst_dailyOB
-export irlx_rate=24     # only used if irlx>0, strongest rlx time (hr) 
-export irlx=0
+#export irlx_rate=24     # only used if irlx>0, strongest rlx time (hr) 
+export irlx=0           # max irlx rate, hours, =0 - no relaxation
 ens_spear=0
 ens0=0
 mstart=0
@@ -43,7 +43,7 @@ DOUTP=0    # Flag for N-daily average output
 
 # Function to print usage message
 usage() {
-  echo "Usage: $0 --ys 1994 --ms 10 --ens 3 --enspr 3 [--expt_name NEPphys_frcst_dailyOB] [--xmltmp NEPphys_tmpt.xml [--dayout 1] [irlx 1]"
+  echo "Usage: $0 --ys 1994 --ms 10 --ens 3 --enspr 3 [--expt_name NEPphys_frcst_dailyOB] [--xmltmp NEPphys_tmpt.xml [--dayout 1] [irlx 24]"
   echo "  --ys          year to start the f/cast" 
   echo "  --ms          month to start the f/cast" 
   echo "  --ens         ensemble # to run"
@@ -51,7 +51,7 @@ usage() {
   echo "  --expt_name   experiment name, optional, default=${expt_name}"
   echo "  --dayout      save N-daily 3D output fields in addition to standard output files, optional, default - no"
   echo "  --xmltmp      XML template filename to use, default=${XMLTMP}"
-  echo "  --ilrx        =1: ice relaxation flag, default - no ice relaxation"
+  echo "  --ilrx        max relax. hours, >0 - relxation applied,  default=${irlx}"
   exit 1
 }
 
@@ -109,9 +109,9 @@ ens0=$( echo $ens0 | awk '{printf("%02d", $1)}')
 ens_spear=$( echo ${ens_spear} | awk '{printf("%02d", $1)}')
 
 if [[ $irlx -gt 0 ]]; then
-  echo " --- Preparing XML for ${expt_name}, OBs from SPEAR ens run=${ens_spear}  with ice relaxation --- "
+  echo " --- Preparing XML for ${expt_name}, dailyOBs SPEAR ens run=${ens_spear}  ice rlx ${irlx}hrs --- "
 else
-  echo " --- Preparing XML for ${expt_name}, OBs from SPEAR ens run=${ens_spear}  --- "
+  echo " --- Preparing XML for ${expt_name}, dailyOBs SPEAR ens run=${ens_spear}  NO irlx--- "
 fi
 
 if [[ $DOUTP -eq 0 ]]; then
@@ -146,9 +146,10 @@ ynext=$(( ystart+1 ))
 echo "atmosspan = ${atmosspan}"
 
 # ice relax. files:
-irlx_rate=$( echo $irlx_rate | awk '{printf("%03d", $1)}')
+irlx_rate=$( echo $irlx | awk '{printf("%03d", $1)}')
 irlx_rate_file=relax_rate_${irlx_rate}hrs.nc
-irlx_fld_file=PIOMAS_ithkn_iconc_${ystart}_${ynext}_monthly.nc
+#irlx_fld_file=PIOMAS_ithkn_iconc_${ystart}_${ynext}_monthly.nc
+irlx_fld_file=PIOMASv21_ithkn_iconc_${ystart}_${ynext}_monthly.nc
 # Determine time span for river data grouped in Nyears blocks
 export DRIV=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_data/forecast_input_data/runoff
 export flriver=XXX

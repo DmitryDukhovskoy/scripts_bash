@@ -24,7 +24,11 @@ fi
 /bin/rm time_stamp.out
 
 /bin/rm -f *.oceanm_???_??.nc
+/bin/rm -f *.ocean_month.nc
 /bin/rm -f *.icem_????_??.nc
+/bin/rm -f *.ice_daily.nc
+/bin/rm -f *.ice_month.nc
+
 /bin/rm -f ocean.stats*
 /bin/rm -f seaice.stats
 #/bin/rm -f *_seastest.o*

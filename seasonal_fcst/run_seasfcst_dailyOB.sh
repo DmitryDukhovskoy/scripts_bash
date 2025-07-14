@@ -47,47 +47,52 @@ export expt_nmb=03   # <------  Check this before running the script
 export ystart=0      # this has to be specified
 export MM=0
 export ens_run=0
-export ice_relax=0
+#export ice_relax=0
+export irlx_rate=12  # strongest relaxation in the domain, hrs
 
 # Function to print usage message
 usage() {
-  echo "Usage: $0 -d 3  -y 2010 -m 7 -e 1 -i"
-  echo "  -d          experiment number, default: ${expt_nmb}"
-  echo "  -y          year to start the f/cast, required" 
-  echo "  -m          month to start the f/cast, default: 1,4,7,10" 
-  echo "  -e          ensemble # to run, default: all ensmbls: 1, ..., 10"
-  echo "  -i          flag to use ice relaxation, default - no ice relax"
+  echo "Usage: $0 --exptn 3 [--ensn 4] [--ms 7] [--irlx 12] "
+  echo "  --exptn   experiment number, default: ${expt_nmb}"
+  echo "  --ys      year to start the f/cast, required" 
+  echo "  --ms      month to start the f/cast, default: 1,4,7,10" 
+  echo "  --ensn    ensemble # to run, default: all ensmbls: 1, ..., 10, ens=1 - N-day average output added to standard output"
+  echo "  --irlx    max relaxation hours (e.g. 24), irlx=0 - no ice relax, default: ${irlx_rate}"
   exit 1
 }
 
 # Pars flags for optional arguments:
-while getopts "d:y:m:e:i" opt; do
-  case $opt in
-    d)
-      expt_nmb="$OPTARG"
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --ys)
+      ystart="$2"
+      shift 2
       ;;
-    y)
-      ystart="$OPTARG"
+    --exptn)
+      expt_nmb="$2"
+      shift 2
       ;;
-    m)
-      MM="$OPTARG"
+    --ms)
+      MM="$2"
+      shift 2
       ;;
-    e)
-      ens_run="$OPTARG"
+    --ensn)
+      ens_run="$2"
+      shift 2
       ;;
-    i)
-      ice_relax=1      # Boolean flag to turn ice relaxation on
+    --irlx)
+      irlx_rate="$2"
+      shift 2
       ;;
     *)
-      echo "unrecognized option / flag"
+      echo "Error: Unrecognized option $1"
       usage
-      exit 1
       ;;
   esac
 done
 
-if [[ $ice_relax -eq 1 ]]; then
-  XMLTMP='NEPphys_seasfcstIrlx_dailyOB_tmplt.xml'
+if [[ $irlx_rate -gt 0 ]]; then
+  XMLTMP='NEPphys_seasfcstIrlx_dailyOB_tmplt.xml'  # XML with ice relaxation directives
 fi
 
 if [[ -ystart -eq 0 ]]; then
@@ -106,7 +111,7 @@ elif [[ ${expt_nmb} -eq 2 ]]; then
   echo "======================================================================================= "
 elif [[ ${expt_nmb} -eq 3 ]]; then
   echo "======================================================================================= "
-  echo " !!!! 03: Multi-ensemble OBs runs with daily SPEAR ens and ice relaxation               !!! "
+  echo " !!!! 03: Multi-ensemble OBs runs with daily SPEAR ens + ice relax maxrlx ${irlx_rate}hrs!!! "
   echo "======================================================================================= "
 fi
 
@@ -158,11 +163,11 @@ for mstart in 01 04 07 10; do
     /bin/rm -f $flxml
     if [[ $ens == 01 ]]; then
       $DSRC/create_seasfcst_dailyOB_xml.sh --ys $ystart --ms $mstart --ens $ens0 --enspr $ens_spear \
-                                 --expt_name $expt_name --dayout 5 --xmltmp $XMLTMP --irlx $ice_relax
+                                 --expt_name $expt_name --dayout 5 --xmltmp $XMLTMP --irlx $irlx_rate
     else 
       /bin/rm -f $flxml
       $DSRC/create_seasfcst_dailyOB_xml.sh --ys $ystart --ms $mstart --ens $ens0 --enspr $ens_spear \
-                                 --expt_name $expt_name --xmltmp $XMLTMP --irlx $ice_relax
+                                 --expt_name $expt_name --xmltmp $XMLTMP --irlx $irlx_rate
     fi
     if [ ! -s $flxml ]; then 
       pwd
