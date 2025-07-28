@@ -8,20 +8,16 @@
 #
 set -u
 
-export FDIR=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_data/forecast_input_data
-export obc_dir=$FDIR/obcs_spear_daily
-export atm_dir=$FDIR/atmos
-export riv_dir=$FDIR/runoff
-
-if [[ $# -lt 1 ]]; then
-  echo "usage: ./check_forcing_dailyOB.sh YR1 [YR2 ] [M1] [ens1]"
-  echo "     ./check_forcing_dailyOB.sh 2011           - check all forcing, restart, OB for 2011"
-  echo "     ./check_forcing_dailyOB.sh 2011 2015      -  -"-  -"-  for 2011-2015"
-  echo "     ./check_forcing_dailyOB.sh 2011 4         -  -"-  -"-  for 2011 Month 4 all ens"
-  echo "     ./check_forcing_dailyOB.sh 2011 4 10      -  -"-  -"-  for 2011 Month 4 ens=10"
-  echo " Start year is missing"
+usage() {
+  echo "Usage: $0 --ys 1994 [--ye 1995] [--mm 4] [--ens 1,...,10] [--fs 5 or 6] [--run bgc or none]"
+  echo "  --ys     start with this year  <-- Required" 
+  echo "  --ye     end with this year, default=same as ys"
+  echo "  --mm     month to process, default (1,4,7,10)"
+  echo "  --ens    SPEAR ens. run to process, default (1,...,10)"
+  echo "  --fs     FIle system 5 or 6, default 6"
+  echo "  --run    bgc to check for BGC OB daily esper files"
   exit 1
-fi
+}
 
 function report_result {
   local yr=$1
@@ -33,30 +29,75 @@ function report_result {
 }
 
 MONTHS=(1 4 7 10)
-YR1=$1
-YR2=$YR1
+ENSMB=(1 2 3 4 5 6 7 8 9 10)
+YR1=0
+YR2=0
 M1=0
 ens1=0
-if [[ $# -eq 2 ]]; then
-  if [[ $2 -gt 100 ]]; then
-    YR2=$2
-  else
-#    M1=$2
-    MONTHS=($2)
-  fi
-fi 
+FS=6
+run=none
 
-if [[ $# -eq 3 ]]; then
-  if [[ $2 -gt 100 ]]; then
-    YR2=$2
-#    M1=$3
-    MONTHS=($3)
-  else
-#    M1=$2
-    MONTHS=($2)
-    ens1=$3
-  fi
+# Parse the command-line arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --ys)
+      YR1=$2
+      shift 2 # Move past the flag and its arg. to the next flag
+      ;;
+    --ye)
+      YR2=$2
+      shift 2
+      ;;
+    --mm)
+      MONTHS=($2)
+      shift 2
+      ;;
+    --ens)
+      ENSMB=($2)
+      shift 2
+      ;;
+    --fs)
+      FS=$2
+      shift 2
+      ;;
+    --run)
+      run=$2
+      shift 2
+      ;;
+    --help)
+      usage
+      ;;
+    *)
+    echo "Error: Unrecognized option $1"
+    usage
+    ;;
+  esac
+done
+
+if [[ $YR1 -eq 0 ]]; then
+  echo "ERR: YR1 was not specified $YR1"
+  usage
 fi
+if [[ $YR2 -eq 0 ]]; then
+  YR2=$YR1
+fi
+
+# File systems:
+if [[ $FS -eq 5 ]]; then
+  DSCR=/gpfs/f5/cefi/scratch
+elif [[ $FS -eq 6 ]]; then
+  DSCR=/gpfs/f6/ira-cefi/scratch
+else
+  echo "Unrecognized fily system $FS"
+  exit 5
+fi
+
+echo "Checking restart files on Filesystem f${FS}"
+export FDIR=$DSCR/Dmitry.Dukhovskoy/NEP_data/forecast_input_data
+export obc_dir=$FDIR/obcs_spear_daily
+export atm_dir=$FDIR/atmos
+export riv_dir=$FDIR/runoff
+
 
 # atmos data:
 echo "Atmospheric forcing:  "
@@ -65,27 +106,17 @@ cd ${atm_dir}
 pwd
 ffound=0
 for (( yr=$YR1; yr<=$YR2; yr+=1 )); do 
-  for ens in 01 02 03 04 05 06 07 08 09 10; do
-    if [[ $ens1 -gt 0 ]] && [[ ! 10#$ens -eq 10#$ens1 ]]; then
-      continue
-    fi
+  for ens_run in ${ENSMB[@]}; do
     for mo in ${MONTHS[@]}; do
       MM=$( echo $mo | awk '{printf("%02d", $1)}' )  
+      ens=$( echo $ens_run | awk '{printf("%02d", $1)}' )  
       for drnm in $( ls -d ${yr}-${MM}-e${ens} ); do
-#      MM=$( echo $drnm | cut -d"-" -f2 )
-#      echo "$drnm MM=$MM"
-#      if [[ $M1 -gt 0 ]] && [[ $MM -ne $M1 ]]; then
-#        continue
-#      fi
         ffound=$(( ffound+=1 ))
         natm=0
         nexpct=8
         for fldnm in lwdn_sfc precip q_ref slp swdn_sfc t_ref u_ref v_ref; do
           if [ -s $drnm/${prfx}*${yr}${MM}01-*${fldnm}.nc ]; then
-#          report_result $yr $MM $ens $fldnm 'ok'
            natm=$(( natm+=1 ))
-#        else
-#          report_result $yr $MM $ens $fldnm '!!! MISSING !!!'
           fi
         done
 
@@ -115,11 +146,9 @@ cd ${obc_dir}
 pwd
 ffound=0
 for (( yr=$YR1; yr<=$YR2; yr+=1 )); do 
-  for ens in 01 02 03 04 05 06 07 08 09 10; do
-    if [[ $ens1 -gt 0 ]] && [[ ! 10#$ens -eq 10#$ens1 ]]; then
-      continue
-    fi
+  for ens_run in ${ENSMB[@]}; do
     ndirs=$( ls -d ${yr}_e${ens} 2>/dev/null | wc -l )
+    ens=$( echo $ens_run | awk '{printf("%02d", $1)}' )
 #    echo "${yr}_e${ens} $ndirs"
     if [[ $ndirs -eq 0 ]]; then
       for mo in ${MONTHS[@]}; do
@@ -150,6 +179,28 @@ for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
   done
 done
 
+echo "------------------------------------------------------"
+echo " " 
+
+if [ $run == "bgc" ]; then
+  # monthly TA/DIC esper fields prepared for all ensembles from 1 SPEAR ens. run
+  echo "Annual ESPER BGC fields:"
+  bgcdir=${DSCR}/Dmitry.Dukhovskoy/NEP_data/forecast_input_data/BGC_esper_seasfcst
+  cd $bgcdir
+  for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
+    yr2=$(( yr+1 ))
+    flesper=bgc_esper_SPEARmnth_${yr}-${yr2}.nc
+    if [ -s $flesper ]; then
+      echo "  $yr ${flesper}  ==>      ok"
+    else
+      echo "$  yr annual ESPER BGC fields       !!! MISSING !!!"
+    fi
+  done
+
+  echo "------------------------------------------------------"
+  echo "   "
+fi
+
 #if [[ $ffound -eq 0 ]]; then
 #  report_result $yr $M1 $ens1 $prfx '!!! MISSING !!!'
 #fi
@@ -170,55 +221,102 @@ echo "------------------------------------------------------"
 echo " " 
 
 echo "River runoff daily fields:  "
-prfx='glofas_runoff_NEP_816x342_daily_'
-cd ${riv_dir}
+#prfx='glofas_runoff_NEP_816x342_daily_'
+cd ${riv_dir} || echo "Missing: $riv_dir"
 pwd
 for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
-  ifound=0
-  for flriv in $( ls ${prfx}????-????.nc ); do
-    dmm=$( echo $flriv | cut -d"." -f1 )
-    rspan=$( echo $dmm | cut -d"_" -f6 )
-    yrS=$( echo $rspan | cut -d"-" -f1 )
-    yrE=$( echo $rspan | cut -d"-" -f2 )
-    if [[ $yr -ge $yrS ]] && [[ $yr -lt $yrE ]]; then
-      report_result $yr "1-12" "01-10" $flriv 'ok'
-      ifound=1
-      break
-    fi
-  done
-  if [[ ifound -eq 0 ]]; then
-    report_result $yr "1-12" "01-10" $prfx '!!! MISSING !!!'
+#  ifound=0
+  flriv=GLOFASv4_runoff_NEP_816x342_clim_1993-2024.nc
+  if [ -s $flriv ]; then
+    report_result $yr "1-12" "01-10" $flriv 'ok'
+  else
+    report_result $yr "1-12" "01-10" $flriv '!!! MISSING !!!'
   fi
+# These are daily data, need clim runoff for f/casts
+#  for flriv in $( ls ${prfx}????-????.nc ); do
+#    dmm=$( echo $flriv | cut -d"." -f1 )
+#    rspan=$( echo $dmm | cut -d"_" -f6 )
+#    yrS=$( echo $rspan | cut -d"-" -f1 )
+#    yrE=$( echo $rspan | cut -d"-" -f2 )
+#    if [[ $yr -ge $yrS ]] && [[ $yr -lt $yrE ]]; then
+#      report_result $yr "1-12" "01-10" $flriv 'ok'
+#      ifound=1
+#      break
+#    fi
+#  done
+#  if [[ ifound -eq 0 ]]; then
+#    report_result $yr "1-12" "01-10" $prfx '!!! MISSING !!!'
+#  fi
 done
 
 echo "------------------------------------------------------"
 echo " " 
 
 echo "MOM and SIS restart files:"
-RDIR=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_data/forecast_input_data/restart
+if [[ $FS -eq 5 ]]; then
+  RDIR=${DSCR}/Dmitry.Dukhovskoy/NEP_data/forecast_input_data/restart
+else
+  RDIR=${DSCR}/Dmitry.Dukhovskoy/NEP_data/forecast_input_data/restart_bgc/seas_fcast
+fi
 momres=MOM.res.nc
 sisres=ice_model.res.nc
 for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
   for mo in ${MONTHS[@]}; do
     MM=$( echo $mo | awk '{printf("%02d", $1)}' )  
-#    if [[ $M1 -gt 0 ]] && [[ 10#$MM -ne 10#$M1 ]]; then
-#      continue
-#    fi
-    rest_dir=${RDIR}/${yr}${MM}
-    if [ -d ${rest_dir} ]; then
-      if [ -s ${rest_dir}/${momres} ]; then
-        echo "  ${yr}-${MM} MOM restart:        ok"
-      else 
+    if [[ $FS -eq 5 ]]; then
+      rest_dir=${RDIR}/${yr}${MM}
+    else
+      rest_dir=${RDIR}/restdate_${yr}${MM}01
+    fi
+    if [[ $FS -eq 5 ]]; then
+      if [ -d ${rest_dir} ]; then
+        if [ -s ${rest_dir}/${momres} ]; then
+          echo "  ${yr}-${MM} MOM restart:        ok"
+        else 
+          echo "  ${yr}-${MM} MOM restart:        !!! MISSING !!!"
+        fi
+        if [ -s ${rest_dir}/${sisres} ]; then
+          echo "  ${yr}-${MM} SIS2 restart:       ok"
+        else 
+          echo "  ${yr}-${MM} SIS2 restart:       !!! MISSING !!!"
+        fi
+      else
         echo "  ${yr}-${MM} MOM restart:        !!! MISSING !!!"
-      fi
-      if [ -s ${rest_dir}/${sisres} ]; then
-        echo "  ${yr}-${MM} SIS2 restart:       ok"
-      else 
         echo "  ${yr}-${MM} SIS2 restart:       !!! MISSING !!!"
       fi
     else
-      echo "  ${yr}-${MM} MOM restart:        !!! MISSING !!!"
-      echo "  ${yr}-${MM} SIS2 restart:       !!! MISSING !!!"
+      cd $rest_dir || { echo "Missing $rest_dir: MOM and SIS restarts MISSING"; continue; }
+      nmom_rest=$( ls -1 MOM*${yr}${MM}*res*nc 2>/dev/null | wc -l )
+      if [[ $nmom_rest -eq 0 ]]; then
+        echo "  ${yr}-${MM} MOM restarts:                  !!! MISSING !!!"
+      else
+        echo "  ${yr}-${MM} MOM restarts $nmom_rest:               expected 8"
+      fi
+      nsis_rest=$( ls -1 ice_model*${yr}${MM}*res.nc 2>/dev/null | wc -l )
+      if [[ $nsis_rest -eq 0 ]]; then
+        echo "  ${yr}-${MM} SIS2 restart:                  !!! MISSING !!!"
+      else
+        echo "  ${yr}-${MM} SIS2 restart:                  ok"
+      fi
+      nicob=$( ls -1 ice_cobalt*${yr}${MM}*res.nc 2>/dev/null | wc -l )
+      if [[ $nicob -gt 0 ]]; then
+        echo "  ${yr}-${MM} ice_cobalt restart:            ok"
+      else
+        echo "  ${yr}-${MM} ice_cobalt restart:            !!! MISSING !!"
+      fi
+      nicob=$( ls -1 ocean_cobalt*${yr}${MM}*res.nc 2>/dev/null | wc -l )
+      if [[ $nicob -gt 0 ]]; then
+        echo "  ${yr}-${MM} ocean_cobalt_airsea restart:   ok"
+      else
+        echo "  ${yr}-${MM} ocean_cobalt_airsea restart:   !!! MISSING !!"
+      fi
+      ncplr=$( ls -1 coupler*${yr}${MM}*res 2>/dev/null | wc -l )
+      if [[ $ncplr -gt 0 ]]; then
+        echo "  ${yr}-${MM} coupler restart:               ok"
+      else
+        echo "  ${yr}-${MM} coupler restart:               !!! MISSING !!"
+      fi
+
     fi
   done
 done
