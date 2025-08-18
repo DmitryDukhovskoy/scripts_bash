@@ -6,22 +6,16 @@
 #                        -l [a flag: save log] -p [a flag: save SIS_parameter.doc] -m [save monthly files]
 set -u
 
-# Where the output are on gfdl:
+regn=NEP
 #export DOUTP=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/work/NEP_isponge_test
 #export DOUTP=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/work/NEPphys_frcst_dailyOB04_2015-04-e01.o135461890
-#export DOUTP=/gpfs/f6/ira-cefi/scratch/Dmitry.Dukhovskoy/work/NEP_irlx_test
-export DOUTP=/gpfs/f6/ira-cefi/scratch/Dmitry.Dukhovskoy/work/ARC12_irlx_test
-# Where to transfer on PPAN
 #export DPPAN=/work/Dmitry.Dukhovskoy/run_output/NEP_ISPONGE/1993/04
 #export DPPAN0=/archive/Dmitry.Dukhovskoy/fre/NEP/seasonal_daily
-#export DPPAN0=/archive/Dmitry.Dukhovskoy/fre/NEP/test_ice_relax
-export DPPAN0=/archive/Dmitry.Dukhovskoy/fre/ARC12/test_ice_relax
-
 
 usage() {
-  echo "Usage: $0 --ys 1994 --ms 1 --expt 5 [--snday 1] [--sdaily 1] [--smnth 0] [--slog 1] [--sparam 1] [--jdir ARC12_209784479]..."
-  echo "  --ys     f/cast init year: 1993, ..." 
-  echo "  --ms     f/cast initialization month: 1, ..., 12"
+  echo "Usage: $0 [--ys 1994] [--regn NEP] --expt 5 [--snday 1] [--sdaily 1] [--smnth 0] [--slog 1] [--sparam 1] [--jdir ARC12_209784479]..."
+  echo "  --ys     f/cast init year: 1993, ..., default: 2001 for NEP, 1995 for ARC" 
+  echo "  --regn   NEP or ARC"
   echo "  --days   day to start, 1,..., 366, default=1"
   echo "  --daye   day to end, default = 366" 
   echo "  --expt   expt number = 1, ... "
@@ -36,8 +30,7 @@ usage() {
 }
 
 
-#expt_name=NEPphys_expt
-expt_name=ARCphys_expt
+echo "Region: ${regn}"
 
 # Default values:
 fsfx='icem'
@@ -54,8 +47,6 @@ dayS=1
 dayE=1000
 sis_param=SIS_parameter_doc.all   # SIS parameter file
 mom_param=MOM_parameter_doc.all
-#log_out=SIS_irlx
-log_out=ARC_irlx
 jdir=""
 
 # Parse the command-line arguments
@@ -65,8 +56,8 @@ while [[ $# -gt 0 ]]; do
       YS=$2
       shift 2 # Move past the flag and its arg. to the next flag
       ;;
-    --ms)
-      MS=$2
+    --regn)
+      regn=$2
       shift 2
       ;;
     --days)
@@ -119,15 +110,36 @@ while [[ $# -gt 0 ]]; do
   esac
 done
   
-if [[ $YS -eq 0 ]]; then
-  echo "ERR: YS was not specified $YS"
-  usage
-fi  
+#if [[ ${MS} -eq 0 ]]; then
+#  echo "ERR: MS was not specified $MS"
+#  usage
+#fi  
 
-if [[ ${MS} -eq 0 ]]; then
-  echo "ERR: MS was not specified $MS"
-  usage
+if [ $regn = 'NEP' ]; then 
+  expt_name=NEPphys_expt
+  # Where the output are on gfdl:
+  DOUTP=/gpfs/f6/ira-cefi/scratch/Dmitry.Dukhovskoy/work/NEP_irlx_test
+  # Where to transfer on PPAN
+  DPPAN0=/archive/Dmitry.Dukhovskoy/fre/NEP/test_ice_relax
+  log_out=SIS_irlx
+  YRR=2001
+  ms=1
+elif [ $regn = 'ARC' ]; then
+  expt_name=ARCphys_expt
+  DOUTP=/gpfs/f6/ira-cefi/scratch/Dmitry.Dukhovskoy/work/ARC12_irlx_test
+  DPPAN0=/archive/Dmitry.Dukhovskoy/fre/ARC12/test_ice_relax
+  log_out=ARC_irlx
+  YRR=1995
+  ms=1
+else
+  echo "Unknown region: $regn"
+  exit 1
+fi
+
+if [[ $YS -eq 0 ]]; then
+  YS=$YRR
 fi  
+#
 
 if [[ ${expt_nmb} -gt 100 ]]; then
   echo "ERR: expt was not specified ${expt_nmb}"
@@ -211,21 +223,31 @@ fi
 if [[ ${save_log} -gt 0 ]]; then
   for fl in $( ls -rt ${log_out}.o* | tail -1 ); do
     echo "sending $fl --> gfdl:${DPPAN}/."
-#    gcp -cd $fl gfdl:${DPPAN}/.
-    gcp -cd $fl gfdl:${DPPAN}/
-    if [[ $? -eq 0 ]]; then
-      touch ${log_out}_sent2ppan
+    if [[ -f "$fl" ]]; then
+      gcp -cd $fl "gfdl:${DPPAN}/"
+      if [[ $? -eq 0 ]]; then
+        touch ${log_out}_sent2ppan
+      else
+        echo "Error: Failed to send ${log_out}"
+      fi
+    else
+      echo "Warning: File ${log_out} not found"
     fi
   done
 fi
 
 if [[ ${save_param} -gt 0 ]]; then
   for prm in $sis_param $mom_param; do
-    echo "sending $prm --> gfdl:${DPPAN}/."
-#  gcp $sis_param gfdl:${DPPAN}/.
-    gcp $prm gfdl:${DPPAN}/
-    if [[ $? -eq 0 ]]; then
-      touch ${prm}_sent2ppan
+    echo "Sending $prm --> gfdl:${DPPAN}/"
+    if [[ -f "$prm" ]]; then
+      gcp -cd "$prm" "gfdl:${DPPAN}/"
+      if [[ $? -eq 0 ]]; then
+        touch "${prm}_sent2ppan"
+      else
+        echo "Error: Failed to send $prm"
+      fi
+    else
+      echo "Warning: File $prm not found"
     fi
   done
 fi

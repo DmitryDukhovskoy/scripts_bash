@@ -285,7 +285,7 @@ for (( yr=$YR1; yr<=$YR2; yr+=1 )); do
         echo "  ${yr}-${MM} SIS2 restart:       !!! MISSING !!!"
       fi
     else
-      cd $rest_dir || { echo "Missing $rest_dir: MOM and SIS restarts MISSING"; continue; }
+      cd $rest_dir 2>/dev/null || { echo "${yr}-${MM}  MOM and SIS restarts   !!! MISSING !!!"; continue; }
       nmom_rest=$( ls -1 MOM*${yr}${MM}*res*nc 2>/dev/null | wc -l )
       if [[ $nmom_rest -eq 0 ]]; then
         echo "  ${yr}-${MM} MOM restarts:                  !!! MISSING !!!"

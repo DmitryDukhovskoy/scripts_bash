@@ -54,16 +54,19 @@ while [[ $# -gt 0 ]]; do
       shift 2
       ;;
     --ensS)
-      ensS=2
+      ensS=$2
       shift 2
       ;;
     --ensE)
-      ensE=2
+      ensE=$2
       shift 2
       ;;
     --irlx)
       irlx_rate="$2"
       shift 2
+      ;;
+    --help)
+      usage
       ;;
     *)
       echo "Error: Unrecognized option $1"
@@ -115,14 +118,16 @@ for mstart in ${MONTHS[@]}; do
     ens_spear=$ens0               # SPEAR ens run for atm. forcing and OBCs
 
 # Check if the run exists, do not rerun:
-    dir_arch=$DARCH/${expt_name}_${ystart}-${mstart}-e${ens}/${PLTF}/archive/history
-    fltar=${ystart}${mstart}01.nc.tar
-    if [ -d $dir_arch ] && [ -s $dir_arch/${fltar} ]; then
+    dir_arch=$DARCH/${expt_name}_${ystart}-${mstart}-e${ens0}/${PLTF}/archive/history
+    fltar=${ystart}${mstart}01.nc.tar.ok
+    echo "Checking completed run: ${dir_arch}/${fltar}"
+    if [ -d $dir_arch ] && [ -f ${dir_arch}/${fltar} ]; then
       echo "Run already finished: $dir_arch/${fltar}"
       echo " Skipping ..."
       continue
+    else
+      echo "Run has not been performed for ${ystart} ${mstart} e${ens0}" 
     fi
-
 # Create XML's 
     flxml=${bnm}_${ystart}_${mstart}_e${ens0}.xml
     /bin/rm -f $flxml
