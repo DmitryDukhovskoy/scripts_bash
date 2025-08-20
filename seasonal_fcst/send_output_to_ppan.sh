@@ -123,14 +123,14 @@ if [ $regn = 'NEP' ]; then
   DPPAN0=/archive/Dmitry.Dukhovskoy/fre/NEP/test_ice_relax
   log_out=SIS_irlx
   YRR=2001
-  ms=1
+  MS=1
 elif [ $regn = 'ARC' ]; then
   expt_name=ARCphys_expt
   DOUTP=/gpfs/f6/ira-cefi/scratch/Dmitry.Dukhovskoy/work/ARC12_irlx_test
   DPPAN0=/archive/Dmitry.Dukhovskoy/fre/ARC12/test_ice_relax
   log_out=ARC_irlx
   YRR=1995
-  ms=1
+  MS=1
 else
   echo "Unknown region: $regn"
   exit 1
