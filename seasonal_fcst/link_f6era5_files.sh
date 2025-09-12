@@ -11,10 +11,12 @@ DRUN=/gpfs/f6/ira-cefi/scratch/Dmitry.Dukhovskoy/work/NEP_irlx_test/INPUT
 #sfx='cp120hrs_'
 #sfx='cp121Bhrs_'
 sfx=''
+yrnm=1   # use year in the ERA forcing for target file naming when creating a link, = 0 - no year
 
 usage() {
   echo "Usage: $0 --year 1994"
   echo "  --year  year of the forcing fields"
+  echo "  --yrnm  =1: use name ERA5_${prfx}_${YR}_padded.nc (default),  =0: ERA5_${prfx}_padded.nc"
   exit 1
 }
 
@@ -23,6 +25,10 @@ while [[ $# -gt 0 ]]; do
     --year)
       YR=$2
       shift 2 # Move past the flag and its arg. to the next flag
+      ;;
+    --yrnm)
+      yrnm=$2
+      shift 2
       ;;
     *)
     echo "Error: Unrecognized option $1"
@@ -48,7 +54,12 @@ pwd
 for prfx in lp msl sf sphum ssrd strd t2m u10 v10; do
 #  flera=ERA5_${prfx}_${YR}_cp001hrs_padded.nc
   flera=ERA5_${prfx}_${YR}_${sfx}padded.nc
-  flfrc=ERA5_${prfx}_${YR}_padded.nc
+  if [[ $yrnm -eq 0 ]]; then
+    flfrc=ERA5_${prfx}_padded.nc
+  else
+    flfrc=ERA5_${prfx}_${YR}_padded.nc
+  fi
+   
   /bin/rm -f ${flfrc}
   echo "linking $DIR/$flera --> $flfrc"
   if [ -f $DIR/$flera ]; then

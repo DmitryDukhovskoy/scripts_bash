@@ -84,7 +84,7 @@ if (( ensS > 0 && ensE == 0 )); then
   ensE=$ensS
 fi
 
-if (( $ensS > 0 )); then
+if (( ensS > 0 )); then
   ENSMB=()
   for (( ens=$ensS; ens<=$ensE; ens++ )); do
     ENSMB+=("$ens")
