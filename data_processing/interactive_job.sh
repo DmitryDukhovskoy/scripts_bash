@@ -5,7 +5,7 @@
 set -u
 
 debug=F
-thr=4
+thr=8
 tmin=0
 FS=6   # File system on Gaea F6 or F5
 ACT=sfs-emc
@@ -13,7 +13,7 @@ ACT=sfs-emc
 usage() {
   echo "Usage: $0 --debug T/t or F/f "
   echo "  --debug  T: get interactive job in debug queue, default = ${debug} "
-  echo "  --thr    time, hours, default = 4, for debug=0, =0 if tmin>0"
+  echo "  --thr    time, hours, default = ${thr}, for debug=0, =0 if tmin>0"
   echo "  --tmin   time, minutes, for debug=30"
   echo "  --FS     5 or 6, Gaea file system,  default=${FS}"
   echo "  --ACT    account to use for interactive job, default=${ACT}"

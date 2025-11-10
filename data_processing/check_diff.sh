@@ -2,8 +2,8 @@
 # usage: check_diff.sh file_name.F90
 set -u
 
-export R=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/src/mom6/src/SIS2/src
-export D=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/fre/NEP/mom6_sis2_irelax/MOM6-examples/src/SIS2/src
+export R=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/RUNDIRS/ufs_datm_mx025_expt01
+export D=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/RUNDIRS/ufs_datm_mx025_cold
 
 if [[ $# < 1 ]]; then
   echo "provide file name to compare"
