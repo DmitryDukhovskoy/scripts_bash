@@ -1,4 +1,10 @@
 #!/bin/bash 
+# This is for PHYs only (MOM.res - 1 file)
+# continuous runs that dump restart and output into directory "jdir" that is 
+# in rundir/jdir 
+# e.g. work/NEP_irlx_test/NEPirlx_210824637
+#
+# If more than 1 MOM.res - modify accoringly
 # Prepare restart, OBC, runoff links for ice relax run 
 # for specified year
 #  link history or restart directories between the hindcasts 

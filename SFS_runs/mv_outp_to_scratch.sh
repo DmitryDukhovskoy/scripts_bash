@@ -7,32 +7,37 @@ set -u
 
 run_name=ufs_datm_mx025
 
+usage() {
+  echo "Usage: $0 --ys 1994 --expt 1,..., --socn 0, --sparam 0, --srest 0]"
+  echo "  --ys     run year, default: 2025" 
+  echo "  --expt   expt number = 1, ... "
+  echo "  --socn   =1: save ocean output, =0 - no, default=1"
+  echo "  --sice   =1: save ice output, =0 - no, default=1"
+  echo "  --sparam =1: save parameter files, =0 - no, default=1"
+  echo "  --srest  =1: save ice/ocean restart files, =0 - no, default=1"
+  echo "  --sinit  =1: save init ice fields if exist, =0 -no, default=1"
+  exit 1
+}
+
+
 # Default values:
 fsfx='iceh'
 jobnm='datm_mx025' # job name in sbatch submit script
 save_param=1  # save parameters and logs from the run  
 save_ocn=1    # save ocean output
-save_rest=0   # save ice/ocean restarts
+save_rest=1   # save ice/ocean restarts
 save_ice=1    # save CICE output
 save_init=1   # save initial CICE fields if these have been dumped
 expt_nmb=0
-
-usage() {
-  echo "Usage: $0 --ys 1994 --expt 1,..., --socn 0, --sparam 0, --srest 0]"
-  echo "  --expt   expt number = 1, ... "
-  echo "  --socn   =1: save ocean output, =0 - no, default=${save_ocn}"
-  echo "  --sice   =1: save ice output, =0 - no, default=${save_ice}"
-  echo "  --sparam =1: save parameter files, =0 - no, default=${save_param}"
-  echo "  --srest  =1: save ice/ocean restart files, =0 - no, default=${save_rest}"
-  echo "  --sinit  =1: save init ice fields if exist, =0 -no, default=${save_init}"
-  exit 1
-}
-
-
+YS=2025          # year of the run
 
 # Parse the command-line arguments
 while [[ $# -gt 0 ]]; do
   case $1 in
+    --ys)
+      YS=$2
+      shift 2 
+      ;;
     --expt)
       expt_nmb=$2
       shift 2
@@ -67,6 +72,11 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+if [[ $YS -eq 0 ]]; then
+  echo "ERR: YS not defined"
+  usage
+fi
+
 if [[ ${expt_nmb} -eq 0 ]]; then
   echo "ERR: expt not defined"
   usage
@@ -92,23 +102,14 @@ expt_nmb0=$( printf "%02d" $expt_nmb)
 RUNDIR=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/RUNDIRS/ufs_datm_mx025_v02
 ARCHDIR=/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/ufs_datm_mx025/expt${expt_nmb0}
 
-if [[ -d "$ARCHDIR" ]]; then
-  echo
-  echo "WARNING: proceeding may overwrite files"
-  read -p "Overwrite/add files [y], delete directory - will delete all !WARNING! [d], or quit [n]? " answer
+if [ -d "$ARCHDIR" ]; then
+  echo "Experiment already exists: ${ARCHDIR}"
+  read -p "Do you want to overwrite it? [y/N]: " answer
 
   case "$answer" in
     [yY]|[yY][eE][sS])
-      echo "Overwriting / adding files to ${ARCHDIR}..."
-      ;;
-    [dD])
-      echo "Removing existing ${ARCHDIR} ..."
-      if [[ -n "$ARCHDIR" && "$ARCHDIR" != "/" ]]; then
-        rm -rf "$ARCHDIR"
-      else
-        echo "ERROR: ARCHDIR is unsafe: '$ARCHDIR'"
-        exit 6
-      fi
+      echo "Overwriting ${ARCHDIR}..."
+      rm -rf "$ARCHDIR"
       ;;
     *)
       echo "Quitting."
@@ -116,7 +117,6 @@ if [[ -d "$ARCHDIR" ]]; then
       ;;
   esac
 fi
-
 
 mkdir -pv $ARCHDIR
 
@@ -206,7 +206,6 @@ if [[ "$save_param" -eq 1 ]]; then
   mv -f "${jobnm}.o"* "${ARCHDIR}/params_logs"/ 2>/dev/null
 
   # Save selected PET logs (mediator, ocean, ice)
-  # Check ufs.configure to see partitions "petlist"
   echo "Moving PET log files ..."
   for pet in PET000 PET100 PET200; do
     if [[ -f ${pet}.ESMF_LogFile ]]; then
@@ -224,8 +223,6 @@ if [[ "$save_param" -eq 1 ]]; then
     fi
   done
 
-  # Save CICE diagnostics
-  mv -f ice_diag.d "${ARCHDIR}/params_logs"/
 fi
 
 #  Save MOM6 output 
@@ -234,7 +231,7 @@ if [[ "$save_ocn" -eq 1 ]]; then
   mkdir -pv "${ARCHDIR}/mom6"
 
   shopt -s nullglob
-  mom_files=(ocean_????_??_*.nc)
+  mom_files=(ocean_${YS}_??_*.nc)
   shopt -u nullglob
 
   if (( ${#mom_files[@]} == 0 )); then
@@ -247,9 +244,7 @@ if [[ "$save_ocn" -eq 1 ]]; then
       echo "Moving $fl --> ${ARCHDIR}/mom6"
       mv -f "$fl" "${ARCHDIR}/mom6"/
     done
-  fi
 
-  if [ -f ocean_static.nc ]; then
     # Grid file
     mv -f ocean_static.nc "${ARCHDIR}/mom6"/
   fi
@@ -301,9 +296,7 @@ fi
 # INPUT files:
 mkdir -pv "${ARCHDIR}/params_logs"
 ls -la INPUT/* > INPUT_expt${expt_nmb}.log
-mv -f INPUT_expt${expt_nmb}.log "${ARCHDIR}/params_logs"/
-ls -la * > RUNDIR_expt${expt_nmb}.log
-mv -f RUNDIR_expt${expt_nmb}.log "${ARCHDIR}/params_logs"/
+mv -f "${pet}.ESMF_LogFile" "${ARCHDIR}/params_logs"/
 
 
 echo "All done"

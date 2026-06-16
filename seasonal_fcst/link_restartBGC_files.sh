@@ -3,8 +3,8 @@
 set -u
 
 rest_date=20010101
-DIR=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/NEP_data/forecast_input_data/restart_bgc/restart_hindcast/restdate_${rest_date}
-DRUN=/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/work/NEP_irlx_test/INPUT
+DIR=/gpfs/f6/cefi/scratch/Dmitry.Dukhovskoy/NEP_data/forecast_input_data/restart_bgc/restart_hindcast/restdate_${rest_date}
+DRUN=/gpfs/f6/cefi/scratch/Dmitry.Dukhovskoy/work/NEP_irlx_test/INPUT
 
 
 function set_link {

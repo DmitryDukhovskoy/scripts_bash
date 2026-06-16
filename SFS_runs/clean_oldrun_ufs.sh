@@ -35,7 +35,7 @@ rm -rf atm.log ice_diag.d out err
 #/bin/rm time_stamp.out
 
 # Remove output log file:
-rm -rf datm_mx025.o*
+rm -rf sfs_mx025_c192.o*
 
 # update ice restart pointer:
 echo "Updating ice.restart_file"
@@ -46,20 +46,6 @@ ncdump -h ./INPUT/cice_model.res.nc | head -10
 ncdump -h ./INPUT/cice_model.res.nc | tail -15
 #
 #ln -sf ice.restart_file0 ice.restart_file
-
-cd INPUT
-for fl in MOM*res*.nc; do
-  [ -e "$fl" ] || continue
-  echo "MOM restart $fl"
-  ncdump -h "$fl" | head -10
-done
-cd ..
-
-echo "Checking start date in model_configure"
-head -10 model_configure
-
-echo "Start date in ice_in"
-grep init ice_in
 
 echo "Removing output fields"
 /bin/rm -f ????????.oceanm*nc ????????.icem*nc
