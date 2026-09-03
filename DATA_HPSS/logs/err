@@ -1,0 +1,26 @@
+[connecting to hpsscore1.fairmont.rdhpcs.noaa.gov/1217]
+ERROR: Error -5 opening HPSS-resident index file: /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100/gdasice_restart.tar.idx
+###WARNING  htar returned non-zero exit status.
+            72 = /usw/hpss/9.3/bin/htar_v9.3-Gaea -xvf /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100/gdasice_restart.tar gdas.20251011/00/model/ice/restart/20251011.030000.cice_model.res.nc
+[connecting to hpsscore1.fairmont.rdhpcs.noaa.gov/1217]
+ERROR: Error -5 opening HPSS-resident index file: /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100/gdasice_restart.tar.idx
+###WARNING  htar returned non-zero exit status.
+            72 = /usw/hpss/9.3/bin/htar_v9.3-Gaea -xvf /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100/gdasice_restart.tar gdas.20251011/00/model/ice/restart/20251011.030000.cice_model.res.nc
+[connecting to hpsscore1.fairmont.rdhpcs.noaa.gov/1217]
+ERROR: Error -5 opening HPSS-resident index file: /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100/gdasice_restart.tar.idx
+###WARNING  htar returned non-zero exit status.
+            72 = /usw/hpss/9.3/bin/htar_v9.3-Gaea -xvf /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100/gdasice_restart.tar gdas.20251011/00/model/ice/restart/20251011.030000.cice_model.res.nc
+[connecting to hpsscore1.fairmont.rdhpcs.noaa.gov/1217]
+ERROR: Error -5 opening HPSS-resident index file: /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100/gdasice_restart.tar.idx
+###WARNING  htar returned non-zero exit status.
+            72 = /usw/hpss/9.3/bin/htar_v9.3-Gaea -xvf /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100/gdasice_restart.tar gdas.20251011/00/model/ice/restart/20251011.030000.cice_model.res.nc
+[connecting to hpsscore1.fairmont.rdhpcs.noaa.gov/1217]
+ERROR: Error -5 opening HPSS-resident index file: /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100/gdasice_restart.tar.idx
+###WARNING  htar returned non-zero exit status.
+            72 = /usw/hpss/9.3/bin/htar_v9.3-Gaea -xvf /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100/gdasice_restart.tar gdas.20251011/00/model/ice/restart/20251011.030000.cice_model.res.nc
+[connecting to hpsscore1.fairmont.rdhpcs.noaa.gov/1217]
+[connecting to hpsscore1.fairmont.rdhpcs.noaa.gov/1217]
+[connecting to hpsscore1.fairmont.rdhpcs.noaa.gov/1217]
+[connecting to hpsscore1.fairmont.rdhpcs.noaa.gov/1217]
+[connecting to hpsscore1.fairmont.rdhpcs.noaa.gov/1217]
+rm: cannot remove '/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/ML_emulator_ithkn/predictors/tmp/cice6_mean_ivol_ithkn_{YR}{MM}*_{regn}.npz': No such file or directory

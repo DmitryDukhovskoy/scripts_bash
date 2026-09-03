@@ -1,0 +1,16 @@
+/ncrc/home1/Dmitry.Dukhovskoy/miniconda3/envs/anls/bin/python
+Python 3.12.1
+Processing 20251001
+/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/ML_emulator_ithkn/predictors/tmp/cice6_mean_ivol_ithkn_20251001_north.npz exist, skipping ...
+Processing 20251006
+/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/ML_emulator_ithkn/predictors/tmp/cice6_mean_ivol_ithkn_20251006_north.npz exist, skipping ...
+Processing 20251011
+Using stream: retrov17_01_stream4
+----------------------------------------
+Processing hour: 00
+HPSS directory: /5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17/retrov17_01_stream4/2025101100
+Local directory: /gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17
+/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17/tmp_hpss
+Using dtn01.ncrc.gov for data hostname
+HTAR: HTAR FAILED
+ERROR: htar extraction failed for 20251011
