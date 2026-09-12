@@ -32,8 +32,11 @@ README.*
 *.sqlite
 slurm*out
 *.out
+*bkp
 
-**/__pycache__/*
-**/bkp/*
+**/__pycache__/
+**/bkp/
+**/log/
+**/logs/
 
 

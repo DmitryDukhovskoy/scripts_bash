@@ -21,8 +21,8 @@ usage() {
   exit 1
 }
 
-RUN=retrov17_01_stream4
-DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
+RUN=""
+DROOT=""
 DWORK=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17
 rdate=""
 HR=0      # time of forecact IC
@@ -51,6 +51,22 @@ fi
 
 mkdir -pv ${DWORK}/tmp_hpss
 
+# Find GFSv17 stream
+if [[ "$rdate" -ge 20241201 && "$rdate" -le 20250531 ]]; then
+  RUN="retrov17_01_stream3"
+  DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
+elif [[ "$rdate" -ge 20250601 && "$rdate" -le 20251130 ]]; then
+  RUN="retrov17_01_stream4"
+  DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
+elif [[ "$rdate" -ge 20251201 && "$rdate" -le 20260630 ]]; then
+  RUN="retrov17_01_realtime"
+  DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
+else
+  echo "ERROR: No GFSv17 stream defined for $rdate"
+  exit 1
+fi
+
+
 HR=$(printf "%02d" "$HR")
 HRice=$(printf "%02d" "$HRice")
 DHPSS=${DROOT}/${RUN}/${rdate}${HR}
@@ -59,6 +75,7 @@ drcice="gdas.${rdate}/${HR}/model/ice/restart"
 drfl_cice="${drcice}/${file_cice}"
 
 echo "----------------------------------------"
+echo "Using stream: $RUN"
 echo "Processing hour: ${HR}"
 echo "HPSS directory: $DHPSS"
 echo "Local directory: $DWORK"

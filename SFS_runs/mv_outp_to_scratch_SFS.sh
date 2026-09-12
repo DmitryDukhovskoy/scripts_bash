@@ -264,7 +264,9 @@ if [[ "$save_param" -eq 1 ]]; then
   echo "Moving log files --> ${ARCHDIR}/params_logs"
   mv -f ./*.log "${ARCHDIR}/params_logs"/ 2>/dev/null
   mv -f ./log.* "${ARCHDIR}/params_logs"/ 2>/dev/null
-  mv -f "${jobnm}.o"* "${ARCHDIR}/params_logs"/ 2>/dev/null
+  mv -f ${jobnm}*.o* "${ARCHDIR}/params_logs"/ 2>/dev/null
+  # Delete log.atm
+  rm -f ${ARCHDIR}/log.atm.*
 
   # if all logs are moved into logs.jXXXXX - move the whole dir
   shopt -s nullglob
@@ -272,6 +274,8 @@ if [[ "$save_param" -eq 1 ]]; then
   if [ ${#dirs[@]} -gt 0 ]; then
     echo "Logs directory found, moving to ${ARCHDIR}/params_logs"
     mv -f "${dirs[@]}" "${ARCHDIR}/params_logs"/ 2>/dev/null
+    # Delete log.atm
+    rm -f ${ARCHDIR}/params_logs/log.atm.* 
   fi
   shopt -u nullglob
 
@@ -414,23 +418,28 @@ if [[ $save_atmnc -eq 1 ]]; then
 fi
 
 # RUNdir exclude all *nc files:
+mkdir -pv "${ARCHDIR}/params_logs"
 cd $RUNDIR
 RLOG=RUNDIR_expt${expt_nmb}.log
 pwd > "$RLOG"
 find . ! -name "*.nc" -exec ls -ld {} \; >> "$RLOG"
 mv -f "$RLOG" "${ARCHDIR}/params_logs"/
 
+
+
+# run job batch script:
+cp sub_job*sh "${ARCHDIR}/params_logs"/.
+
 # INPUT files:
 cd $RUNDIR
 INLOG=INPUT_expt${expt_nmb}.log
-mkdir -pv "${ARCHDIR}/params_logs"
 ls -la INPUT/* > $INLOG
 mv -f "$INLOG" "${ARCHDIR}/params_logs"/
 
 # Change permission:
 chmod -R 755 ${ARCHDIR}
 
-echo "All done"
+echo "All DONE"
 exit 0
 
 
