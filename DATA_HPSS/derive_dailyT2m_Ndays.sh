@@ -37,6 +37,7 @@ usage() {
 RUN=""
 DWORK=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17
 DPYTH=/ncrc/home1/Dmitry.Dukhovskoy/python/ithkn_MLemulator
+PTHDAY=/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/GDAS_T2m/glob/daily_gdas_grid
 HOURS=(0 6 12 18)
 
 sdate=""
@@ -95,76 +96,87 @@ while [[ "$DAY" -le "$edate" ]]; do
 
   rdate="$DAY"
 
-  # Find GFSv17 stream
-  if [[ "$rdate" -ge 20241201 && "$rdate" -le 20250531 ]]; then
-    RUN="retrov17_01_stream3"
-    DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
-  elif [[ "$rdate" -ge 20250601 && "$rdate" -le 20251130 ]]; then
-    RUN="retrov17_01_stream4"
-    DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
-  elif [[ "$rdate" -ge 20251201 && "$rdate" -le 20260631 ]]; then
-    RUN="retrov17_01_realtime"
-    DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
+  # Check if daily field exists for this day:
+  flday="GDAS_flipN_T2m_${rdate}.npy"
+  YR="${rdate:0:4}"
+  PTHF="${PTHDAY}/${YR}"
+  if [[ -f "${PTHF}/${flday}" ]]; then
+    echo "Daily T2m exists: ${PTHF}/${flday}, skipping ..."
+  
   else
-    echo "ERROR: No GFSv17 stream defined for $rdate"
-    exit 1
-  fi
+    # Process missing day
+    # Find GFSv17 stream
+    if [[ "$rdate" -ge 20241201 && "$rdate" -le 20250531 ]]; then
+      RUN="retrov17_01_stream3"
+      DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
+    elif [[ "$rdate" -ge 20250601 && "$rdate" -le 20251130 ]]; then
+      RUN="retrov17_01_stream4"
+      DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
+    elif [[ "$rdate" -ge 20251201 && "$rdate" -le 20260631 ]]; then
+      RUN="retrov17_01_realtime"
+      DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
+    else
+      echo "ERROR: No GFSv17 stream defined for $rdate"
+      exit 1
+    fi
 
-  echo "Using stream: $RUN"
+    echo "Using stream: $RUN"
 
-  for HR in "${HOURS[@]}"; do
-    HR=$(printf "%02d" "$HR")
+    for HR in "${HOURS[@]}"; do
+      HR=$(printf "%02d" "$HR")
 
-    DHPSS=${DROOT}/${RUN}/${rdate}${HR}
-    file_gdas="gdas.t${HR}z.sfc.f000.nc"
-    drgdas="gdas.${rdate}/${HR}/model/atmos/history"
-    drfl_gdas="${drgdas}/${file_gdas}"
+      DHPSS=${DROOT}/${RUN}/${rdate}${HR}
+      file_gdas="gdas.t${HR}z.sfc.f000.nc"
+      drgdas="gdas.${rdate}/${HR}/model/atmos/history"
+      drfl_gdas="${drgdas}/${file_gdas}"
 
-    echo "----------------------------------------"
-    echo "Processing hour: ${HR}"
-    echo "HPSS directory: $DHPSS"
-    echo "Local directory: $DWORK"
+      echo "----------------------------------------"
+      echo "Processing hour: ${HR}"
+      echo "HPSS directory: $DHPSS"
+      echo "Local directory: $DWORK"
 
-    cd $DWORK || { echo "ERROR: Cannot cd to $DWORK"; exit 1; }
+      cd $DWORK || { echo "ERROR: Cannot cd to $DWORK"; exit 1; }
+      pwd
+
+      # Check if gdas fields already there
+      if [[ -f "gdas.${rdate}/${file_gdas}" ]]; then 
+        echo "gdas.${rdate}/${file_gdas} exists, skipping ..."
+        continue
+      else
+        htar -xvf "$DHPSS/gdas.tar" "$drfl_gdas" || {
+          echo "ERROR: htar failed for $DHPSS"
+          exit 1
+        }
+
+        # Delete unneeded directories:
+        cd "gdas.${rdate}" || { echo "ERROR: Cannot cd to gdas.${rdate}"; exit 1; }
+        mv "${HR}/model/atmos/history/${file_gdas}" .
+
+        # Remove now empty directories
+        rmdir "${HR}/model/atmos/history" 2>/dev/null
+        rmdir "${HR}/model/atmos" 2>/dev/null
+        rmdir "${HR}/model" 2>/dev/null
+        rmdir "${HR}" 2>/dev/null
+      fi
+    done
+
+    cd "$DWORK" || exit 1
+
+    # Launch python to derive daily mean
+    cd "$DPYTH"
     pwd
 
-    # Check if gdas fields already there
-    if [[ -f "gdas.${rdate}/${file_gdas}" ]]; then 
-      echo "gdas.${rdate}/${file_gdas} exists, skipping ..."
-      continue
-    else
-      htar -xvf "$DHPSS/gdas.tar" "$drfl_gdas" || {
-        echo "ERROR: htar failed for $DHPSS"
-        exit 1
-      }
+    python "${fexepy}" --rdate "$rdate" --flipN 1  --hr "${HOURS[@]}" || {
+      echo "ERROR: Python processing failed for $rdate"
+      exit 1
+    }
 
-      # Delete unneeded directories:
-      cd "gdas.${rdate}" || { echo "ERROR: Cannot cd to gdas.${rdate}"; exit 1; }
-      mv "${HR}/model/atmos/history/${file_gdas}" .
+    cd "$DWORK" || exit 1
 
-      # Remove now empty directories
-      rmdir "${HR}/model/atmos/history" 2>/dev/null
-      rmdir "${HR}/model/atmos" 2>/dev/null
-      rmdir "${HR}/model" 2>/dev/null
-      rmdir "${HR}" 2>/dev/null
-    fi
-  done
-
-  cd "$DWORK" || exit 1
-
-  # Launch python to derive daily mean
-  cd "$DPYTH"
-  pwd
-  python "${fexepy}" --rdate "$rdate" --flipN 1  --hr "${HOURS[@]}" || {
-    echo "ERROR: Python processing failed for $rdate"
-    exit 1
-  }
-
-  cd "$DWORK" || exit 1
-
-  # Remove unneeded GDAS:
-  echo "Deleting processed $DWORK/gdas.${rdate}"
-  rm -rf "$DWORK/gdas.${rdate}"
+    # Remove unneeded GDAS:
+    echo "Deleting processed $DWORK/gdas.${rdate}"
+    rm -rf "$DWORK/gdas.${rdate}"
+  fi
 
   DAY=$(date -d "$DAY + $dt days" +%Y%m%d)
 done
