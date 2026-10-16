@@ -1,7 +1,5 @@
-#!/bin/sh
-#SBATCH -e logs/err
-#SBATCH -o logs/out
-#SBATCH --job-name="getGDASatm"
+#!/bin/bash
+#SBATCH --job-name="dailyT2m"
 #SBATCH --account=sfs-cpu
 #SBATCH --clusters=es
 #SBATCH --partition=dtn_f5_f6
@@ -10,6 +8,7 @@
 #SBATCH --qos=dtn
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
+#SBATCH --error=logs/%x.err%j
 #SBATCH --output=logs/%x.o%j
 set -u
 
@@ -35,10 +34,12 @@ usage() {
 }
 
 RUN=""
-DWORK=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17
-DPYTH=/ncrc/home1/Dmitry.Dukhovskoy/python/ithkn_MLemulator
-PTHDAY=/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/GDAS_T2m/glob/daily_gdas_grid
-HOURS=(0 6 12 18)
+#DWORK=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17
+#DPYTH=/ncrc/home1/Dmitry.Dukhovskoy/python/ithkn_MLemulator
+#HOURS=(0 6 12 18)
+
+# Load config. variables, paths for ML:
+source config_ML.sh
 
 sdate=""
 edate=""
@@ -97,11 +98,9 @@ while [[ "$DAY" -le "$edate" ]]; do
   rdate="$DAY"
 
   # Check if daily field exists for this day:
-  flday="GDAS_flipN_T2m_${rdate}.npy"
-  YR="${rdate:0:4}"
-  PTHF="${PTHDAY}/${YR}"
-  if [[ -f "${PTHF}/${flday}" ]]; then
-    echo "Daily T2m exists: ${PTHF}/${flday}, skipping ..."
+  # The function is in the config_ML,sh
+  if check_daily_t2m "${rdate}"; then
+    echo "Daily T2m for $rdate exists, skipping ..."
   
   else
     # Process missing day

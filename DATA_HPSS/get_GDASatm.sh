@@ -1,6 +1,4 @@
-#!/bin/sh
-#SBATCH -e logs/err
-#SBATCH -o logs/out
+#!/bin/bash
 #SBATCH --job-name="getGDASatm"
 #SBATCH --account=sfs-cpu
 #SBATCH --clusters=es
@@ -10,6 +8,7 @@
 #SBATCH --qos=dtn
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
+#SBATCH -e logs/%x.err%j
 #SBATCH --output=logs/%x.o%j
 set -u
 

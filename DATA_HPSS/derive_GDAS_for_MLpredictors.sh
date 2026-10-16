@@ -4,15 +4,28 @@
 #  Transfer from HPSS if needed
 set -u 
 
-DWORK="/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17"
-MLDATA="/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/ML_emulator_ithkn/predictors"
+# Load paths, variables for ML
+#DWORK="/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17"
+#HOURS=(0 6 12 18)
+source config_ML.sh
+
+rdate=""
+#dtsat=90
+dtuice=1
+regn=""
+dtatm=3           # skipping intervals, days for atm. daily fields
+dxy=50            # dlt X / dlt Y for ML grid points, corr. length scale
+intgr_frz=90      # integration time, days, for deriving IFDD / IHDD
 
 
 usage() {
-  echo "Usage: sbatch $0 --rdate 20250101 --dtsat 90 (default) --dtuice 1 (default)"
+  echo "Usage: sbatch $0 --rdate 20250101 --intfrz 90 --dtuice 1 --dxy 50"
   echo "  --rdate  required start date YYYYMMDD, e.g. 20250101" 
-  echo "  --dtsat  integration days for deriving IFDD and IHDD from SAT (default=90)"
+  echo "  --intfrz integration days for deriving IFDD and IHDD from SAT (default=90)"
   echo "  --dtuice time averaging (days) for divU ice (default=1)"
+  echo "  --regn   region: north (Arctic) or south (Antarctic)"
+  echo "  --dtatm  time skip (days) atm. daily fileds, IFDD / IHDD integration, default=${dtatm}"
+  echo "  --dxy    correlation scale for (km) used to derive training grid points, default=${dxy}"
   exit 1
 }   
 
@@ -23,24 +36,6 @@ construct_icefile() {
 
   echo "${pthice}/${flice}"
 }
-
-construc_ocnfile(){
-  # Find date of the previous day when mom analysis started
-  # IAU start date and IAU start hour = -6hr from forecast run
-  local odate="$1"
-  adate=$(date -d "$rdate - 1 day" +%Y%m%d) || { 
-  echo "ERROR: Invalid date: $rdate" 
-  exit 1 
-  }
-  local file_ocean="gdas.t${HRa}z.inst.f006.nc"
-  local pthocn="${DWORK}/ocean.${adate}"
-  
-
-}
-
-rdate=""
-dtsat=90
-dtuice=1
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -56,6 +51,18 @@ while [[ $# -gt 0 ]]; do
       dtuice="$2"
       shift 2
       ;;
+    --regn)
+      regn="$2"
+      shift 2
+      ;;
+    --dtatm)
+      dtatm="$2"
+      shift 2
+      ;;
+    --dxy)
+      dxy="$2"
+      shift 2
+      ;;
     *)
       echo "ERROR: Unknown option: $1"
       usage
@@ -68,10 +75,17 @@ if [[ -z "$rdate" ]]; then
   usage
 fi  
 
-# "PRED": ["yday", "gcoord", "mnithkn", "iconc", "sst", "divu", "frzdays", "heatdays", "sat"]
+if [[ -z "$regn" ]]; then
+  echo "ERROR: --regn is required"
+  usage
+fi  
+
+dxy=$(printf "%03d" "$dxy")
+
 # Ice conc:
-echo "Checking ice restart for ${rdate}"
+# Needed for deriving divUice, first check the one for rdate
 DFLICE=$(construct_icefile "$rdate")
+echo "Checking ice restart $DFLICE for ${rdate}"
 
 if [[ ! -f "$DFLICE" ]]; then
   echo "Missing ICE FILE: $DFLICE"
@@ -106,12 +120,13 @@ HRa=$((24 - Tanls))              # IAU start hour
 HRa=$((HRa % 24))
 HRa=$(printf "%02d" "$HRa")
 Fhr=$(printf "%03d" "$Tanls")
-adate=$(date -d "$rdate - 1 day" +%Y%m%d)
-file_ocean="gdas.t${HRa}z.inst.f{Fhr}.nc"
+adate=$(date -d "$rdate -1 day" +%Y%m%d)
+file_ocean="gdas.t${HRa}z.inst.f${Fhr}.nc"
 pthocn="${DWORK}/ocean.${adate}"
 DFLOCN="${pthocn}/${file_ocean}"
 
-if [[ ! -f "$DFLICE" ]]; then
+echo "Checking MOM6 anls for SST: $DFLOCN"
+if [[ ! -f "$DFLOCN" ]]; then
   echo "Missing MOM6 analysis $DFLOCN"
   # transfer from HPSS
   sbatch get_ocean_anls.sh --rdate "$rdate"
@@ -119,46 +134,50 @@ fi
 
 # T2m (SAT) from GDAS
 # Need to have all 6hr fields for rdate
-# To derive daily mean SAT
-HOURS=(0 6 12 18)
+# To derive daily mean SAT for rdate, if daily field is missing
 pthatm="${DWORK}/gdas.${rdate}"
 
-for HR in "${HOURS[@]}"; do
-  HR=$(printf "%02d" "$HR")
-  file_gdas="gdas.t${HR}z.sfc.f000.nc"
-  DFLATM="${pthatm}/${file_gdas}"
+# Use check function in config_ML.sh to check whether daily T2m exists
+if check_daily_t2m "${rdate}"; then
+  echo "Daily T2m for $rdate exists, GDAS atm fields are not needed ..."
+else
+  for hr in "${HOURS[@]}"; do
+    HR=$(printf "%02d" "$hr")
+    file_gdas="gdas.t${HR}z.sfc.f000.nc"
+    DFLATM="${pthatm}/${file_gdas}"
 
-  if [[ ! -f ${DFLATM} ]]; then
-    echo "GDAS atm files missing for $rdate : $HR"
-    sbatch get_GDASatm.sh --rdate "$rdate" --hr "$HR"
-  fi
-done
+    if [[ ! -f "${DFLATM}" ]]; then
+      echo "GDAS atm files missing for $rdate : $HR"
+      sbatch get_GDASatm.sh --rdate "$rdate" --hr "$HR"
+    fi
+  done
+fi
 
 # For deriving IFDD and IHDD
 # Need daily field for the integration period at dt time intervals
 # Check if IFDD / IHDD files exist for rdate:
 #
-dt=3    # skipping intervals, days
-dxy="050"  # dlt X / dlt Y for ML grid points
-intgr_time=90  # days
-itm=$(printf "%03d" "$intgr_time")
-PTHDAILY="/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/GDAS_T2m/glob/daily_gdas_grid"
-PTHINT="/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/ML_emulator_ithkn/predictors"
+itm=$(printf "%03d" "$intgr_frz")
+#PTHDAILY="/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/GDAS_T2m/glob/daily_gdas_grid"
+#PTHPRED="/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/ML_emulator_ithkn/predictors"
 flfrz="IFDD_GDAS_${itm}days_dxy${dxy}_${rdate}_${regn}.npz"
 flheat="IHDD_GDAS_${itm}days_dxy${dxy}_${rdate}_${regn}.npz"
 
 # Check if IFGG/IHDD fields exist
-if [[ ! -f "${PTHINT}/${flfrz}" ||  ! -f "${PTHINT}/${flheat}" ]]; then
-  echo "IFDD or IHDD files for ${rdate} are missing, get daily SAT from FV3 GDAS"
+if [[ ! -f "${PTHPRED}/${flfrz}" ||  ! -f "${PTHPRED}/${flheat}" ]]; then
+  echo "IFDD or IHDD files for region ${regn}, ${rdate} are missing, get daily SAT from FV3 GDAS"
 
   # Start from month day 1
-  tmpdate=$(date -d "$rdate -${intgr_time} days" +%Y%m%d) || {
+  tmpdate=$(date -d "$rdate -${intgr_frz} days" +%Y%m%d) || {
       echo "ERROR: invalid date $rdate"
       exit 1
   }
 
   sdate="${tmpdate:0:6}01"
-  sbatch derive_dailyT2m_Ndays.sh --sdate "$sdate" --edate "$rdate" --dt "$dt"
+  sbatch derive_dailyT2m_Ndays.sh --sdate "$sdate" --edate "$rdate" --dt "$dtatm"
+else
+  echo "Found: IFDD and IHDD for region ${regn}, ${rdate}, GDAS atm. fields not needed"
+  echo "${PTHPRED}"
 fi
 
 echo "All Done"
