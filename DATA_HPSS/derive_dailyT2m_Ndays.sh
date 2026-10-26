@@ -25,6 +25,12 @@ python --version
 # Calc. daily T2m from 6hr GDAS fields
 # process every dt day for efficiency
 # Delete GDAS after processing
+# Two options: 
+# (1) keep days numbering through sdate - edate: e.g. 
+#     20250601, 20250608, ... 202506029, 20250706, ... 
+# (2) Start from the 1st day of each month within sdate - edate interval: 
+#     20250601, 20250608, ..., 20250629, 20250701, ...
+
 usage() {
   echo "Usage: sbatch $0 --sdate 20250101 --edate 20251231 --dt 3"
   echo "  --sdate  start date YYYYMMDD, e.g. 20250101" 
@@ -44,6 +50,7 @@ source config_ML.sh
 sdate=""
 edate=""
 dt=""
+start_mday=1   # =1: start 1st day of each month, =0: continuous days
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -111,7 +118,7 @@ while [[ "$DAY" -le "$edate" ]]; do
     elif [[ "$rdate" -ge 20250601 && "$rdate" -le 20251130 ]]; then
       RUN="retrov17_01_stream4"
       DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
-    elif [[ "$rdate" -ge 20251201 && "$rdate" -le 20260631 ]]; then
+    elif [[ "$rdate" -ge 20251201 && "$rdate" -le 20260630 ]]; then
       RUN="retrov17_01_realtime"
       DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
     else
@@ -177,7 +184,19 @@ while [[ "$DAY" -le "$edate" ]]; do
     rm -rf "$DWORK/gdas.${rdate}"
   fi
 
-  DAY=$(date -d "$DAY + $dt days" +%Y%m%d)
+  NEXT_DAY=$(date -d "$DAY + $dt days" +%Y%m%d)
+
+  if [[ "${start_mday}" -eq 1 ]]; then
+    if [[ "${NEXT_DAY:0:6}" != "${DAY:0:6}" ]]; then
+        # Start at the first day of the next month
+        DAY=$(date -d "${DAY:0:6}01 +1 month" +%Y%m%d)
+    else
+        DAY="$NEXT_DAY"
+    fi    
+  else  
+    # Continuous day count:
+    DAY="$NEXT_DAY"
+  fi
 done
 
 echo "All Done"
