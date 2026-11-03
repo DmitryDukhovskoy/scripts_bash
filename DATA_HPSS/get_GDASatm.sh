@@ -21,9 +21,9 @@ usage() {
   exit 1
 }
 
-RUN=retrov17_01_stream4
-DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
-DWORK=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17
+# Load config. variables, paths for ML:
+source config_ML.sh
+
 rdate=""
 HOURS=()
 
@@ -58,6 +58,16 @@ fi
 if [[ ${#HOURS[@]} -eq 0 ]]; then
   HOURS=(0 6 12 18)
 fi
+
+# Find GFSv17 stream
+# using function in config_ML.sh
+if ! find_gfs_stream "${rdate}"; then
+  exit 1
+fi
+
+# RUN and DROOT are now available:
+echo "Stream: $RUN"
+echo "DROOT: $DROOT"
 
 for HR in "${HOURS[@]}"; do
   HR=$(printf "%02d" "$HR")

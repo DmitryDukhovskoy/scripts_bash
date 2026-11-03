@@ -23,28 +23,11 @@ usage() {
   exit 1
 }
 
-find_gfs_stream() {
-  local rdate="$1"
-
-  # Find GFSv17 stream
-  if [[ "$rdate" -ge 20241201 && "$rdate" -le 20250531 ]]; then
-    RUN="retrov17_01_stream3"
-    DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
-  elif [[ "$rdate" -ge 20250601 && "$rdate" -le 20251130 ]]; then
-    RUN="retrov17_01_stream4"
-    DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
-  elif [[ "$rdate" -ge 20251201 && "$rdate" -le 20260630 ]]; then
-    RUN="retrov17_01_realtime"
-    DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
-  else
-    echo "No GFSv17 stream defined for $rdate"
-    return 1
-  fi
-}
+# Load config. variables, paths for ML:
+source config_ML.sh
 
 RUN=""
 DROOT=""
-DWORK=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17
 rdateR=""
 HR=18      # time of cycle where MOM6 restart should beC
 HRocn=21   # actual time of MOM6 restart, e.g. 20250629.210000.MOM.res.nc
@@ -99,10 +82,14 @@ for ((dt=0; dt<=dday; dt++)); do
       fi
 
       rdate=$(date -d "$rdateS $offset days" +%Y%m%d)
-      find_gfs_stream "$rdate" || {
-        echo "Could not find GFSv17 stream for $rdate"
+      # Find GFSv17 stream
+      if ! find_gfs_stream "${rdate}"; then
         exit 1
-      }
+      fi
+
+      # RUN and DROOT are now available:
+      echo "Stream: $RUN"
+      echo "DROOT: $DROOT"
 
       DHPSS=${DROOT}/${RUN}/${rdate}${HR}
 

@@ -21,6 +21,9 @@ python --version
 
 #module load python/3.11
 
+# Load config. variables, paths for ML:
+source config_ML.sh
+
 # Fetch daily GDAS / SOCA ice fields
 # Compute monthly area-mean ivol and ithkn
 # Delete all days of the month when finished
@@ -36,9 +39,6 @@ usage() {
 }
 
 RUN=""
-DWORK=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17
-DPYTH=/ncrc/home1/Dmitry.Dukhovskoy/python/ithkn_MLemulator
-PTHYAML=$DPYTH
 
 YR=""
 MM=""
@@ -134,21 +134,14 @@ while [[ "$rdate" -le "$edate" ]]; do
   else
 
     # Find GFSv17 stream
-    if [[ "$rdate" -ge 20241201 && "$rdate" -le 20250531 ]]; then
-      RUN="retrov17_01_stream3"
-      DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
-    elif [[ "$rdate" -ge 20250601 && "$rdate" -le 20251130 ]]; then
-      RUN="retrov17_01_stream4"
-      DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
-    elif [[ "$rdate" -ge 20251201 && "$rdate" -le 20260630 ]]; then
-      RUN="retrov17_01_realtime"
-      DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
-    else
-      echo "ERROR: No GFSv17 stream defined for $rdate"
-      exit 1
+    if ! find_gfs_stream "${rdate}"; then
+      exit 1 
     fi
 
-    echo "Using stream: $RUN"
+    # RUN and DROOT are now available:
+    echo "Stream: $RUN"
+    echo "DROOT: $DROOT"
+    
     DHPSS=${DROOT}/${RUN}/${rdate}${HR}
     file_cice="${rdate}.${HRice}0000.cice_model.res.nc"
     drcice="gdas.${rdate}/${HR}/model/ice/restart"

@@ -104,29 +104,21 @@ while [[ "$DAY" -le "$edate" ]]; do
 
   rdate="$DAY"
 
-  # Check if daily field exists for this day:
-  # The function is in the config_ML,sh
   if check_daily_t2m "${rdate}"; then
+    # Check if daily field exists for this day:
+    # The function is in the config_ML,sh
     echo "Daily T2m for $rdate exists, skipping ..."
   
   else
-    # Process missing day
     # Find GFSv17 stream
-    if [[ "$rdate" -ge 20241201 && "$rdate" -le 20250531 ]]; then
-      RUN="retrov17_01_stream3"
-      DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
-    elif [[ "$rdate" -ge 20250601 && "$rdate" -le 20251130 ]]; then
-      RUN="retrov17_01_stream4"
-      DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
-    elif [[ "$rdate" -ge 20251201 && "$rdate" -le 20260630 ]]; then
-      RUN="retrov17_01_realtime"
-      DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
-    else
-      echo "ERROR: No GFSv17 stream defined for $rdate"
+    # using function in config_ML.sh
+    if ! find_gfs_stream "${rdate}"; then
       exit 1
     fi
 
-    echo "Using stream: $RUN"
+    # RUN and DROOT are now available:
+    echo "Stream: $RUN"
+    echo "DROOT: $DROOT"
 
     for HR in "${HOURS[@]}"; do
       HR=$(printf "%02d" "$HR")

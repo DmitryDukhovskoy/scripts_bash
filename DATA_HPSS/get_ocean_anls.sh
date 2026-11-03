@@ -23,9 +23,9 @@ usage() {
   exit 1
 }
 
-RUN=""
-DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
-DWORK=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17
+# Load config. variables, paths for ML:
+source config_ML.sh
+
 rdate=""
 HR=0        # time of forecast IC
 Tanls=6     # Time of IAU, hrs
@@ -69,19 +69,13 @@ HRa=$((HRa % 24))
 HRa=$(printf "%02d" "$HRa")
 
 # Find GFSv17 stream
-if [[ "$adate" -ge 20241201 && "$adate" -le 20250531 ]]; then
-  RUN="retrov17_01_stream3"
-  DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
-elif [[ "$adate" -ge 20250601 && "$adate" -le 20251130 ]]; then
-  RUN="retrov17_01_stream4"
-  DROOT=/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17
-elif [[ "$adate" -ge 20251201 && "$adate" -le 20260630 ]]; then
-  RUN="retrov17_01_realtime"
-  DROOT=/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17
-else
-  echo "ERROR: No GFSv17 stream defined for $adate"
+if ! find_gfs_stream "${rdate}"; then
   exit 1
 fi
+
+# RUN and DROOT are now available:
+echo "Stream: $RUN"
+echo "DROOT: $DROOT"
 
 # Format hours
 HR=$(printf "%02d" "$HR")
