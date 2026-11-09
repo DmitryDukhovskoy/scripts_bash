@@ -13,7 +13,8 @@
 set -u
 
 # Derive MOM6 analysis: 6hr IAU, use -6hr field
-#  Do not use these fields as MOM6 restarts if SST is modified - model blows up
+#  Use analysis for SST predictor
+#  Do not use these fields as MOM6 restarts to update SST
 #  Use MOM restart fields instead saved under gdasocean_restart.tar
 #  Not available for every day
 #  Use: get_ocean_restart.sh 

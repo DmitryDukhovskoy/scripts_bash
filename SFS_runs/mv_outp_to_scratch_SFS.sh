@@ -10,7 +10,7 @@ run_name=ufs_datm_mx025
 
 # Default values:
 #jobnm='sfs_mx025_c192' # job name in sbatch submit script
-jobnm='sfsC192mx025'
+jobnm='sfs'
 save_param=1
 save_ocn=1
 save_rest=0
@@ -27,6 +27,7 @@ sfxi="iceh"
 
 RUNDIR="/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/RUNDIRS/sfs_C192mx025_run2"
 rdir=0   # 0=current dir, 1=use RUNDIR
+expt_name="sfs_C192mx025_pondsML"
 
 DICE="${RUNDIR}/history"
 
@@ -50,9 +51,10 @@ Optional:
   --sinit 0|1     Save initial ice fields (default: ${save_init})
   --sparam 0|1    Save logs/parameters (default: ${save_param})
   --sfxi          Sufix in the CICE6 output name sfxi.YYYY-MM-DD*nc
+  --ename         Experiment name used for ARCHDIR, default=${expt_name}
 
 Example:
-  $0 --expt 1 --ys 2022 --socn 0 --sice 1
+  $0 --expt 1 [--ys 2022 --socn 0 --sice 1 --ename sfs_C192mx025_pondsML ...]
 EOF
   exit 1
 }
@@ -148,7 +150,7 @@ echo "Experiment Number: $expt_nmb"
 
 DICE=${RUNDIR}/history  # CICE6 output dir
 expt_nmb0=$( printf "%02d" $expt_nmb)
-ARCHDIR=/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/sfs_C192mx025_cice_test/expt${expt_nmb0}
+ARCHDIR="/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/${expt_name}/expt${expt_nmb0}"
 
 echo "RUNDIR $RUNDIR"
 
@@ -175,9 +177,10 @@ if [[ -d "$ARCHDIR" ]]; then
       exit 5
       ;;
   esac
+else
+  echo "Creating $ARCHDIR"
+  mkdir -pv $ARCHDIR
 fi
-
-mkdir -pv $ARCHDIR
 
 cd "$RUNDIR" || { echo "ERROR: Cannot cd to $RUNDIR"; exit 1; }
 pwd
@@ -238,9 +241,15 @@ fi
 echo " "
 cd $RUNDIR
 pwd
+
+echo "Removing log atm files"
+rm log.atm.inlinepost*
+rm log.atm.f*
+
 if [[ "$save_param" -eq 1 ]]; then
-  echo "Copying log/param files --> $ARCHDIR/params_logs"
-  mkdir -pv $ARCHDIR/params_logs 
+  LOGDIR="${ARCHDIR}/params_logs"
+  echo "Copying log/param files --> $LOGDIR"
+  mkdir -pv $LOGDIR 
 
   param_files=(datm_in diag_table err ice_in input.nml \
                model_configure ufs.configure ice_diag.d)
@@ -249,33 +258,88 @@ if [[ "$save_param" -eq 1 ]]; then
   if (( ${#param_files[@]} == 0 )); then
     echo "WARNING: No parameter files found in ${RUNDIR}"
   else
-    echo "Cleaning ${ARCHDIR}/params_logs"
-    rm -f "${ARCHDIR}/params_logs"/*
+    echo "Cleaning ${LOGDIR}"
+    rm -f "${LOGDIR}"/*
 
     for fl in "${param_files[@]}"; do
       if [[ -f "$fl" ]]; then
-        echo "Copying $fl --> ${ARCHDIR}/params_logs"
-        cp -f "$fl" "${ARCHDIR}/params_logs"/
+        echo "Copying $fl --> ${LOGDIR}"
+        cp -f "$fl" "${LOGDIR}"/
       fi
     done
   fi
 
+  # Limit log size (in case for suprflow of log text):
+  # Limit to 10 MB
+  MAX_LOG_SIZE=$((10 * 1024 * 1024))
+
+  # Number of lines to copy at the beginning and end of the log file
+  NKEEP=3000
+
   # Move logs and job outputs
-  echo "Moving log files --> ${ARCHDIR}/params_logs"
-  mv -f ./*.log "${ARCHDIR}/params_logs"/ 2>/dev/null
-  mv -f ./log.* "${ARCHDIR}/params_logs"/ 2>/dev/null
-  mv -f ${jobnm}*.o* "${ARCHDIR}/params_logs"/ 2>/dev/null
+  echo "Moving log files --> ${LOGDIR}"
+  mv -f ./*.log "${LOGDIR}"/ 2>/dev/null
+  mv -f ./log.* "${LOGDIR}"/ 2>/dev/null
+
+  # Process SLURM log file:
+  for f in ${jobnm}*.o*; do
+    [[ -f "$f" ]] || continue
+
+    # File size in bytes
+    fsize=$(stat -c %s "$f")
+    if (( fsize > MAX_LOG_SIZE )); then
+      echo "Large log file: $f ($(numfmt --to=iec "$fsize"))"
+      echo "Keeping first and last ${NKEEP} lines"
+
+        # Create temporary output in archive directory
+        base=$(basename "$f")
+        tmp=$(mktemp "${LOGDIR}/${base}.tmp.XXXX")
+
+        if {
+            echo "===== FIRST ${NKEEP} LINES ====="
+            head -n "$NKEEP" "$f"
+
+            echo ""
+            echo "===== LAST ${NKEEP} LINES ====="
+            tail -n "$NKEEP" "$f"
+        } > "$tmp"; then
+            # Change permissions similar to the original
+            chmod --reference="$f" "$tmp"
+
+            # Rename temporary file to final archive name
+            mv -f "$tmp" "${LOGDIR}/${base}.excerpt"
+
+            # Delete original only after successful archiving
+            rm -f "$f"
+
+            echo "Archived excerpt: ${LOGDIR}/${base}.excerpt"
+
+        else
+            echo "ERROR: Failed to extract $f"
+            rm -f "$tmp"
+            exit 1
+        fi
+
+    else
+        # Regular-sized output: move without modification
+        #mv -f ${jobnm}*.o* "${LOGDIR}"/ 2>/dev/null
+        mv -f "$f" "${LOGDIR}/"
+    fi
+
+  done
+
+
   # Delete log.atm
-  rm -f ${ARCHDIR}/log.atm.*
+  rm -f ${LOGDIR}/logs.j*/log.atm.inlinepost*
 
   # if all logs are moved into logs.jXXXXX - move the whole dir
   shopt -s nullglob
   dirs=(logs.j*/)
   if [ ${#dirs[@]} -gt 0 ]; then
-    echo "Logs directory found, moving to ${ARCHDIR}/params_logs"
-    mv -f "${dirs[@]}" "${ARCHDIR}/params_logs"/ 2>/dev/null
+    echo "Logs directory found, moving to ${LOGDIR}"
+    mv -f "${dirs[@]}" "${LOGDIR}"/ 2>/dev/null
     # Delete log.atm
-    rm -f ${ARCHDIR}/params_logs/log.atm.* 
+    rm -f ${LOGDIR}/log.atm.* 
   fi
   shopt -u nullglob
 
@@ -283,7 +347,7 @@ if [[ "$save_param" -eq 1 ]]; then
   #echo "Moving PET log files ..."
   #for pet in PET000 PET100 PET200; do
   #  if [[ -f ${pet}.ESMF_LogFile ]]; then
-  #    mv -f "${pet}.ESMF_LogFile" "${ARCHDIR}/params_logs"/
+  #    mv -f "${pet}.ESMF_LogFile" "${LOGDIR}"/
   #  fi
   #done
 
@@ -293,11 +357,11 @@ if [[ "$save_param" -eq 1 ]]; then
   # Copy MOM inputs (if exist)
   for momfile in MOM_input MOM_override; do
     if [[ -f INPUT/${momfile} ]]; then
-      cp -f "INPUT/${momfile}" "${ARCHDIR}/params_logs"/
+      cp -f "INPUT/${momfile}" "${LOGDIR}"/
     fi
   done
 
-  cp -f MOM6_OUTPUT/MOM_parameter_doc.* "${ARCHDIR}/params_logs/" \
+  cp -f MOM6_OUTPUT/MOM_parameter_doc.* "${LOGDIR}/" \
     || echo "WARNING: MOM6_OUTPUT/MOM_parameter_doc.* copy failed"
 
 fi
@@ -418,23 +482,23 @@ if [[ $save_atmnc -eq 1 ]]; then
 fi
 
 # RUNdir exclude all *nc files:
-mkdir -pv "${ARCHDIR}/params_logs"
+mkdir -pv "${LOGDIR}"
 cd $RUNDIR
 RLOG=RUNDIR_expt${expt_nmb}.log
 pwd > "$RLOG"
 find . ! -name "*.nc" -exec ls -ld {} \; >> "$RLOG"
-mv -f "$RLOG" "${ARCHDIR}/params_logs"/
+mv -f "$RLOG" "${LOGDIR}"/
 
 
 
 # run job batch script:
-cp sub_job*sh "${ARCHDIR}/params_logs"/.
+cp sub_job*sh "${LOGDIR}"/.
 
 # INPUT files:
 cd $RUNDIR
 INLOG=INPUT_expt${expt_nmb}.log
 ls -la INPUT/* > $INLOG
-mv -f "$INLOG" "${ARCHDIR}/params_logs"/
+mv -f "$INLOG" "${LOGDIR}"/
 
 # Change permission:
 chmod -R 755 ${ARCHDIR}

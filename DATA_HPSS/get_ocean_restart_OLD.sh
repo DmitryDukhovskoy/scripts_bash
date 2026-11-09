@@ -12,9 +12,10 @@
 #SBATCH --output=logs/%x.o%j
 set -u
 
-# Derive MOM6 analysis: 6hr IAU, use -6hr field
-#  Do not use these fields as MOM6 restarts if SST is modified - model blows up
-#  Use MOM restart fields instead saved under gdasocean_restart.tar
+# Derive MOM6 restart close to the restart date
+# Recommended to use these restart fields (not analysis)
+# if SST needs to be updated beneath sea ice
+#  MOM restart fields saved under gdasocean_restart.tar
 #  Not available for every day
 #  Use: get_ocean_restart.sh 
 usage() {

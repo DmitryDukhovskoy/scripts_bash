@@ -1,0 +1,17 @@
+grep -r --include="*.F90" icepack_query_parameters .
+
+# search freeze -- potential and anything between:
+grep -r --include="*.F90" -i "freeze.*potential" .
+
+# Show +/-3 lines:
+grep -r --include="*.F90" -C 3 'Error reading the base date from the diagnostic' .
+
+# Find for key words either separated or not:
+grep -RIn --include="*.F90" -Ei 'surface.*roughness.*ice'
+
+# Find a file in a directory tree:
+find . -name 'ice_flux*F90'
+
+# Check the X11 cookie forwarding
+xauth list
+

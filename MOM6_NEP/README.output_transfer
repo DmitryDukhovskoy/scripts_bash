@@ -1,0 +1,29 @@
+Steps to archive and transfer MOM6 output 
+Simulation is run outside FRE (not using xml, "manually"
+using my job submit script)
+After the simulation is completed the output *nc are in the WD
+e.g.
+/gpfs/f5/cefi/scratch/Dmitry.Dukhovskoy/work/NEP_BGCphys
+
+Want to group output by months, tar, send to pp/anls
+
+cd /ncrc/home1/Dmitry.Dukhovskoy/scripts/MOM6_NEP
+1) edit and run arrange_mom_output.sh --> groups output byt year/months
+   for daily average MOM6 and SIS2 with output files like:
+   19930401.icem_1993_093.nc
+   19930401.oceanm_1993_093.nc
+
+   use arrange_momsis_output.sh
+
+2) run archive_mom2ppanls.sh for specified YR (month), edit output directory:
+./archive_mom2ppanls.sh 1993 10 
+or:
+./archive_mom2ppanls.sh 1993 -- for all months in 1993
+
+The script will 
+= tar files by months by Nft files in each tar (*nc will be removed 
+  if tar succeeds)
+= transfer them to pp/anls
+
+
+

@@ -5,11 +5,11 @@
 #  Note SST for predictor is used from GDAS
 #  To start experiment, need MOM6 restart files, see: get_soca_ocean_restart.sh
 #  If SST (--> Tfrz) is modified: SST fields need to be modified in the restart file(s) not GDAS
-set -u 
+set -euo pipefail
 
-Not needed for creating predictors but to run GFS SFS runs need restart fields:
-Add transfer of MOM6 restart fields 
-Add atm. restart fields
+#Not needed for creating predictors but to run GFS SFS runs need restart fields:
+#Add transfer of MOM6 restart fields 
+#Add atm. restart fields
 
 # Load paths, variables for ML, predictors
 #DWORK="/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17"
@@ -24,7 +24,6 @@ fi
 rdate=""
 #dtsat=90
 dtuice=1
-regn=""
 dtatm=3           # skipping intervals, days for atm. daily fields
 dxy=50            # dlt X / dlt Y for ML grid points, corr. length scale
 intgr_frz=90      # integration time, days, for deriving IFDD / IHDD
@@ -33,7 +32,6 @@ intgr_frz=90      # integration time, days, for deriving IFDD / IHDD
 usage() {
   echo "Usage: sbatch $0 --rdate 20250101 --intfrz 90 --dtuice 1 --dxy 50"
   echo "  --rdate  required start date YYYYMMDD, e.g. 20250101" 
-  echo "  --regn   region: north (Arctic) or south (Antarctic)"
   echo " Optional: "
   echo "  --intfrz integration days for deriving IFDD and IHDD from SAT (default=90)"
   echo "  --dtuice time averaging (days) for divU ice (default=1)"
@@ -64,10 +62,6 @@ while [[ $# -gt 0 ]]; do
       dtuice="$2"
       shift 2
       ;;
-    --regn)
-      regn="$2"
-      shift 2
-      ;;
     --dtatm)
       dtatm="$2"
       shift 2
@@ -88,14 +82,9 @@ if [[ -z "$rdate" ]]; then
   usage
 fi  
 
-if [[ -z "$regn" ]]; then
-  echo "ERROR: --regn is required"
-  usage
-fi  
-
 dxy=$(printf "%03d" "$dxy")
 
-if find_predictor "divUice"; then
+if find_predictor "divUice" || find_predictor "iconc"; then
   # divUice
   # Need Ice restart
   DFLICE=$(construct_icefile "$rdate")
@@ -110,23 +99,25 @@ if find_predictor "divUice"; then
   fi
 
   # divU, if dtuice>1: average over N days to compute divUice
-  if [[ "$dtuice" -ge 1 ]]; then
-    echo "Checking ice restart for deriving divUice avrg time= $dtuice days"
-    sdate=$(date -d "$rdate - $((dtuice-1)) days" +%Y%m%d)
-    DAY="$sdate"
-    while [[ "$DAY" -le "$rdate" ]]; do
-      DFLICE=$(construct_icefile "$DAY")
+  if find_predictor "divUice"; then
+    if [[ "$dtuice" -gt 1 ]]; then
+      echo "Checking ice restart for deriving divUice avrg time= $dtuice days"
+      sdate=$(date -d "$rdate - $((dtuice-1)) days" +%Y%m%d)
+      DAY="$sdate"
+      while [[ "$DAY" -le "$rdate" ]]; do
+        DFLICE=$(construct_icefile "$DAY")
 
-      if [[ ! -f "$DFLICE" ]]; then
-        echo "Missing ICE FILE: $DFLICE"
-        # transfer from HPSS
-        sbatch get_soca_ice_restart.sh --rdate "$DAY"   
-      else
-        echo "   --> ok: exist $DFLICE"
-      fi
+        if [[ ! -f "$DFLICE" ]]; then
+          echo "Missing ICE FILE: $DFLICE"
+          # transfer from HPSS
+          sbatch get_soca_ice_restart.sh --rdate "$DAY"   
+        else
+          echo "   --> ok: exist $DFLICE"
+        fi
 
-      DAY=$(date -d "$DAY + 1 days" +%Y%m%d)
-    done
+        DAY=$(date -d "$DAY + 1 days" +%Y%m%d)
+      done
+    fi
   fi
 fi
 
@@ -153,8 +144,10 @@ if find_predictor "sst"; then
   else
     echo "   --> ok: exist $DFLOCN"
   fi
+fi
 
-  # T2m (SAT) from GDAS
+if find_predictor "t2m"; then
+  # T2m (SAT) from GDAS for restart date
   # Need to have all 6hr fields for rdate
   # To derive daily mean SAT for rdate, if daily field is missing
   pthatm="${DWORK}/gdas.${rdate}"
@@ -163,46 +156,54 @@ if find_predictor "sst"; then
   if check_daily_t2m "${rdate}"; then
     echo "Daily T2m for $rdate exists, GDAS atm fields are not needed ..."
   else
-    for hr in "${HOURS[@]}"; do
-      HR=$(printf "%02d" "$hr")
-      file_gdas="gdas.t${HR}z.sfc.f000.nc"
-      DFLATM="${pthatm}/${file_gdas}"
-
-      if [[ ! -f "${DFLATM}" ]]; then
-        echo "GDAS atm files missing for $rdate : $HR"
-        sbatch get_GDASatm.sh --rdate "$rdate" --hr "$HR"
-      fi
-    done
+    echo "Daily T2m for $rdate:  derive_dailyT2m_Ndays.sh --sdate $rdate --edate $rdate --dt 1"
+    sbatch derive_dailyT2m_Ndays.sh --sdate "$rdate" --edate "$rdate" --dt "$dtatm"
   fi
 fi
 
 if find_predictor "ifdd" || find_predictor "ihdd"; then
-  # For deriving IFDD and IHDD
-  # Need daily field for the integration period at dt time intervals
-  # Check if IFDD / IHDD files exist for rdate:
-  #
+  # Derive IFDD and/or IHDD if not already available
+  # Need daily fields for the integration period at dt time intervals.
+  # Check if IFDD / IHDD files exist for rdate, since daily T2m files
+  # are deleted after IFDD / IHDD are created.
+
   itm=$(printf "%03d" "$intgr_frz")
-  #PTHDAILY="/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/GDAS_T2m/glob/daily_gdas_grid"
-  #PTHPRED="/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/ML_emulator_ithkn/predictors"
-  flfrz="IFDD_GDAS_${itm}days_dxy${dxy}_${rdate}_${regn}.npz"
-  flheat="IHDD_GDAS_${itm}days_dxy${dxy}_${rdate}_${regn}.npz"
 
-  # Check if IFGG/IHDD fields exist
-  if [[ ! -f "${PTHPRED}/${flfrz}" ||  ! -f "${PTHPRED}/${flheat}" ]]; then
-    echo "IFDD or IHDD files for region ${regn}, ${rdate} are missing, get daily SAT from FV3 GDAS"
+  flfrzN="IFDD_GDAS_${itm}days_dxy${dxy}_${rdate}_north.npz"
+  flheatN="IHDD_GDAS_${itm}days_dxy${dxy}_${rdate}_north.npz"
+  flfrzS="IFDD_GDAS_${itm}days_dxy${dxy}_${rdate}_south.npz"
+  flheatS="IHDD_GDAS_${itm}days_dxy${dxy}_${rdate}_south.npz"
 
-    # Start from month day 1
+  need_frz=false
+  need_heat=false
+
+  if find_predictor "ifdd"; then
+    [[ -f "${PTHPRED}/${flfrzN}" && \
+       -f "${PTHPRED}/${flfrzS}" ]] || need_frz=true
+  fi
+
+  if find_predictor "ihdd"; then
+    [[ -f "${PTHPRED}/${flheatN}" && \
+       -f "${PTHPRED}/${flheatS}" ]] || need_heat=true
+  fi
+
+  if $need_frz || $need_heat; then
+
+    echo "IFDD/IHDD files missing for ${rdate}: IFDD=${need_frz}, IHDD=${need_heat}. Get daily T2m from FV3 GDAS."
+
+    # Start from the first day of the month containing the integration start date
     tmpdate=$(date -d "$rdate -${intgr_frz} days" +%Y%m%d) || {
         echo "ERROR: invalid date $rdate"
         exit 1
     }
 
     sdate="${tmpdate:0:6}01"
+
     echo "Submitting derive_dailyT2m_Ndays.sh --sdate $sdate --edate $rdate --dt $dtatm"
     sbatch derive_dailyT2m_Ndays.sh --sdate "$sdate" --edate "$rdate" --dt "$dtatm"
+
   else
-    echo "Found: IFDD and IHDD for region ${regn}, ${rdate}, GDAS atm. fields not needed"
-    echo "${PTHPRED}"
+    echo "Found requested IFDD/IHDD fields for both hemispheres, ${rdate}. GDAS atmospheric fields not needed."
   fi
 fi
 

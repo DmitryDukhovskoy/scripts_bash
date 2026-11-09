@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #SBATCH --job-name="getMOMres"
 #SBATCH --account=sfs-cpu
 #SBATCH --clusters=es
@@ -12,7 +12,7 @@
 #SBATCH --output=logs/%x.o%j
 set -u
 
-# Derive SOCA ocean MOM6 restart files
+# Derive SOCA ocean MOM6 restart fields from anls files
 # MOM6 restart are saved 6hr before the run 
 # and not every day (?), e.g. retrov17_01_stream4/2025062918/gdasocean_restart.tar,
 # next one: retrov17_01_stream4/2025070318/gdasocean_restart.tar
@@ -74,71 +74,71 @@ rdateS=$(date -d "$rdateR - 1 days" +%Y%m%d)
 for ((dt=0; dt<=dday; dt++)); do
   for sign in 1 -1; do
 
-      offset=$((sign*dt))
+    offset=$((sign*dt))
 
-      # avoid checking 0 twice
-      if ((dt==0 && sign==1)); then
-          continue
-      fi
+    # avoid checking 0 twice
+    if ((dt==0 && sign==1)); then
+        continue
+    fi
 
-      rdate=$(date -d "$rdateS $offset days" +%Y%m%d)
-      # Find GFSv17 stream
-      if ! find_gfs_stream "${rdate}"; then
+    rdate=$(date -d "$rdateS $offset days" +%Y%m%d)
+    # Find GFSv17 stream
+    if ! find_gfs_stream "${rdate}"; then
+      exit 1
+    fi
+
+    # RUN and DROOT are now available:
+    echo "Stream: $RUN"
+    echo "DROOT: $DROOT"
+
+    DHPSS=${DROOT}/${RUN}/${rdate}${HR}
+
+    # Check if MOM restart is there:
+    if htar -tvf "$DHPSS/gdasocean_restart.tar" >/dev/null 2>&1; then
+      echo "----------------------------------------"
+      echo "Using stream: $RUN"
+      echo "Hindcast hour: ${HR}"
+      echo "HPSS directory: $DHPSS"
+      echo "Local directory: $DWORK"
+
+      cd $DWORK/tmp_hpss || { echo "ERROR: Cannot cd to $DWORK/tmp_hpss"; exit 1; }
+
+      tarlist=$(htar -tvf "$DHPSS/gdasocean_restart.tar" \
+              | awk '/MOM\.res/ {print $NF}')
+
+      for drfl_ocean in $tarlist
+      do
+        echo "Extracting $drfl_ocean"
+        htar -xvf "$DHPSS/gdasocean_restart.tar" "$drfl_ocean" || {
+        echo "ERROR: Failed to extract $drfl_ocean"
         exit 1
-      fi
-
-      # RUN and DROOT are now available:
-      echo "Stream: $RUN"
-      echo "DROOT: $DROOT"
-
-      DHPSS=${DROOT}/${RUN}/${rdate}${HR}
-
-      # Check if MOM restart is there:
-      if htar -tvf "$DHPSS/gdasocean_restart.tar" >/dev/null 2>&1; then
-        echo "----------------------------------------"
-        echo "Using stream: $RUN"
-        echo "Hindcast hour: ${HR}"
-        echo "HPSS directory: $DHPSS"
-        echo "Local directory: $DWORK"
-
-        cd $DWORK/tmp_hpss || { echo "ERROR: Cannot cd to $DWORK/tmp_hpss"; exit 1; }
-
-        tarlist=$(htar -tvf "$DHPSS/gdasocean_restart.tar" \
-                | awk '/MOM\.res/ {print $NF}')
-
-        for drfl_ocean in $tarlist
-        do
-          echo "Extracting $drfl_ocean"
-          htar -xvf "$DHPSS/gdasocean_restart.tar" "$drfl_ocean" || {
-          echo "ERROR: Failed to extract $drfl_ocean"
-          exit 1
-          }
-        done
-
-        # Delete unneeded directories:
-        cd "gdas.${rdate}" || { echo "ERROR: Cannot cd to gdas.${rdate}"; exit 1; }
-        pwd
-
-        mv ${HR}/model/ocean/restart/${rdate}.*MOM.res*nc . || {
-          echo "ERROR: Cannot move MOM restarts to a new dir"
-          exit 1
         }
+      done
 
-        # Remove now empty directories
-        rmdir "${HR}/model/ocean/restart" 2>/dev/null
-        rmdir "${HR}/model/ocean" 2>/dev/null
-        rmdir "${HR}/model" 2>/dev/null
-        rmdir "${HR}" 2>/dev/null
+      # Delete unneeded directories:
+      cd "gdas.${rdate}" || { echo "ERROR: Cannot cd to gdas.${rdate}"; exit 1; }
+      pwd
 
-        # rename to distinguish from other gdas fields
-        cd ..
-        mv gdas.${rdate} ${DWORK}/ocean_res.${rdate}
+      mv ${HR}/model/ocean/restart/${rdate}.*MOM.res*nc . || {
+        echo "ERROR: Cannot move MOM restarts to a new dir"
+        exit 1
+      }
 
-        cd $DWORK || exit 1
+      # Remove now empty directories
+      rmdir "${HR}/model/ocean/restart" 2>/dev/null
+      rmdir "${HR}/model/ocean" 2>/dev/null
+      rmdir "${HR}/model" 2>/dev/null
+      rmdir "${HR}" 2>/dev/null
 
-        htar_found=1
-        break
-      fi
+      # rename to distinguish from other gdas fields
+      cd ..
+      mv gdas.${rdate} ${DWORK}/ocean_res.${rdate}
+
+      cd $DWORK || exit 1
+
+      htar_found=1
+      break
+    fi
   done
 
   [[ $htar_found -eq 1 ]] && break

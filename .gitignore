@@ -1,21 +1,67 @@
-# Compiled source #
-###################
+# =====================================
+# Compiled source and binary files
+# =====================================
 *.com
 *.class
 *.dll
 *.exe
 *.o
 *.so
+*.mod
+*.pyc
+*.pyo
 
-# Text files, readmes #
-#######################
-*.txt
-README.*
+# =====================================
+# Python
+# =====================================
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
 
-# Packages #
-############
-# better to unpack these files and commit the raw source
-# git has its own built in compression methods
+# =====================================
+# Temporary files and backups
+# =====================================
+*~
+*.bak
+*.bkp
+*bkp
+*.swp
+*.swo
+*.tmp
+
+# =====================================
+# Logs and databases
+# =====================================
+*.log
+*.sqlite
+*.db
+slurm-*.out
+slurm*out
+
+# =====================================
+# Processing output
+# =====================================
+# Uncomment if these directories contain
+# generated files that should not be tracked.
+# output/
+# outputs/
+# tmp/
+# scratch/
+
+# =====================================
+# Backup and log directories
+# =====================================
+**/bkp/
+**/log/
+**/logs/
+
+# =====================================
+# Packages and archives
+# =====================================
 *.7z
 *.dmg
 *.gz
@@ -25,18 +71,14 @@ README.*
 *.tar
 *.zip
 
-# Logs and databases #
-######################
-*.log
-*.sql
-*.sqlite
-slurm*out
-*.out
-*bkp
+# =====================================
+# Operating system files
+# =====================================
+.DS_Store
+Thumbs.db
 
-**/__pycache__/
-**/bkp/
-**/log/
-**/logs/
-
-
+# =====================================
+# Editor and IDE files
+# =====================================
+.vscode/
+.idea/
