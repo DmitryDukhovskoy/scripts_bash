@@ -60,7 +60,8 @@ if [[ -z "$rdateR" ]]; then
   usage
 fi
 
-mkdir -pv ${DWORK}/tmp_hpss
+DOCEAN="${DREST}/ocean"
+mkdir -pv ${DOCEAN}/tmp_hpss
 
 
 HR=$(printf "%02d" "$HR")
@@ -99,9 +100,9 @@ for ((dt=0; dt<=dday; dt++)); do
       echo "Using stream: $RUN"
       echo "Hindcast hour: ${HR}"
       echo "HPSS directory: $DHPSS"
-      echo "Local directory: $DWORK"
+      echo "Local restart directory: $DOCEAN"
 
-      cd $DWORK/tmp_hpss || { echo "ERROR: Cannot cd to $DWORK/tmp_hpss"; exit 1; }
+      cd $DOCEAN/tmp_hpss || { echo "ERROR: Cannot cd to $DOCEAN/tmp_hpss"; exit 1; }
 
       tarlist=$(htar -tvf "$DHPSS/gdasocean_restart.tar" \
               | awk '/MOM\.res/ {print $NF}')
@@ -132,9 +133,9 @@ for ((dt=0; dt<=dday; dt++)); do
 
       # rename to distinguish from other gdas fields
       cd ..
-      mv gdas.${rdate} ${DWORK}/ocean_res.${rdate}
+      mv gdas.${rdate} ${DOCEAN}/ocean_res.${rdate}
 
-      cd $DWORK || exit 1
+      cd $DOCEAN || exit 1
 
       htar_found=1
       break
@@ -144,7 +145,7 @@ for ((dt=0; dt<=dday; dt++)); do
   [[ $htar_found -eq 1 ]] && break
 done
 
-cd $DWORK
+cd $DOCEAN
 
 if [[ $htar_found -eq 0 ]]; then
   echo "Could not find htar MOM restart for ${rdateR}"

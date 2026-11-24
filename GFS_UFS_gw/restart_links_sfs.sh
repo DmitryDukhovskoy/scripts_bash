@@ -13,6 +13,7 @@ usage() {
   echo " --mm     restart month"
   echo " --dd     restart day"
   echo " --hr     restart hour, default=0"
+  echo " --tfrz   =1: look for MOM6 Tfrz modified restart to replace MOM.res.nc, =0: use MOM.res.nc; default = 0"
   echo " --rdir   run directory, (default) 0: rdir=current dir (/INPUT will be stripped off), =1 - use DRUN"
   exit 1
 }
@@ -23,6 +24,9 @@ YR=0
 MM=0
 DD=0
 rdir=0
+mom_tfrz=0
+ice_base="cice_restart.YYYYMMDD.HH"
+ice_sfx="ithkn.hsnow.snphys"
 DREST=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/RUNDIRS/restart_sfs_C192mx025
 #DRUN=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/RUNDIRS/sfs_test2_c192mx025
 DRUN0=/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/RUNDIRS/sfs_C192mx025_run2
@@ -48,6 +52,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --rdir)
       rdir=$2
+      shift 2
+      ;;
+    --tfrz)
+      mom_tfrz=$2
       shift 2
       ;;
     --help)
@@ -162,20 +170,57 @@ src="${DATM}/${fl}"
 link_and_check "$src" "$fl"
 
 # Ice restart:
-DICE="${DREST}/ice"
-flice="${dstamp}.${hstamp}.cice_model.res.nc"
+DICE="${DREST}/ice/ice.${dstamp}"
+ice_base="${ice_base/YYYYMMDD/$dstamp}"
+ice_base="${ice_base/HH/$hstamp}"
+
+#flice="${dstamp}.${hstamp}.cice_model.res.nc"
+if [[ -z "$ice_sfx" ]]; then
+  flice="${ice_base}.nc"
+else
+  flice="${ice_base}.${ice_sfx}.nc"
+fi
 src="${DICE}/${flice}"
 
 link_and_check "$src" "cice_model.res.nc"
 
 # Ocean restart:
-# Only 1 MOM restart is assumed, need to change if > 1 MOM.res_*.nc 
-DOCN="${DREST}/ocean"
-flocn="${dstamp}.${sstamp}.MOM.res.nc"
-src="${DOCN}/${flocn}"
+# Allows multiple MOM.res.nc and MOM.res_*.nc 
+# Date  time in the file name is allowed to be different
+# because MOM6 restart in GFSv17 runs are not saved every day
+DOCN="${DREST}/ocean/ocean_res.${dstamp}"
+DOCN="${DREST}/ocean/ocean_res.${dstamp}_clim"
+for sfx in res res_1 res_2 res_3 res_4; do
+  mom_res="MOM.${sfx}.nc"
 
-link_and_check "$src" "MOM.res.nc"
+  if [[ "$mom_tfrz" -eq 1 && "$sfx" == "res" ]]; then
+    files=( "$DOCN"/*Tfrz* )
+  else
+    files=( "$DOCN"/*MOM.${sfx}.nc )
+  fi
 
+  if [[ ${#files[@]} -eq 1 && -f "${files[0]}" ]]; then
+    flocn="${files[0]##*/}"
+
+  elif [[ ${#files[@]} -gt 1 ]]; then
+    echo "ERROR: More than 1 file found for MOM.${sfx}.nc: ${#files[@]}"
+    exit 1
+
+  else
+    echo "MOM6 restart not found for MOM.${sfx}.nc, skipping ..."
+    continue
+  fi
+
+  src="${DOCN}/${flocn}"
+  if [[ -f "$src" ]]; then
+    echo "Found MOM6 restart: $src"
+  else
+    echo "MOM6 restart not found: $src"
+    continue
+  fi
+
+  link_and_check "$src" "${mom_res}"
+done
 
 exit 0
 

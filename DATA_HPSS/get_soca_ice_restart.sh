@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #SBATCH --job-name="getSOCAice"
 #SBATCH --account=sfs-cpu
 #SBATCH --clusters=es
@@ -48,7 +48,6 @@ if [[ -z "$rdate" ]]; then
   usage
 fi
 
-mkdir -pv ${DWORK}/tmp_hpss
 
 # Find GFSv17 stream
 # using function in config_ML.sh
@@ -67,14 +66,16 @@ DHPSS=${DROOT}/${RUN}/${rdate}${HR}
 file_cice="${rdate}.${HRice}0000.cice_model.res.nc"
 drcice="gdas.${rdate}/${HR}/model/ice/restart"
 drfl_cice="${drcice}/${file_cice}"
+DICE="${DREST}/ice"
 
 echo "----------------------------------------"
 echo "Using stream: $RUN"
 echo "Processing hour: ${HR}"
 echo "HPSS directory: $DHPSS"
-echo "Local directory: $DWORK"
+echo "Local rest directory: $DICE"
 
-cd $DWORK/tmp_hpss || { echo "ERROR: Cannot cd to $DWORK/tmp_hpss"; exit 1; }
+mkdir -pv ${DICE}/tmp_hpss
+cd $DICE/tmp_hpss || { echo "ERROR: Cannot cd to $DICE/tmp_hpss"; exit 1; }
 pwd
 
 htar -xvf "$DHPSS/gdasice_restart.tar" "$drfl_cice"
@@ -91,9 +92,9 @@ rmdir "${HR}" 2>/dev/null
 
 # rename to distinguish from other gdas fields
 cd ..
-mv gdas.${rdate} ${DWORK}/ice.${rdate}
+mv gdas.${rdate} ${DICE}/ice.${rdate}
 
-cd $DWORK
+cd $DICE
 
 
 echo "All Done"

@@ -142,8 +142,8 @@ while [[ "$DAY" -le "$edate" ]]; do
         continue
       else
         htar -xvf "$DHPSS/gdas.tar" "$drfl_gdas" || {
-          echo "ERROR: htar failed for $DHPSS"
-          exit 1
+          echo "WARNING: htar failed for $DHPSS"
+          continue
         }
 
         # Delete unneeded directories:

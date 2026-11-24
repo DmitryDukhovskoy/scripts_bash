@@ -279,7 +279,6 @@ if [[ "$save_param" -eq 1 ]]; then
   # Move logs and job outputs
   echo "Moving log files --> ${LOGDIR}"
   mv -f ./*.log "${LOGDIR}"/ 2>/dev/null
-  mv -f ./log.* "${LOGDIR}"/ 2>/dev/null
 
   # Process SLURM log file:
   for f in ${jobnm}*.o*; do
@@ -330,18 +329,19 @@ if [[ "$save_param" -eq 1 ]]; then
 
 
   # Delete log.atm
-  rm -f ${LOGDIR}/logs.j*/log.atm.inlinepost*
+  #rm -f ${LOGDIR}/logs.j*/log.atm.inlinepost*
 
   # if all logs are moved into logs.jXXXXX - move the whole dir
-  shopt -s nullglob
-  dirs=(logs.j*/)
-  if [ ${#dirs[@]} -gt 0 ]; then
-    echo "Logs directory found, moving to ${LOGDIR}"
-    mv -f "${dirs[@]}" "${LOGDIR}"/ 2>/dev/null
-    # Delete log.atm
-    rm -f ${LOGDIR}/log.atm.* 
-  fi
-  shopt -u nullglob
+  # Can have very large logs! 
+  #shopt -s nullglob
+  #dirs=(logs.j*/)
+  #if [ ${#dirs[@]} -gt 0 ]; then
+  #  echo "Logs directory found, moving to ${LOGDIR}"
+  #  mv -f "${dirs[@]}" "${LOGDIR}"/ 2>/dev/null
+  #  # Delete log.atm
+  #  #rm -f ${LOGDIR}/log.atm.* 
+  #fi
+  #shopt -u nullglob
 
   # Save selected PET logs (mediator, ocean, ice)
   #echo "Moving PET log files ..."
@@ -363,6 +363,9 @@ if [[ "$save_param" -eq 1 ]]; then
 
   cp -f MOM6_OUTPUT/MOM_parameter_doc.* "${LOGDIR}/" \
     || echo "WARNING: MOM6_OUTPUT/MOM_parameter_doc.* copy failed"
+
+  #mv -f ./log.* "${LOGDIR}"/ 2>/dev/null
+
 
 fi
 

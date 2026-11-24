@@ -30,7 +30,7 @@ intgr_frz=90      # integration time, days, for deriving IFDD / IHDD
 
 
 usage() {
-  echo "Usage: sbatch $0 --rdate 20250101 --intfrz 90 --dtuice 1 --dxy 50"
+  echo "Usage: $0 --rdate 20250101 --intfrz 90 --dtuice 1 --dxy 50"
   echo "  --rdate  required start date YYYYMMDD, e.g. 20250101" 
   echo " Optional: "
   echo "  --intfrz integration days for deriving IFDD and IHDD from SAT (default=90)"
@@ -69,6 +69,9 @@ while [[ $# -gt 0 ]]; do
     --dxy)
       dxy="$2"
       shift 2
+      ;;
+    -h|--help)
+      usage
       ;;
     *)
       echo "ERROR: Unknown option: $1"

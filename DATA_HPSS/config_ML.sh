@@ -3,6 +3,7 @@
 # Shared configuration for the ice-thickness ML workflow
 
 DWORK="/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/GFSv17"
+DREST="/gpfs/f6/sfs-emc/proj-shared/Dmitry.Dukhovskoy/RUNDIRS/restart_sfs_C192mx025"
 DPYTH="/ncrc/home1/Dmitry.Dukhovskoy/python/ithkn_MLemulator"
 PTHYAML="/ncrc/home1/Dmitry.Dukhovskoy/python/ithkn_MLemulator"
 PTHDAILY="/gpfs/f6/sfs-cpu/scratch/Dmitry.Dukhovskoy/data/GDAS_T2m/glob/daily_gdas_grid"
@@ -62,7 +63,10 @@ find_gfs_stream() {
   elif [[ "$rdate" -ge 20250601 && "$rdate" -le 20251130 ]]; then
     RUN="retrov17_01_stream4"
     DROOT="/5year/NCEPDEV/emc-global/emc.glopara/GAEAC6/GFSv17"
-  elif [[ "$rdate" -ge 20251201 && "$rdate" -le 20260630 ]]; then
+  elif [[ "$rdate" -ge 20251201 && "$rdate" -le 20260228 ]]; then
+    RUN="retrov17_01_realtime"
+    DROOT="/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17"
+  elif [[ "$rdate" -ge 20260301 && "$rdate" -le 20270131 ]]; then
     RUN="retrov17_01_realtime"
     DROOT="/5year/NCEPDEV/emc-global/emc.glopara/WCOSS2/GFSv17"
   else
